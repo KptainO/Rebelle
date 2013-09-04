@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		49FE8ADC17B67C0C00678D26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
+		49FE8AEA17B67C0C00678D26 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AE917B67C0C00678D26 /* XCTest.framework */; };
+		49FE8AEB17B67C0C00678D26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
+		49FE8AED17B67C0C00678D26 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AEC17B67C0C00678D26 /* UIKit.framework */; };
+		49FE8AF017B67C0C00678D26 /* libRebelle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AD817B67C0C00678D26 /* libRebelle.a */; };
+		49FE8AF617B67C0C00678D26 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49FE8AF417B67C0C00678D26 /* InfoPlist.strings */; };
+		49FE8AF817B67C0C00678D26 /* RebelleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FE8AF717B67C0C00678D26 /* RebelleTests.m */; };
+		AEF67EA6A9234E73BF30B19D /* libPods-RebelleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBCAF481A6441588F45BD6C /* libPods-RebelleTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		49FE8AEE17B67C0C00678D26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49FE8AD017B67C0C00678D26 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49FE8AD717B67C0C00678D26;
+			remoteInfo = Rebelle;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		49FE8AD617B67C0C00678D26 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RebelleTests.xcconfig"; path = "Pods/Pods-RebelleTests.xcconfig"; sourceTree = SOURCE_ROOT; };
+		49FE8AD817B67C0C00678D26 /* libRebelle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRebelle.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		49FE8ADB17B67C0C00678D26 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		49FE8ADF17B67C0C00678D26 /* Rebelle-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rebelle-Prefix.pch"; sourceTree = "<group>"; };
+		49FE8AE817B67C0C00678D26 /* RebelleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RebelleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49FE8AE917B67C0C00678D26 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		49FE8AEC17B67C0C00678D26 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		49FE8AF317B67C0C00678D26 /* RebelleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RebelleTests-Info.plist"; sourceTree = "<group>"; };
+		49FE8AF517B67C0C00678D26 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		49FE8AF717B67C0C00678D26 /* RebelleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RebelleTests.m; sourceTree = "<group>"; };
+		9EBCAF481A6441588F45BD6C /* libPods-RebelleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RebelleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		49FE8AD517B67C0C00678D26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49FE8ADC17B67C0C00678D26 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49FE8AE517B67C0C00678D26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49FE8AEA17B67C0C00678D26 /* XCTest.framework in Frameworks */,
+				49FE8AF017B67C0C00678D26 /* libRebelle.a in Frameworks */,
+				49FE8AED17B67C0C00678D26 /* UIKit.framework in Frameworks */,
+				49FE8AEB17B67C0C00678D26 /* Foundation.framework in Frameworks */,
+				AEF67EA6A9234E73BF30B19D /* libPods-RebelleTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		49FE8ACF17B67C0C00678D26 = {
+			isa = PBXGroup;
+			children = (
+				49FE8ADD17B67C0C00678D26 /* Rebelle */,
+				49FE8AF117B67C0C00678D26 /* RebelleTests */,
+				49FE8ADA17B67C0C00678D26 /* Frameworks */,
+				49FE8AD917B67C0C00678D26 /* Products */,
+				47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		49FE8AD917B67C0C00678D26 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				49FE8AD817B67C0C00678D26 /* libRebelle.a */,
+				49FE8AE817B67C0C00678D26 /* RebelleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		49FE8ADA17B67C0C00678D26 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49FE8ADB17B67C0C00678D26 /* Foundation.framework */,
+				49FE8AE917B67C0C00678D26 /* XCTest.framework */,
+				49FE8AEC17B67C0C00678D26 /* UIKit.framework */,
+				9EBCAF481A6441588F45BD6C /* libPods-RebelleTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		49FE8ADD17B67C0C00678D26 /* Rebelle */ = {
+			isa = PBXGroup;
+			children = (
+				49FE8ADE17B67C0C00678D26 /* Supporting Files */,
+			);
+			path = Rebelle;
+			sourceTree = "<group>";
+		};
+		49FE8ADE17B67C0C00678D26 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				49FE8ADF17B67C0C00678D26 /* Rebelle-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		49FE8AF117B67C0C00678D26 /* RebelleTests */ = {
+			isa = PBXGroup;
+			children = (
+				49FE8AF717B67C0C00678D26 /* RebelleTests.m */,
+				49FE8AF217B67C0C00678D26 /* Supporting Files */,
+			);
+			path = RebelleTests;
+			sourceTree = "<group>";
+		};
+		49FE8AF217B67C0C00678D26 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				49FE8AF317B67C0C00678D26 /* RebelleTests-Info.plist */,
+				49FE8AF417B67C0C00678D26 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		49FE8AD717B67C0C00678D26 /* Rebelle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49FE8AFB17B67C0C00678D26 /* Build configuration list for PBXNativeTarget "Rebelle" */;
+			buildPhases = (
+				49FE8AD417B67C0C00678D26 /* Sources */,
+				49FE8AD517B67C0C00678D26 /* Frameworks */,
+				49FE8AD617B67C0C00678D26 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Rebelle;
+			productName = Rebelle;
+			productReference = 49FE8AD817B67C0C00678D26 /* libRebelle.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		49FE8AE717B67C0C00678D26 /* RebelleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49FE8AFE17B67C0C00678D26 /* Build configuration list for PBXNativeTarget "RebelleTests" */;
+			buildPhases = (
+				78E4A75E9FEB4072BDAE3BDF /* Check Pods Manifest.lock */,
+				49FE8AE417B67C0C00678D26 /* Sources */,
+				49FE8AE517B67C0C00678D26 /* Frameworks */,
+				49FE8AE617B67C0C00678D26 /* Resources */,
+				0646A2443A114975AE1A80B9 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49FE8AEF17B67C0C00678D26 /* PBXTargetDependency */,
+			);
+			name = RebelleTests;
+			productName = RebelleTests;
+			productReference = 49FE8AE817B67C0C00678D26 /* RebelleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		49FE8AD017B67C0C00678D26 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = JC;
+			};
+			buildConfigurationList = 49FE8AD317B67C0C00678D26 /* Build configuration list for PBXProject "Rebelle" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 49FE8ACF17B67C0C00678D26;
+			productRefGroup = 49FE8AD917B67C0C00678D26 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				49FE8AD717B67C0C00678D26 /* Rebelle */,
+				49FE8AE717B67C0C00678D26 /* RebelleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		49FE8AE617B67C0C00678D26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49FE8AF617B67C0C00678D26 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0646A2443A114975AE1A80B9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-RebelleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78E4A75E9FEB4072BDAE3BDF /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		49FE8AD417B67C0C00678D26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49FE8AE417B67C0C00678D26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49FE8AF817B67C0C00678D26 /* RebelleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		49FE8AEF17B67C0C00678D26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49FE8AD717B67C0C00678D26 /* Rebelle */;
+			targetProxy = 49FE8AEE17B67C0C00678D26 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		49FE8AF417B67C0C00678D26 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49FE8AF517B67C0C00678D26 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		49FE8AF917B67C0C00678D26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		49FE8AFA17B67C0C00678D26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		49FE8AFC17B67C0C00678D26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Rebelle.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		49FE8AFD17B67C0C00678D26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Rebelle.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		49FE8AFF17B67C0C00678D26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP2.app/Contents/Developer/Library/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "RebelleTests/RebelleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		49FE8B0017B67C0C00678D26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP2.app/Contents/Developer/Library/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
+				INFOPLIST_FILE = "RebelleTests/RebelleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		49FE8AD317B67C0C00678D26 /* Build configuration list for PBXProject "Rebelle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49FE8AF917B67C0C00678D26 /* Debug */,
+				49FE8AFA17B67C0C00678D26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49FE8AFB17B67C0C00678D26 /* Build configuration list for PBXNativeTarget "Rebelle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49FE8AFC17B67C0C00678D26 /* Debug */,
+				49FE8AFD17B67C0C00678D26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49FE8AFE17B67C0C00678D26 /* Build configuration list for PBXNativeTarget "RebelleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49FE8AFF17B67C0C00678D26 /* Debug */,
+				49FE8B0017B67C0C00678D26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 49FE8AD017B67C0C00678D26 /* Project object */;
+}
