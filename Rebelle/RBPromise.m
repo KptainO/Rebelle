@@ -8,10 +8,14 @@
 
 #import "RBPromise.h"
 
+NSString *const RBPromisePropertyState = @"state";
+
 @interface RBPromise ()
-@property(nonatomic, assign)RBPromiseState  state_;
-@property(nonatomic, strong)id  result_;
 @property(nonatomic, copy)RBThenableThen then;
+@property(nonatomic, assign)RBPromiseState  state;
+
+
+@property(nonatomic, strong)NSObject  *result_;
 
 @property(nonatomic, strong)NSMutableArray  *promises_;
 @property(nonatomic, copy)RBPromiseFulfilled onFulfilled_;
@@ -55,9 +59,22 @@
 
    // Avoid a fulfilled/rejected promise to transition to another state
    // (https://github.com/promises-aplus/promises-spec#promise-states)
-   if ([self _isResolved])
+   //
+   // Also avoid a pending promise waiting for its result to resolve (aka a promise) to run resolve
+   // one again
+   // https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure (2.1)
+   if ([self _isResolved] || self.result_)
       return;
 
+   self.result_ = value;
+
+   if ([value isKindOfClass:[RBPromise class]])
+      return [value addObserver:self
+                     forKeyPath:RBPromisePropertyState
+                        options:NSKeyValueObservingOptionInitial
+                        context:(__bridge void *)(RBPromisePropertyState)];
+
+   // @TODO: Refactor
    @try {
       if ([value isKindOfClass:[NSException class]])
          result = [self _reject:(NSException *)value];
@@ -65,34 +82,60 @@
          ;
       else
          result = [self _fulfill:value];
-
-      self.result_ = result ?: value;
    }
    @catch (NSException *e) {
-      self.result_ = e;
+      result = e;
    }
-   // else if [value isKindOfClass:[RBPromise class]]
 
+   result = result ?: value;
    for (RBPromise *promise in self.promises_)
-      [promise resolve:self.result_];
+      [promise resolve:result];
 }
 
 #pragma mark - Protected methods
 
 - (id)_fulfill:(id)value {
-   self.state_ = RBPromiseStateFulfilled;
+   self.state = RBPromiseStateFulfilled;
 
-   return self.onFulfilled_ ? (__bridge id)self.onFulfilled_(self.result_) : nil;
+   return self.onFulfilled_ ? self.onFulfilled_(self.result_) : nil;
 }
 
 - (id)_reject:(NSException *)reason {
-   self.state_ = RBPromiseStateRejected;
+   self.state = RBPromiseStateRejected;
 
-   return (self.onRejected_) ? (__bridge id)self.onRejected_(reason) : nil;
+   return (self.onRejected_) ? self.onRejected_(reason) : nil;
 }
 
 - (BOOL)_isResolved {
-   return (self.state_ != RBPromiseStatePending);
+   return (self.state != RBPromiseStatePending);
+}
+
+#pragma mark - Private methods
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+   RBPromise *promise = object;
+   id result = nil;
+
+   // Promise not yet resolved
+   if (![promise _isResolved])
+      return;
+
+   [self.result_ removeObserver:self forKeyPath:RBPromisePropertyState];
+
+   // @TODO: Refactor
+   @try {
+      if (promise.state == RBPromiseStateFulfilled)
+         result = [self _reject:(NSException *)promise.result_];
+      else
+         result = [self _fulfill:promise.result_];
+   }
+   @catch (NSException *e) {
+      result = e;
+   }
+
+   result = result ?: promise.result_;
+   for (RBPromise *promise in self.promises_)
+      [promise resolve:result];
 }
 
 @end

@@ -28,6 +28,7 @@ typedef enum {
 @interface RBPromise : NSObject<RBThenable>
 
 @property(nonatomic, copy, readonly)RBThenableThen then;
+@property(nonatomic, assign, readonly)RBPromiseState  state;
 
 - (void)resolve:(id)value;
 
