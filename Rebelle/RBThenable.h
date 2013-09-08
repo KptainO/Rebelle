@@ -10,8 +10,9 @@
 
 @protocol RBThenable;
 
-typedef void *(^RBPromiseFulfilled)(id value);
-typedef void *(^RBPromiseRejected)(id reason);
+typedef id(^RBPromiseFulfilled)(id value);
+typedef id(^RBPromiseRejected)(id reason);
+
 typedef id<RBThenable>(^RBThenableThen)(RBPromiseFulfilled onFulfilled, RBPromiseRejected onRejected);
 
 /**
