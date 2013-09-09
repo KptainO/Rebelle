@@ -28,8 +28,20 @@ typedef enum {
 @interface RBPromise : NSObject<RBThenable>
 
 @property(nonatomic, copy, readonly)RBThenableThen then;
+
+/// the promise state
+/// - Pending, resolve has not yet happened or nothing started inside it
+/// - Fulfilled, promise was fulfilled, internal resolve process may still need to happen
+/// - Rejected, promise was fulfilled, internal resolve process may still need to happen
 @property(nonatomic, assign, readonly)RBPromiseState  state;
 
+/// Set to YES if promise is entirely completed, that is state is not longer pending
+/// and internal resolve process has been completed
+/// Exposed as an attribute so that KVO can be done on it
+@property(nonatomic, assign, readonly, getter = isResolved)BOOL   resolved;
+
 - (void)resolve:(id)value;
+
+- (BOOL)isStatePending;
 
 @end

@@ -9,11 +9,15 @@
 #import "RBPromise.h"
 
 NSString *const RBPromisePropertyState = @"state";
+NSString *const RBPromisePropertyResolved = @"resolved";
 
 @interface RBPromise ()
 @property(nonatomic, copy)RBThenableThen then;
 @property(nonatomic, assign)RBPromiseState  state;
 
+/// Resolve process has entirely been processed (state, callbacks, ...)
+/// This promise has nothing to do anymore
+@property(nonatomic, assign)BOOL completed_;
 
 @property(nonatomic, strong)NSObject  *result_;
 
@@ -24,6 +28,8 @@ NSString *const RBPromisePropertyState = @"state";
 @end
 
 @implementation RBPromise
+
+@dynamic resolved;
 
 - (id)init {
    if (!(self = [super init]))
@@ -45,7 +51,7 @@ NSString *const RBPromisePropertyState = @"state";
 
       // If our current promise is already resolved, then launch our new promise resolution
       // procedure (otherwise it won't never be called automatically)
-      if ([this _isResolved])
+      if ([this isResolved])
          [promise resolve:this.result_];
 
       return promise;
@@ -57,20 +63,20 @@ NSString *const RBPromisePropertyState = @"state";
 - (void)resolve:(id)value {
    id result = nil;
 
-   // Avoid a fulfilled/rejected promise to transition to another state
+   // Avoid a non pending promise to transition to another state
    // (https://github.com/promises-aplus/promises-spec#promise-states)
    //
    // Also avoid a pending promise waiting for its result to resolve (aka a promise) to run resolve
-   // one again
+   // once again
    // https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure (2.1)
-   if ([self _isResolved] || self.result_)
+   if (![self isStatePending] || self.result_)
       return;
 
    self.result_ = value;
 
    if ([value isKindOfClass:[RBPromise class]])
       return [value addObserver:self
-                     forKeyPath:RBPromisePropertyState
+                     forKeyPath:RBPromisePropertyResolved
                         options:NSKeyValueObservingOptionInitial
                         context:(__bridge void *)(RBPromisePropertyState)];
 
@@ -87,9 +93,22 @@ NSString *const RBPromisePropertyState = @"state";
       result = e;
    }
 
-   result = result ?: value;
    for (RBPromise *promise in self.promises_)
       [promise resolve:result];
+
+   self.completed_ = YES;
+}
+
++ (NSSet *)keyPathsForValuesAffectingResolved {
+   return [NSSet setWithArray:@[@"state", @"completed_"]];
+}
+
+- (BOOL)isResolved {
+   return ![self isStatePending] && self.completed_;
+}
+
+- (BOOL)isStatePending {
+   return self.state == RBPromiseStatePending;
 }
 
 #pragma mark - Protected methods
@@ -97,17 +116,13 @@ NSString *const RBPromisePropertyState = @"state";
 - (id)_fulfill:(id)value {
    self.state = RBPromiseStateFulfilled;
 
-   return self.onFulfilled_ ? self.onFulfilled_(self.result_) : nil;
+   return self.onFulfilled_ ? self.onFulfilled_(self.result_) : value;
 }
 
 - (id)_reject:(NSException *)reason {
    self.state = RBPromiseStateRejected;
 
-   return (self.onRejected_) ? self.onRejected_(reason) : nil;
-}
-
-- (BOOL)_isResolved {
-   return (self.state != RBPromiseStatePending);
+   return (self.onRejected_) ? self.onRejected_(reason) : reason;
 }
 
 #pragma mark - Private methods
@@ -117,14 +132,14 @@ NSString *const RBPromisePropertyState = @"state";
    id result = nil;
 
    // Promise not yet resolved
-   if (![promise _isResolved])
+   if (![promise isResolved])
       return;
 
-   [self.result_ removeObserver:self forKeyPath:RBPromisePropertyState];
+   [self.result_ removeObserver:self forKeyPath:RBPromisePropertyResolved];
 
    // @TODO: Refactor
    @try {
-      if (promise.state == RBPromiseStateFulfilled)
+      if (promise.state == RBPromiseStateRejected)
          result = [self _reject:(NSException *)promise.result_];
       else
          result = [self _fulfill:promise.result_];
@@ -133,9 +148,10 @@ NSString *const RBPromisePropertyState = @"state";
       result = e;
    }
 
-   result = result ?: promise.result_;
    for (RBPromise *promise in self.promises_)
       [promise resolve:result];
+
+   self.completed_ = YES;
 }
 
 @end
