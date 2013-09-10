@@ -8,6 +8,8 @@
 
 #import "RBPromise.h"
 
+#import "RBErrorException.h"
+
 NSString *const RBPromisePropertyState = @"state";
 NSString *const RBPromisePropertyResolved = @"resolved";
 
@@ -63,6 +65,11 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 - (void)resolve:(id)value {
    id result = nil;
 
+   if (value == self)
+      @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                     reason:@"promise can't be resolved with self as resolving value"
+                                   userInfo:nil];
+
    // Avoid a non pending promise to transition to another state
    // (https://github.com/promises-aplus/promises-spec#promise-states)
    //
@@ -85,7 +92,7 @@ NSString *const RBPromisePropertyResolved = @"resolved";
       if ([value isKindOfClass:[NSException class]])
          result = [self _reject:(NSException *)value];
       else if ([value isKindOfClass:[NSError class]])
-         ;
+         result = [self _reject:[RBErrorException exceptionWithError:value message:nil]];
       else
          result = [self _fulfill:value];
    }

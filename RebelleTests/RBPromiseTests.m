@@ -122,7 +122,7 @@ describe(@"test", ^ {
       });
 
       it(@"with self throw an exception", ^{
-         [promise resolve:promise];
+         [[theBlock(^{ [promise resolve:promise]; }) should] raiseWithName:NSInvalidArgumentException];
       });
 
       describe(@"chaining", ^{
