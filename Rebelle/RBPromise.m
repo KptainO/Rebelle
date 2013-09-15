@@ -16,16 +16,16 @@ NSString *const RBPromisePropertyState = @"state";
 NSString *const RBPromisePropertyResolved = @"resolved";
 
 @interface RBPromise ()
-@property(nonatomic, copy)RBThenableThen then;
-@property(nonatomic, assign)RBPromiseState  state;
+@property(nonatomic, copy)RBThenableThen     then;
+@property(nonatomic, assign)RBPromiseState   state;
 
-@property(nonatomic, strong)NSObject  *result_;
+@property(nonatomic, strong)NSObject         *result_;
 
-@property(nonatomic, strong)NSMutableArray  *promises_;
+@property(nonatomic, strong)NSMutableArray   *promises_;
 @property(nonatomic, copy)RBPromiseFulfilled onFulfilled_;
-@property(nonatomic, copy)RBPromiseRejected onRejected_;
+@property(nonatomic, copy)RBPromiseRejected  onRejected_;
 
-@property(nonatomic, strong)RBExecuter *executer_;
+@property(nonatomic, strong)RBExecuter       *executer_;
 
 @end
 

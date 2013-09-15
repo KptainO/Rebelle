@@ -45,3 +45,10 @@ typedef enum {
 - (BOOL)isStatePending;
 
 @end
+
+/// Contain all selectors that are considered as protected
+/// **MUST** not be used by others
+@interface RBPromise (Protected)
+- (void)_reject:(NSException *)reason;
+- (void)_fulfill:(id)value;
+@end

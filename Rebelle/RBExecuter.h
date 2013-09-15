@@ -14,10 +14,11 @@ extern NSString   *const RBExecuterExecutedProperty;
 
 typedef id(^ExecuteCallback)(id value);
 
+
 @interface RBExecuter : NSObject
 
-@property(nonatomic, assign, readonly)BOOL executed;
-@property(nonatomic, strong, readonly)id result;
+@property(nonatomic, assign, readonly)BOOL   executed;
+@property(nonatomic, strong, readonly)id     result;
 
 - (void)execute:(ExecuteCallback)callback withValue:(id)value;
 

@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49C27B3A17E65EBD008FB8E4 /* RBExecuter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C27B3917E65EBD008FB8E4 /* RBExecuter.m */; };
 		49C510CB17DD2D8900648C5B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C510CA17DD2D8800648C5B /* SenTestingKit.framework */; };
 		49C510CC17DD2D8900648C5B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
 		49C510CD17DD2D8900648C5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AEC17B67C0C00678D26 /* UIKit.framework */; };
 		49C510D317DD2D8900648C5B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49C510D117DD2D8900648C5B /* InfoPlist.strings */; };
 		49C510DD17DD2D9900648C5B /* RBPromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C510DC17DD2D9900648C5B /* RBPromiseTests.m */; };
+		49CD909817DFB64300E934AF /* RBErrorException.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CD909717DFB64300E934AF /* RBErrorException.m */; };
 		49EC299517DD2E37008B4F8D /* libRebelle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AD817B67C0C00678D26 /* libRebelle.a */; };
 		49F055C017D7E884007DADC8 /* RBPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F055BE17D7E5D5007DADC8 /* RBPromise.m */; };
 		49FE8ADC17B67C0C00678D26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
@@ -42,12 +44,16 @@
 
 /* Begin PBXFileReference section */
 		47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RebelleTests.xcconfig"; path = "Pods/Pods-RebelleTests.xcconfig"; sourceTree = SOURCE_ROOT; };
+		49C27B3817E65EBD008FB8E4 /* RBExecuter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBExecuter.h; sourceTree = "<group>"; };
+		49C27B3917E65EBD008FB8E4 /* RBExecuter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBExecuter.m; sourceTree = "<group>"; };
 		49C510C917DD2D8800648C5B /* RebelleTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RebelleTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C510CA17DD2D8800648C5B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		49C510D017DD2D8900648C5B /* RebelleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RebelleTests-Info.plist"; sourceTree = "<group>"; };
 		49C510D217DD2D8900648C5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		49C510D617DD2D8900648C5B /* RebelleTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RebelleTests-Prefix.pch"; sourceTree = "<group>"; };
 		49C510DC17DD2D9900648C5B /* RBPromiseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBPromiseTests.m; sourceTree = "<group>"; };
+		49CD909617DFB64300E934AF /* RBErrorException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBErrorException.h; sourceTree = "<group>"; };
+		49CD909717DFB64300E934AF /* RBErrorException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBErrorException.m; sourceTree = "<group>"; };
 		49F055BD17D7E5D5007DADC8 /* RBPromise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBPromise.h; sourceTree = "<group>"; };
 		49F055BE17D7E5D5007DADC8 /* RBPromise.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBPromise.m; sourceTree = "<group>"; };
 		49F055BF17D7E5D5007DADC8 /* RBThenable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBThenable.h; sourceTree = "<group>"; };
@@ -137,6 +143,10 @@
 		49FE8ADD17B67C0C00678D26 /* Rebelle */ = {
 			isa = PBXGroup;
 			children = (
+				49CD909617DFB64300E934AF /* RBErrorException.h */,
+				49CD909717DFB64300E934AF /* RBErrorException.m */,
+				49C27B3817E65EBD008FB8E4 /* RBExecuter.h */,
+				49C27B3917E65EBD008FB8E4 /* RBExecuter.m */,
 				49F055BD17D7E5D5007DADC8 /* RBPromise.h */,
 				49F055BE17D7E5D5007DADC8 /* RBPromise.m */,
 				49F055BF17D7E5D5007DADC8 /* RBThenable.h */,
@@ -282,7 +292,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49CD909817DFB64300E934AF /* RBErrorException.m in Sources */,
 				49F055C017D7E884007DADC8 /* RBPromise.m in Sources */,
+				49C27B3A17E65EBD008FB8E4 /* RBExecuter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +388,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -406,7 +418,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
