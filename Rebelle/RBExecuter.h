@@ -14,7 +14,12 @@ extern NSString   *const RBExecuterExecutedProperty;
 
 typedef id(^ExecuteCallback)(id value);
 
-
+/**
+ * Handle promise block invocation. It ensure that
+ * - block is invoked on correct thread
+ * - block is invoked only once (if using this class of course)
+ * - that any thrown exceptions from block are catched the proper way
+ */
 @interface RBExecuter : NSObject
 
 @property(nonatomic, assign, readonly)BOOL   executed;

@@ -24,6 +24,18 @@ typedef enum {
  * You can chain calls to then to define multiple promises which must occur after the previous
  * one was realized.
  * \code promise.then(loadUserBlock, nil).then(loadUserLastTweetsBlock, nil) etc. \endcode
+ *
+ * Promise resolving depend on value type argument:
+ * - Any NSExceptions/NSError whill be treated as a promise rejection. Note that NSError objects will be wrapped
+ * into a RBErrorException when passed to callback blocks
+ * - Any RBPromise will be 1st resolved, then its result will be used as the value argument
+ * - Any other value will be considered as a promise fulfillment
+ * Once value is determined, it is passed to the fulfill/reject block whose result value is then
+ * passed to all promises created by calling "then". If fulfill/reject do not return any value then
+ * the one used when calling ::resolve: will be used instead
+ *
+ * For more information about how a promise work/what it does, check Promises/A+ documentation
+ * https://github.com/promises-aplus/promises-spec
  */
 @interface RBPromise : NSObject<RBThenable>
 
