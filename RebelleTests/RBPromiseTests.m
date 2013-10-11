@@ -48,7 +48,7 @@ describe(@"test", ^ {
          [promise stub:@selector(isResolved) andReturn:theValue(YES)];
 
          promise.then(block, nil);
-         [[theValue(finished) should] equal:theValue(YES)];
+         [[expectFutureValue(theValue(finished)) shouldEventually] equal:theValue(YES)];
       });
 
 
@@ -101,7 +101,7 @@ describe(@"test", ^ {
          [promise resolve:promise2];
 
          [promise2 resolve:@"resolved"];
-         [[theValue(verified) should] equal:theValue(YES)];
+         [[expectFutureValue(theValue(verified)) shouldEventually] equal:theValue(YES)];
       });
       
       it(@"with RBPromise already resolved", ^{
@@ -118,7 +118,7 @@ describe(@"test", ^ {
          
          [promise resolve:promise2];
          [promise2 resolve:@"resolved"];
-         [[theValue(verified) should] equal:theValue(YES)];
+         [[expectFutureValue(theValue(verified)) shouldEventually] equal:theValue(YES)];
       });
 
       it(@"with self throw an exception", ^{

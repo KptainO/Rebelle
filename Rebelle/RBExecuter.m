@@ -38,30 +38,21 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 #pragma mark - Public methods
 
 - (void)execute:(ExecuteCallback)callback withValue:(id)value {
-   NSInvocation *invocation = nil;
+   // Execute method on originalThread no matter if it is current thread or not
+   // Plus queue it on the thread run loop
+   [self performSelector:@selector(_execute:)
+                onThread:self.originalThread_
+              withObject:
+    ^{
+       @try {
+          self.result = !callback ? value : callback(value);
+       }
+       @catch (NSException *exception) {
+          self.result = exception;
+       }
+    }
+           waitUntilDone:NO];
 
-   if ([NSThread currentThread] != self.originalThread_)
-   {
-      invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:_cmd]];
-
-      invocation.target = self;
-
-      [invocation setArgument:&callback atIndex:2];
-      [invocation setArgument:&value atIndex:3];
-
-      [invocation retainArguments];
-
-      return [self performSelector:@selector(invoke) onThread:self.originalThread_ withObject:nil waitUntilDone:NO];
-   }
-
-   [self _execute:^{
-      @try {
-         self.result = !callback ? value : callback(value);
-      }
-      @catch (NSException *exception) {
-         self.result = exception;
-      }
-   }];
 }
 
 #pragma mark - Protected methods
