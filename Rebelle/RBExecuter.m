@@ -19,6 +19,7 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 
 /// original thread where object was created to ensure callbacks are executed on the same one
 @property(nonatomic, weak)NSThread  *originalThread_;
+@property(nonatomic, assign)BOOL    canceled_;
 
 @end
 
@@ -39,7 +40,7 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 
 - (void)execute:(ExecuteCallback)callback withValue:(id)value {
    // Execute method on originalThread no matter if it is current thread or not
-   // Plus queue it on the thread run loop
+   // Plus queue it at the end of the thread run loop
    [self performSelector:@selector(_execute:)
                 onThread:self.originalThread_
               withObject:
@@ -55,12 +56,20 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 
 }
 
+- (void)cancel {
+   // Too late => nothing to do
+   if (self.executed)
+      return;
+
+   self.canceled_ = YES;
+}
+
 #pragma mark - Protected methods
 
 
 #pragma mark - Private methods
 - (void)_execute:(dispatch_block_t)block {
-   if (self.executed)
+   if (self.executed || self.canceled_)
       return;
    
    block();

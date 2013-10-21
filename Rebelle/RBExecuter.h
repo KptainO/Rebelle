@@ -27,6 +27,8 @@ typedef id(^ExecuteCallback)(id value);
 
 - (void)execute:(ExecuteCallback)callback withValue:(id)value;
 
+- (void)cancel;
+
 @end
 
 
