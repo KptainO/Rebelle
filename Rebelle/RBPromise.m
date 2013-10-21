@@ -103,6 +103,19 @@ NSString *const RBPromisePropertyResolved = @"resolved";
       [self _fulfill:value];
 }
 
+- (void)cancel {
+   /// Recursive abort
+   for (RBPromise *promise in self.promises_)
+      [promise abort];
+}
+
+- (void)abort {
+   self.state = RBPromiseStateAborted;
+
+   [self.executer_ cancel];
+   [self cancel];
+}
+
 + (NSSet *)keyPathsForValuesAffectingResolved {
    return [NSSet setWithArray:@[@"state"]];
 }

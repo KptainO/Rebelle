@@ -13,7 +13,8 @@
 typedef enum {
    RBPromiseStatePending,
    RBPromiseStateFulfilled,
-   RBPromiseStateRejected
+   RBPromiseStateRejected,
+   RBPromiseStateAborted,
 } RBPromiseState;
 
 /**
@@ -53,6 +54,25 @@ typedef enum {
 @property(nonatomic, assign, readonly, getter = isResolved)BOOL   resolved;
 
 - (void)resolve:(id)value;
+
+/**
+ * @brief Abort all chained promises to current one
+ *
+ * Leave current promise intact but abort all chained ones
+ */
+- (void)cancel;
+
+/**
+ * @brief Completely stop resolve process of this promise and its chained ones 
+ *
+ * It merely work like ::cancel expect that the current promise is also canceled and set its state
+ * to RBPromiseStateAborted
+ * Note though that if promise was already fulfilled/rejected prior to ::abort call state won't
+ * be changed and only chained promises will be aborted
+ *
+ */
+- (void)abort;
+
 
 - (BOOL)isStatePending;
 
