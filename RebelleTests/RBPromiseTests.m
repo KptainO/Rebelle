@@ -74,7 +74,7 @@ describe(@"test", ^ {
          [[theValue(promise.state) should] equal:theValue(RBPromiseStateFulfilled)];
       });
      
-      it(@"with RBPromise pending, called twice", ^{
+      it(@"with RBPromise pending, then re-call resolve:", ^{
          RBPromise *promise2 = [RBPromise new];
 
          [promise resolve:promise2];
@@ -123,6 +123,15 @@ describe(@"test", ^ {
 
       it(@"with self throw an exception", ^{
          [[theBlock(^{ [promise resolve:promise]; }) should] raiseWithName:NSInvalidArgumentException];
+      });
+
+      it(@"result should be promise2.result when promise2 resolved", ^{
+         RBPromise *promise2 = [RBPromise new];
+
+         [promise resolve:promise2];
+         [promise2 resolve:@"RBPromise resolved"];
+
+         [[expectFutureValue([promise valueForKey:@"result_"]) shouldEventually] equal:@"RBPromise resolved"];
       });
 
       describe(@"chaining", ^{
