@@ -19,7 +19,7 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 @property(nonatomic, copy)RBThenableThen     then;
 @property(nonatomic, assign)RBPromiseState   state;
 
-@property(nonatomic, strong)NSObject         *result_;
+@property(nonatomic, strong)id<NSObject>         result_;
 
 @property(nonatomic, strong)NSMutableArray   *promises_;
 @property(nonatomic, copy)RBPromiseFulfilled onFulfilled_;
@@ -30,6 +30,8 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 @end
 
 @implementation RBPromise
+
+@synthesize result_ = result_;
 
 @dynamic resolved;
 
@@ -88,19 +90,6 @@ NSString *const RBPromisePropertyResolved = @"resolved";
       return;
 
    self.result_ = value;
-
-   if ([value isKindOfClass:[RBPromise class]])
-      return [value addObserver:self
-                     forKeyPath:RBPromisePropertyResolved
-                        options:NSKeyValueObservingOptionInitial
-                        context:(__bridge void *)(RBPromisePropertyState)];
-
-   if ([value isKindOfClass:[NSException class]])
-      [self _reject:(NSException *)value];
-   else if ([value isKindOfClass:[NSError class]])
-      [self _reject:[RBErrorException exceptionWithError:value message:nil]];
-   else
-      [self _fulfill:value];
 }
 
 - (void)cancel {
@@ -121,30 +110,50 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 }
 
 - (BOOL)isResolved {
-   return ![self isStatePending] && self.executer_.executed;
+   return ![self isStatePending] && self.state != RBPromiseStateAborted && self.executer_.executed;
 }
 
 - (BOOL)isStatePending {
    return self.state == RBPromiseStatePending;
 }
 
-#pragma mark - Protected methods
+- (void)setState:(RBPromiseState)state {
+   // Don't update if We are aleady on a final state (!= Pending)
+   if (_state == state || _state != RBPromiseStatePending)
+      return;
 
-- (void)_fulfill:(id)value {
-   self.state = RBPromiseStateFulfilled;
-   
-   [self.executer_ execute:self.onFulfilled_ withValue:value];
+   _state = state;
+
+   if (state == RBPromiseStateFulfilled)
+      [self.executer_ execute:self.onFulfilled_ withValue:self.result_];
+   else if (state == RBPromiseStateRejected)
+      [self.executer_ execute:self.onRejected_ withValue:self.result_];
 }
 
-- (void)_reject:(NSException *)reason {
-   self.state = RBPromiseStateRejected;
-   
-   [self.executer_ execute:self.onRejected_ withValue:reason];
+- (void)setResult_:(id<NSObject>)result {
+
+   // Remove observer that may have been added previously on result_ (see above)
+   if ([result_ isKindOfClass:RBPromise.class])
+      [(RBPromise *)result_ removeObserver:self forKeyPath:RBPromisePropertyResolved];
+
+   result_ = [result isKindOfClass:NSError.class] ? [RBErrorException exceptionWithError:(NSError *)result message:nil] : result;
+
+   // Don't do anything if it's a RBPromise, just observe
+   if ([result isKindOfClass:RBPromise.class])
+      [(RBPromise *)result addObserver:self
+                            forKeyPath:RBPromisePropertyResolved
+                               options:NSKeyValueObservingOptionInitial
+                               context:(__bridge void *)(RBPromisePropertyResolved)];
+   else if ([result isKindOfClass:NSException.class])
+      self.state = RBPromiseStateRejected;
+   else
+      self.state = RBPromiseStateFulfilled;
 }
 
 #pragma mark - Private methods
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+   // Executer finished execution
    if (context == (__bridge void *)(RBExecuterExecutedProperty))
    {
       [self willChangeValueForKey:RBPromisePropertyResolved];
@@ -155,19 +164,17 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 
       return;
    }
+   // else result_ Promise (maybe) changed state
+   else if (context == (__bridge void *)(RBPromisePropertyResolved))
+   {
+      RBPromise *promise = object;
 
-   RBPromise *promise = object;
+      // Promise not yet resolved
+      if (![promise isResolved])
+         return;
 
-   // Promise not yet resolved
-   if (![promise isResolved])
-      return;
-
-   [self.result_ removeObserver:self forKeyPath:RBPromisePropertyResolved];
-      
-   if (promise.state == RBPromiseStateRejected)
-      [self _reject:(NSException *)promise.result_];
-   else
-      [self _fulfill:promise.result_];
+      self.result_ = promise.result_;
+   }
 }
 
 @end
