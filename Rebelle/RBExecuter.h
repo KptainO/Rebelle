@@ -35,6 +35,5 @@ typedef id(^ExecuteCallback)(id value);
 /// Contain all selectors that are considered as protected
 /// **MUST** not be used by others
 @interface RBExecuter (Protected)
-
-
+- (void)_execute:(ExecuteCallback)callback withValue:(id)value;
 @end

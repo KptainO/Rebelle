@@ -39,21 +39,23 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 #pragma mark - Public methods
 
 - (void)execute:(ExecuteCallback)callback withValue:(id)value {
+   SEL selector = @selector(_execute:withValue:);
+   NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+   NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+
+   callback = [callback copy];
+
+   invocation.selector = selector;
+   [invocation setArgument:&callback atIndex:2];
+   [invocation setArgument:&value atIndex:3];
+   [invocation retainArguments];
+
    // Execute method on originalThread no matter if it is current thread or not
    // Plus queue it at the end of the thread run loop
-   [self performSelector:@selector(_execute:)
+   [invocation performSelector:@selector(invokeWithTarget:)
                 onThread:self.originalThread_
-              withObject:
-    ^{
-       @try {
-          self.result = !callback ? value : callback(value);
-       }
-       @catch (NSException *exception) {
-          self.result = exception;
-       }
-    }
+              withObject:self
            waitUntilDone:NO];
-
 }
 
 - (void)cancel {
@@ -68,11 +70,17 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 
 
 #pragma mark - Private methods
-- (void)_execute:(dispatch_block_t)block {
+- (void)_execute:(ExecuteCallback)callback withValue:(id)value {
    if (self.executed || self.canceled_)
       return;
-   
-   block();
+
+   @try {
+      self.result = !callback ? value : callback(value);
+   }
+   @catch (NSException *exception) {
+      self.result = exception;
+   }
+
    self.executed = YES;
 }
 
