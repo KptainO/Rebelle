@@ -130,20 +130,30 @@ NSString *const RBPromisePropertyResolved = @"resolved";
       [self.executer_ execute:self.onRejected_ withValue:self.result_];
 }
 
++ (BOOL)automaticallyNotifiesObserversOfResult_ {
+   return NO;
+}
+
 - (void)setResult_:(id<NSObject>)result {
 
    // Remove observer that may have been added previously on result_ (see above)
    if ([result_ isKindOfClass:RBPromise.class])
       [(RBPromise *)result_ removeObserver:self forKeyPath:RBPromisePropertyResolved];
 
+   [self willChangeValueForKey:@"result_"];
    result_ = [result isKindOfClass:NSError.class] ? [RBErrorException exceptionWithError:(NSError *)result message:nil] : result;
+   [self didChangeValueForKey:@"result_"];
 
    // Don't do anything if it's a RBPromise, just observe
-   if ([result isKindOfClass:RBPromise.class])
-      [(RBPromise *)result addObserver:self
+   if ([result_ isKindOfClass:RBPromise.class])
+   {
+      [(RBPromise *)result_ addObserver:self
                             forKeyPath:RBPromisePropertyResolved
-                               options:NSKeyValueObservingOptionInitial
+                               options:0
                                context:(__bridge void *)(RBPromisePropertyResolved)];
+      // Manually trigger observing code (using NSKeyValueObservingOptionInitial is error prone in our case)
+      [self _observePromiseResolve:(RBPromise *)result];
+   }
    else if ([result isKindOfClass:NSException.class])
       self.state = RBPromiseStateRejected;
    else
@@ -164,17 +174,17 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 
       return;
    }
-   // else result_ Promise (maybe) changed state
+   // else result_(aka a Promise) maybe changed state
    else if (context == (__bridge void *)(RBPromisePropertyResolved))
-   {
-      RBPromise *promise = object;
+      [self _observePromiseResolve:object];
+}
 
-      // Promise not yet resolved
-      if (![promise isResolved])
-         return;
+- (void)_observePromiseResolve:(RBPromise *)promise {
+   // Promise not yet resolved
+   if (![promise isResolved])
+      return;
 
-      self.result_ = promise.result_;
-   }
+   self.result_ = promise.result_;
 }
 
 @end
