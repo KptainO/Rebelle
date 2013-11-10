@@ -62,7 +62,7 @@ NSString *const RBPromisePropertyResolved = @"resolved";
       // If our current promise is already resolved, then launch our new promise resolution
       // procedure (otherwise it won't never be called automatically)
       if ([this isResolved])
-         [promise resolve:this.result_];
+         [promise resolve:this.executer_.result];
 
       return promise;
    };
