@@ -9,14 +9,24 @@
 #import <Kiwi.h>
 
 #import "RBPromise.h"
+#import "RBExecuter.h"
 
 SPEC_BEGIN(RBPromiseTests)
 
 describe(@"test", ^ {
    __block RBPromise *promise;
+   __block RBExecuter *promiseExecuter;
 
    beforeEach(^ {
       promise = [RBPromise new];
+      promiseExecuter = [RBExecuter nullMock];
+
+      [promise setValue:promiseExecuter forKey:@"executer_"];
+   });
+
+   afterEach(^{
+      promiseExecuter = nil;
+      promise = nil;
    });
 
    describe(@"then method", ^{
@@ -37,18 +47,19 @@ describe(@"test", ^ {
       });
 
       it(@"call callbacks when promise already resolved", ^{
-         __block BOOL finished = NO;
-         RBPromiseFulfilled block = ^id(id result){
-            finished = YES;
+         RBPromise *x = [RBPromise nullMock];
+         RBPromiseFulfilled fulfilled = ^id(id result){ return nil; };
 
-            return nil;
-         };
-
-         [promise stub:@selector(isStatePending) andReturn:theValue(NO)];
+         // Stub current promise for test
          [promise stub:@selector(isResolved) andReturn:theValue(YES)];
+         [[promiseExecuter should] receive:@selector(result) andReturn:@"Hello World"];
 
-         promise.then(block, nil);
-         [[expectFutureValue(theValue(finished)) shouldEventually] equal:theValue(YES)];
+         // Test expectations
+         [[x should] receive:@selector(resolve:) withArguments:@"Hello World"];
+
+         // Mock RBPromise object that will be created by then() call method
+         [[RBPromise should] receive:@selector(new) andReturn:x];
+         promise.then(fulfilled, nil);
       });
 
 
@@ -87,113 +98,60 @@ describe(@"test", ^ {
       });
 
       it(@"with RBPromise pending, then resolved", ^{
-         __block BOOL verified = NO;
-         RBPromise *promise2 = [RBPromise new];
-         RBPromiseFulfilled block = ^id(id result) {
-            [[theValue(promise.state) should] equal:theValue(RBPromiseStateFulfilled)];
+         RBPromise *promise2 = [RBPromise mock];
 
-            verified = YES;
-            return result;
-         };
-
-         promise.then(block, nil);
-
+         [[promise2 stubAndReturn:theValue(NO)] isResolved];
          [promise resolve:promise2];
 
-         [promise2 resolve:@"resolved"];
-         [[expectFutureValue(theValue(verified)) shouldEventually] equal:theValue(YES)];
+         [[promise2 should] receive:@selector(isResolved) andReturn:theValue(YES)];
+         [[promise2 should] receive:NSSelectorFromString(@"result_") andReturn:@"Hello Resolved"];
+         [[promiseExecuter should] receive:@selector(execute:withValue:) withArguments:nil, @"Hello Resolved"];
+
+         // Manually trigger notification about promise2 being "resolved"
+         [promise observeValueForKeyPath:RBPromisePropertyResolved
+                                ofObject:promise2
+                                  change:nil
+                                 context:(__bridge void *)(RBPromisePropertyResolved)];
       });
       
       it(@"with RBPromise already resolved", ^{
-         __block BOOL verified = NO;
          RBPromise *promise2 = [RBPromise new];
-         RBPromiseFulfilled block = ^id(NSString *result) {
-            [[result should] equal:@"resolved"];
 
-            verified = YES;
-            return result;
-         };
+         [[promise2 should] receive:@selector(isResolved) andReturn:theValue(YES)];
+         [[promise2 should] receive:NSSelectorFromString(@"result_") andReturn:@"Hello World"];
 
-         promise.then(block, nil);
-         
+         [[promiseExecuter should] receive:@selector(execute:withValue:) withArguments:nil, @"Hello World"];
+
          [promise resolve:promise2];
-         [promise2 resolve:@"resolved"];
-         [[expectFutureValue(theValue(verified)) shouldEventually] equal:theValue(YES)];
       });
 
       it(@"with self throw an exception", ^{
          [[theBlock(^{ [promise resolve:promise]; }) should] raiseWithName:NSInvalidArgumentException];
       });
 
-      it(@"result should be promise2.result when promise2 resolved", ^{
-         RBPromise *promise2 = [RBPromise new];
+      it(@"Chain calls when resolved", ^{
+         RBPromise *x = promise.then(nil, nil);
+         RBExecuter *xExecuter = [RBExecuter mock];
 
-         [promise resolve:promise2];
-         [promise2 resolve:@"RBPromise resolved"];
+         [x setValue:xExecuter forKey:@"executer_"];
+         [promiseExecuter stub:@selector(executed) andReturn:theValue(YES)];
+         // Manually notify about executer.executed value
+         // Required so that promise loop on sub promises
+         [promiseExecuter stub:@selector(execute:withValue:) withBlock:^id(NSArray *arguments) {
+            [promise observeValueForKeyPath:NSStringFromSelector(@selector(executed))
+                                   ofObject:promiseExecuter
+                                     change:nil
+                                    context:(__bridge void *)(RBExecuterExecutedProperty)];
 
-         [[expectFutureValue([promise valueForKey:@"result_"]) shouldEventually] equal:@"RBPromise resolved"];
-      });
+            return nil;
+         }];
 
-      describe(@"chaining", ^{
-         __block RBPromise *promise2;
-         __block id expectedResult;
-         __block id expectedReturn;
 
-         beforeEach(^{
-            expectedResult = nil;
-            expectedReturn = nil;
-            void(^cmp)(id expected, id value) = ^void(id expected, id value) {
-               if (expected)
-                  [[value should] beIdenticalTo:expected];
-               else
-                  [value shouldBeNil];
-            };
+         [[promiseExecuter should] receive:@selector(execute:withValue:)];
+         [[promiseExecuter should] receive:@selector(result) andReturn:@"Hello Executer"];
+         [[xExecuter should] receive:@selector(execute:withValue:) andReturn:nil withArguments:nil, @"Hello Executer"];
 
-            promise2 = promise.then(^(id result){ cmp(expectedResult, result); return expectedReturn; },
-                                    ^(NSException *exception) { cmp(expectedResult, exception); return expectedReturn; });
-
-            promise2.then(^id(id result) { cmp(expectedReturn, result); return nil; },
-                          ^id(NSException *result) { cmp(expectedReturn, result); return nil; });
-         });
-
-         it(@"promise1 return a value", ^{
-            expectedResult = @"resolved";
-            expectedReturn = @"promise2 should receive this text";
-
-            [promise resolve:expectedResult];
-         });
-
-         it(@"promise1 'throw' an exception but resolve it", ^{
-            expectedResult = [NSException exceptionWithName:@"" reason:nil userInfo:nil];
-            expectedReturn = @"exception resolved";
-
-            [promise resolve:expectedResult];
-         });
-
-         it(@"promise1 'throw' an exception and let it bubble", ^{
-            expectedResult = [NSException exceptionWithName:@"" reason:nil userInfo:nil];
-            expectedReturn = expectedResult;
-
-            [promise resolve:expectedResult];
-         });
-
-         it(@"promise1 return nil", ^{
-            expectedResult = @"resolved";
-
-            [promise resolve:expectedResult];
-         });
-
-         it(@"promise1 callback is nil", ^{
-            expectedResult = @"skipped value";
-            expectedReturn = expectedResult;
-
-            promise = [RBPromise new];
-
-            promise2 = promise.then(nil, nil);
-            promise2.then(^id(id result){ [[result should] beIdenticalTo:expectedResult]; return nil; }, nil);
-
-            [promise resolve:expectedResult];
-         });
+         [promise resolve:@"Hello World"];
       });
    });
 });

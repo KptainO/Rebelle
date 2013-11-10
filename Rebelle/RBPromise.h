@@ -10,6 +10,8 @@
 
 #import "RBThenable.h"
 
+extern NSString *const RBPromisePropertyResolved;
+
 typedef enum {
    RBPromiseStatePending,
    RBPromiseStateFulfilled,
