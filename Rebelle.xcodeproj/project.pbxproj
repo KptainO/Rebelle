@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2188D6451819B712007BAB40 /* RBErrorException.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CD909617DFB64300E934AF /* RBErrorException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2188D6461819B713007BAB40 /* RBExecuter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C27B3817E65EBD008FB8E4 /* RBExecuter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2188D6471819B713007BAB40 /* RBPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BD17D7E5D5007DADC8 /* RBPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2188D6481819B713007BAB40 /* RBThenable.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BF17D7E5D5007DADC8 /* RBThenable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49C27B3A17E65EBD008FB8E4 /* RBExecuter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C27B3917E65EBD008FB8E4 /* RBExecuter.m */; };
 		49C510CB17DD2D8900648C5B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C510CA17DD2D8800648C5B /* SenTestingKit.framework */; };
 		49C510CC17DD2D8900648C5B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
@@ -29,18 +33,6 @@
 			remoteInfo = Rebelle;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		49FE8AD617B67C0C00678D26 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RebelleTests.xcconfig"; path = "Pods/Pods-RebelleTests.xcconfig"; sourceTree = SOURCE_ROOT; };
@@ -165,6 +157,20 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		2188D6441819B702007BAB40 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2188D6451819B712007BAB40 /* RBErrorException.h in Headers */,
+				2188D6461819B713007BAB40 /* RBExecuter.h in Headers */,
+				2188D6471819B713007BAB40 /* RBPromise.h in Headers */,
+				2188D6481819B713007BAB40 /* RBThenable.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		49C510C817DD2D8800648C5B /* RebelleTests */ = {
 			isa = PBXNativeTarget;
@@ -192,7 +198,7 @@
 			buildPhases = (
 				49FE8AD417B67C0C00678D26 /* Sources */,
 				49FE8AD517B67C0C00678D26 /* Frameworks */,
-				49FE8AD617B67C0C00678D26 /* CopyFiles */,
+				2188D6441819B702007BAB40 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -327,7 +333,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(SYSTEM_APPS_DIR)/Xcode5-DP2.app/Contents/Developer/Library/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RebelleTests/RebelleTests-Prefix.pch";
@@ -348,7 +354,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(SYSTEM_APPS_DIR)/Xcode5-DP2.app/Contents/Developer/Library/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RebelleTests/RebelleTests-Prefix.pch";
@@ -432,6 +438,7 @@
 				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -444,6 +451,7 @@
 				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

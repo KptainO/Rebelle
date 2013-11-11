@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A2093" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="PMViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XDO-lG-SYm"/>
+                        <viewControllerLayoutGuide type="bottom" id="4is-p5-Dk7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpJ-s2-hf3">
+                                <rect key="frame" x="20" y="137" width="280" height="411"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RlZ-6L-vAn">
+                                <rect key="frame" x="20" y="48" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldValueDidChange:" destination="vXZ-lx-hvc" eventType="editingChanged" id="cLz-b4-66Y"/>
+                                </connections>
+                            </textField>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pXV-GC-r2Q">
+                                <rect key="frame" x="273" y="53" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWO-zL-yFm">
+                                <rect key="frame" x="251" y="91" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use promises" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTb-LW-g6h">
+                                <rect key="frame" x="20" y="97" width="223" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RlZ-6L-vAn" firstAttribute="trailing" secondItem="vWO-zL-yFm" secondAttribute="trailing" id="72Q-aD-04N"/>
+                            <constraint firstItem="4is-p5-Dk7" firstAttribute="top" secondItem="jpJ-s2-hf3" secondAttribute="bottom" constant="20" id="7GH-ha-UDz"/>
+                            <constraint firstItem="rTb-LW-g6h" firstAttribute="centerY" secondItem="vWO-zL-yFm" secondAttribute="centerY" id="Bcj-6S-cZj"/>
+                            <constraint firstAttribute="trailing" secondItem="RlZ-6L-vAn" secondAttribute="trailing" constant="20" id="Q96-D1-mBL"/>
+                            <constraint firstItem="RlZ-6L-vAn" firstAttribute="top" secondItem="XDO-lG-SYm" secondAttribute="bottom" constant="28" id="YTz-KH-RSo"/>
+                            <constraint firstItem="jpJ-s2-hf3" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="a4y-k6-9KX"/>
+                            <constraint firstItem="RlZ-6L-vAn" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="eu3-Hy-DDr"/>
+                            <constraint firstItem="vWO-zL-yFm" firstAttribute="leading" secondItem="rTb-LW-g6h" secondAttribute="trailing" constant="8" id="jAK-iV-Vd7"/>
+                            <constraint firstItem="rTb-LW-g6h" firstAttribute="leading" secondItem="RlZ-6L-vAn" secondAttribute="leading" id="pNX-A3-lvL"/>
+                            <constraint firstAttribute="trailing" secondItem="jpJ-s2-hf3" secondAttribute="trailing" constant="20" id="tX5-yv-3sw"/>
+                            <constraint firstItem="vWO-zL-yFm" firstAttribute="top" secondItem="RlZ-6L-vAn" secondAttribute="bottom" constant="13" id="ygE-AY-N47"/>
+                            <constraint firstItem="jpJ-s2-hf3" firstAttribute="top" secondItem="vWO-zL-yFm" secondAttribute="bottom" constant="15" id="zrj-2q-GQO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="_activityIndicator" destination="pXV-GC-r2Q" id="unY-oU-4sh"/>
+                        <outlet property="_navitiaClient" destination="CMu-1e-gpy" id="ma0-8X-xfK"/>
+                        <outlet property="_queryTextField" destination="RlZ-6L-vAn" id="yge-7c-Vb4"/>
+                        <outlet property="_resultsTextView" destination="jpJ-s2-hf3" id="7HK-ew-Ia5"/>
+                        <outlet property="_usePromisesSwitch" destination="vWO-zL-yFm" id="zlc-9n-7Xe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <customObject id="CMu-1e-gpy" userLabel="Navitia Client" customClass="PMNavitiaClient"/>
+            </objects>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
