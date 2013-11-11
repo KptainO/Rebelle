@@ -11,8 +11,9 @@ build/
 *.perspectivev3
 !default.perspectivev3
 *.xcworkspace
-!default.xcworkspace
+!Rebelle.xcworkspace
 xcuserdata
+*.xccheckout
 profile
 *.moved-aside
 DerivedData
