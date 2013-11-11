@@ -16,10 +16,12 @@ NSString *const RBPromisePropertyState = @"state";
 NSString *const RBPromisePropertyResolved = @"resolved";
 
 @interface RBPromise ()
+// Public:
 @property(nonatomic, copy)RBThenableThen     then;
 @property(nonatomic, assign)RBPromiseState   state;
 
-@property(nonatomic, strong)id<NSObject>         result_;
+// Private:
+@property(nonatomic, strong)id<NSObject>     result_;
 
 @property(nonatomic, strong)NSMutableArray   *promises_;
 @property(nonatomic, copy)RBPromiseFulfilled onFulfilled_;
@@ -31,7 +33,8 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 
 @implementation RBPromise
 
-@synthesize result_ = result_;
+@synthesize result_     = result_;
+@synthesize executer_   = _executer;
 
 @dynamic resolved;
 
@@ -43,11 +46,6 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 
    self.promises_ = [NSMutableArray new];
    self.executer_ = [RBExecuter new];
-   
-   [self.executer_ addObserver:self forKeyPath:RBExecuterExecutedProperty
-                       options:0
-                       context:(__bridge void *)(RBExecuterExecutedProperty)];
-
 
    // Define "then" block which will be called each time user do promise.then()
    // It save defined blocks + associated generated promise
@@ -68,10 +66,6 @@ NSString *const RBPromisePropertyResolved = @"resolved";
    };
 
    return self;
-}
-
-- (void)dealloc {
-   [self.executer_ removeObserver:self forKeyPath:@"executed"];
 }
 
 - (void)resolve:(id)value {
@@ -161,6 +155,21 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 }
 
 #pragma mark - Private methods
+
+- (void)setExecuter_:(RBExecuter *)executer {
+   if (executer == _executer)
+      return;
+
+   [_executer removeObserver:self
+                  forKeyPath:RBExecuterExecutedProperty];
+
+   _executer = executer;
+
+   [_executer addObserver:self
+               forKeyPath:RBExecuterExecutedProperty
+                  options:0
+                  context:(__bridge void *)(RBExecuterExecutedProperty)];
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
    // Executer finished execution
