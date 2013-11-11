@@ -11,6 +11,7 @@
 		2188D6461819B713007BAB40 /* RBExecuter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C27B3817E65EBD008FB8E4 /* RBExecuter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2188D6471819B713007BAB40 /* RBPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BD17D7E5D5007DADC8 /* RBPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2188D6481819B713007BAB40 /* RBThenable.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BF17D7E5D5007DADC8 /* RBThenable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49171A7C1831941600681C12 /* Rebelle.h in Headers */ = {isa = PBXBuildFile; fileRef = 49171A7B1831941600681C12 /* Rebelle.h */; };
 		49C27B3A17E65EBD008FB8E4 /* RBExecuter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C27B3917E65EBD008FB8E4 /* RBExecuter.m */; };
 		49C510CB17DD2D8900648C5B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C510CA17DD2D8800648C5B /* SenTestingKit.framework */; };
 		49C510CC17DD2D8900648C5B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RebelleTests.xcconfig"; path = "Pods/Pods-RebelleTests.xcconfig"; sourceTree = SOURCE_ROOT; };
+		49171A7B1831941600681C12 /* Rebelle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rebelle.h; sourceTree = "<group>"; };
 		49C27B3817E65EBD008FB8E4 /* RBExecuter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBExecuter.h; sourceTree = "<group>"; };
 		49C27B3917E65EBD008FB8E4 /* RBExecuter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBExecuter.m; sourceTree = "<group>"; };
 		49C510C917DD2D8800648C5B /* RebelleTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RebelleTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +140,7 @@
 		49FE8ADD17B67C0C00678D26 /* Rebelle */ = {
 			isa = PBXGroup;
 			children = (
+				49171A7B1831941600681C12 /* Rebelle.h */,
 				49CD909617DFB64300E934AF /* RBErrorException.h */,
 				49CD909717DFB64300E934AF /* RBErrorException.m */,
 				49C27B3817E65EBD008FB8E4 /* RBExecuter.h */,
@@ -169,6 +172,7 @@
 				2188D6461819B713007BAB40 /* RBExecuter.h in Headers */,
 				2188D6471819B713007BAB40 /* RBPromise.h in Headers */,
 				2188D6481819B713007BAB40 /* RBThenable.h in Headers */,
+				49171A7C1831941600681C12 /* Rebelle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
