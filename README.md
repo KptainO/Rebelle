@@ -3,6 +3,10 @@ Rebelle
 
 Rebelle is an Objective-C implementation of Promises/A+ with a rebel syntax for an Objective-c project: the classical call syntax used in C, C++ and other languages and which allow you to chain your calls while still having your code readable.
 
+You can follow project changes [here](CHANGELOG.md) and/or coming features [here](ROADMAP.md)
+
+Any contribution is welcomed!
+
 ## What is a Rebelle promise
 > A promise represents the eventual result of an asynchronous operation. The primary way of interacting with a promise is through its `then` method, which registers callbacks to receive either a promise's eventual value or the reason why the promise cannot be fulfilled
 ([promises documentation](https://github.com/promises-aplus/promises-spec))
@@ -10,6 +14,8 @@ Rebelle is an Objective-C implementation of Promises/A+ with a rebel syntax for 
 That is, a promise allows you to execute actions (blocks) attached to it asynchronously.
 
 ## How to use it
+
+Rebelle comes with a sample project. You can check it to see how things work. Or you can read below explanations.
 
 ### Basic usage
 Creating a promise is quite simple:      
@@ -30,7 +36,7 @@ promise.then(^id(NSString *result) {
   return exception;
 });
     
-promise.resolve(@"hello world"); // Rebelle will automatically call your success or exception callbacks
+[promise.resolve:@"hello world"]; // Rebelle will automatically call your success or exception callbacks
 ```
 
 Now that you know how works a RBPromise, you can actually use it inside your code and return it so that any asynchronous code got executed once resolved.
