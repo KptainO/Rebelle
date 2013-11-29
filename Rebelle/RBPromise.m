@@ -11,23 +11,22 @@
 #import "RBErrorException.h"
 
 #import "RBExecuter.h"
+#import "RBAction.h"
 
 NSString *const RBPromisePropertyState = @"state";
 NSString *const RBPromisePropertyResolved = @"resolved";
 
 @interface RBPromise ()
 // Public:
-@property(nonatomic, copy)RBThenableThen     then;
+@property(nonatomic, copy)RBPromiseThenableThen  then;
 @property(nonatomic, assign)RBPromiseState   state;
 
 // Private:
 @property(nonatomic, strong)id<NSObject>     result_;
 
 @property(nonatomic, strong)NSMutableArray   *promises_;
-@property(nonatomic, copy)RBPromiseFulfilled onFulfilled_;
-@property(nonatomic, copy)RBPromiseRejected  onRejected_;
-
 @property(nonatomic, strong)RBExecuter       *executer_;
+@property(nonatomic, strong)RBAction         *action_;
 
 @end
 
@@ -35,6 +34,8 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 
 @synthesize result_     = result_;
 @synthesize executer_   = _executer;
+@synthesize onSuccess   = _onSuccess;
+@synthesize onCatch     = _onCatch;
 
 @dynamic resolved;
 
@@ -46,15 +47,16 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 
    self.promises_ = [NSMutableArray new];
    self.executer_ = [RBExecuter new];
+   self.action_ = [RBAction new];
 
    // Define "then" block which will be called each time user do promise.then()
    // It save defined blocks + associated generated promise
-   self.then = ^id<RBThenable>(RBPromiseFulfilled onFulfilled, RBPromiseRejected onRejected) {
+   self.then = ^RBPromise *(RBPromiseFulfilled onFulfilled, RBPromiseRejected onRejected) {
       RBPromise *promise = [RBPromise new];
 
-      promise.onFulfilled_ = onFulfilled;
-      promise.onRejected_ = onRejected;
-
+      promise.onSuccess(onFulfilled);
+      promise.onCatch(NSException.class, onRejected);
+      
       [this.promises_ addObject:promise];
 
       // If our current promise is already resolved, then launch our new promise resolution
@@ -99,6 +101,32 @@ NSString *const RBPromisePropertyResolved = @"resolved";
    [self cancel];
 }
 
+- (RBActionableOnSuccess)onSuccess {
+   __weak typeof(self) this = self;
+
+   if (!_onSuccess)
+      _onSuccess = ^(RBPromiseFulfilled fulfilled) {
+      this.action_.succeeded = fulfilled;
+
+      return this;
+   };
+
+   return _onSuccess;
+}
+
+- (RBActionableCatched)onCatch {
+   __weak typeof(self) this = self;
+
+   if (!_onCatch)
+      _onCatch = ^(Class exceptionCatchClass, RBPromiseRejected catchAction) {
+      [this.action_ setOnCatch:exceptionCatchClass do:catchAction];
+      
+      return this;
+   };
+
+   return _onCatch;
+}
+
 + (NSSet *)keyPathsForValuesAffectingResolved {
    return [NSSet setWithArray:@[@"state"]];
 }
@@ -119,9 +147,9 @@ NSString *const RBPromisePropertyResolved = @"resolved";
    _state = state;
 
    if (state == RBPromiseStateFulfilled)
-      [self.executer_ execute:self.onFulfilled_ withValue:self.result_];
+      [self.executer_ execute:self.action_.succeeded withValue:self.result_];
    else if (state == RBPromiseStateRejected)
-      [self.executer_ execute:self.onRejected_ withValue:self.result_];
+      [self.executer_ execute:self.action_.catched withValue:self.result_];
 }
 
 + (BOOL)automaticallyNotifiesObserversOfResult_ {

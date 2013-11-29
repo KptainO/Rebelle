@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 
 #import "RBThenable.h"
+#import "RBActionable.h"
+
+@class RBPromise;
+
+// This just re-declare RBThenable with a covariant return type
+typedef RBPromise *(^RBPromiseThenableThen)(RBPromiseFulfilled onFulfilled, RBPromiseRejected onRejected);
 
 extern NSString *const RBPromisePropertyResolved;
 
@@ -40,9 +46,9 @@ typedef enum {
  * For more information about how a promise work/what it does, check Promises/A+ documentation
  * https://github.com/promises-aplus/promises-spec
  */
-@interface RBPromise : NSObject<RBThenable>
+@interface RBPromise : NSObject<RBThenable, RBActionable>
 
-@property(nonatomic, copy, readonly)RBThenableThen then;
+@property(nonatomic, copy, readonly)RBPromiseThenableThen then;
 
 /// the promise state
 /// - Pending, resolve has not yet happened or nothing started inside it
@@ -55,7 +61,9 @@ typedef enum {
 /// Exposed as an attribute so that KVO can be done on it
 @property(nonatomic, assign, readonly, getter = isResolved)BOOL   resolved;
 
-- (void)resolve:(id)value;
+@property(nonatomic, copy, readonly)RBActionableOnSuccess   onSuccess;
+@property(nonatomic, copy, readonly)RBActionableCatched     onCatch;
+
 
 /**
  * @brief Abort all chained promises to current one

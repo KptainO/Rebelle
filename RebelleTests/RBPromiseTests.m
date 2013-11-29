@@ -10,6 +10,7 @@
 
 #import "RBPromise.h"
 #import "RBExecuter.h"
+#import "RBAction.h"
 
 SPEC_BEGIN(RBPromiseTests)
 
@@ -53,12 +54,15 @@ describe(@"test", ^ {
          // Stub current promise for test
          [promise stub:@selector(isResolved) andReturn:theValue(YES)];
          [[promiseExecuter should] receive:@selector(result) andReturn:@"Hello World"];
+         // Mock RBPromise object that will be created by then() call method
+         [[RBPromise should] receive:@selector(new) andReturn:x];
+
+         [[x should] receive:@selector(onSuccess) andReturn:^() { return nil; }];
+         [[x should] receive:@selector(onCatch) andReturn:^() { return nil; }];
 
          // Test expectations
          [[x should] receive:@selector(resolve:) withArguments:@"Hello World"];
 
-         // Mock RBPromise object that will be created by then() call method
-         [[RBPromise should] receive:@selector(new) andReturn:x];
          promise.then(fulfilled, nil);
       });
 
