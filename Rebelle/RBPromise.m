@@ -14,12 +14,13 @@
 #import "RBAction.h"
 
 NSString *const RBPromisePropertyState = @"state";
-NSString *const RBPromisePropertyResolved = @"resolved";
+NSString *const RBPromisePropertyResolved = @"resolveState";
 
 @interface RBPromise ()
 // Public:
 @property(nonatomic, copy)RBPromiseThenableThen  then;
 @property(nonatomic, assign)RBPromiseState   state;
+@property(nonatomic, assign)RBPromiseResolveState  resolveState;
 
 // Private:
 @property(nonatomic, strong)id<NSObject>     result_;
@@ -36,8 +37,6 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 @synthesize executer_   = _executer;
 @synthesize onSuccess   = _onSuccess;
 @synthesize onCatch     = _onCatch;
-
-@dynamic resolved;
 
 - (id)init {
    if (!(self = [super init]))
@@ -127,12 +126,8 @@ NSString *const RBPromisePropertyResolved = @"resolved";
    return _onCatch;
 }
 
-+ (NSSet *)keyPathsForValuesAffectingResolved {
-   return [NSSet setWithArray:@[@"state"]];
-}
-
 - (BOOL)isResolved {
-   return ![self isStatePending] && self.state != RBPromiseStateAborted && self.executer_.executed;
+   return self.resolveState == RBPromiseResolveStateResolved;
 }
 
 - (BOOL)isStatePending {
@@ -203,8 +198,7 @@ NSString *const RBPromisePropertyResolved = @"resolved";
    // Executer finished execution
    if (context == (__bridge void *)(RBExecuterExecutedProperty))
    {
-      [self willChangeValueForKey:RBPromisePropertyResolved];
-      [self didChangeValueForKey:RBPromisePropertyResolved];
+      self.resolveState = RBPromiseResolveStateResolved;
 
       for (RBPromise *promise in self.promises_)
          [promise resolve:self.executer_.result];

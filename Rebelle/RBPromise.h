@@ -25,6 +25,15 @@ typedef enum {
    RBPromiseStateAborted,
 } RBPromiseState;
 
+typedef enum RBPromiseResolveState : NSUInteger {
+   /// Promise is in configuration mode so any resolve call will not perform the resolve chaining
+   RBPromiseResolveStateConfiguring,
+   /// Promise is ready to do the resolve chaining
+   RBPromiseResolveStateReady,
+   /// Promise has been resolved. Which also mean it has a valid result value (and thus a valid state)
+   RBPromiseResolveStateResolved
+} RBPromiseResolveState;
+
 /**
  * Thenable promise
  * - Call "then" if you want to define actions to occur once promise has been resolved
@@ -50,16 +59,16 @@ typedef enum {
 
 @property(nonatomic, copy, readonly)RBPromiseThenableThen then;
 
-/// the promise state
+/// the promise (result) state
 /// - Pending, resolve has not yet happened or nothing started inside it
-/// - Fulfilled, promise was fulfilled, internal resolve process may still need to happen
-/// - Rejected, promise was fulfilled, internal resolve process may still need to happen
+/// - Fulfilled, promise was fulfilled, internal resolve process (resolveState) may still need to happen
+/// - Rejected, promise was fulfilled, internal resolve process (resolveState) may still need to happen
 @property(nonatomic, assign, readonly)RBPromiseState  state;
 
-/// Set to YES if promise is entirely completed, that is state is not longer pending
-/// and internal resolve process has been completed
+/// The overall promise resolution state which encompass the result state
 /// Exposed as an attribute so that KVO can be done on it
-@property(nonatomic, assign, readonly, getter = isResolved)BOOL   resolved;
+/// @see RBPromiseResolveState to have more information about each enum value
+@property(nonatomic, assign, readonly)RBPromiseResolveState resolveState;
 
 @property(nonatomic, copy, readonly)RBActionableOnSuccess   onSuccess;
 @property(nonatomic, copy, readonly)RBActionableCatched     onCatch;
