@@ -52,13 +52,14 @@ describe(@"test", ^ {
          RBPromiseFulfilled fulfilled = ^id(id result){ return nil; };
 
          // Stub current promise for test
-         [promise stub:@selector(isResolved) andReturn:theValue(YES)];
+         [promise stub:@selector(resolveState) andReturn:theValue(RBPromiseResolveStateResolved)];
          [[promiseExecuter should] receive:@selector(result) andReturn:@"Hello World"];
          // Mock RBPromise object that will be created by then() call method
          [[RBPromise should] receive:@selector(new) andReturn:x];
 
-         [[x should] receive:@selector(onSuccess) andReturn:^() { return nil; }];
-         [[x should] receive:@selector(onCatch) andReturn:^() { return nil; }];
+         [[x should] receive:@selector(onSuccess) andReturn:^() { return x; }];
+         [[x should] receive:@selector(onCatch) andReturn:^() { return x; }];
+         [[x should] receive:@selector(ready) andReturn:^() { return x; }];
 
          // Test expectations
          [[x should] receive:@selector(resolve:) withArguments:@"Hello World"];
@@ -104,6 +105,8 @@ describe(@"test", ^ {
       it(@"with RBPromise pending, then resolved", ^{
          RBPromise *promise2 = [RBPromise mock];
 
+         [promise stub:@selector(resolveState) andReturn:theValue(RBPromiseResolveStateReady)];
+
          [[promise2 stubAndReturn:theValue(NO)] isResolved];
          [promise resolve:promise2];
 
@@ -121,7 +124,9 @@ describe(@"test", ^ {
       it(@"with RBPromise already resolved", ^{
          RBPromise *promise2 = [RBPromise new];
 
-         [[promise2 should] receive:@selector(isResolved) andReturn:theValue(YES)];
+         [promise stub:@selector(resolveState) andReturn:theValue(RBPromiseResolveStateReady)];
+
+         [[promise2 should] receive:@selector(resolveState) andReturn:theValue(RBPromiseResolveStateResolved)];
          [[promise2 should] receive:NSSelectorFromString(@"result_") andReturn:@"Hello World"];
 
          [[promiseExecuter should] receive:@selector(execute:withValue:) withArguments:nil, @"Hello World"];
