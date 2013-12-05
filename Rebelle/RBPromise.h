@@ -27,7 +27,7 @@ typedef enum {
 
 typedef enum RBPromiseResolveState : NSUInteger {
    /// Promise is in configuration mode so any resolve call will not perform the resolve chaining
-   RBPromiseResolveStateConfiguring,
+   RBPromiseResolveStateNotReady,
    /// Promise is ready to do the resolve chaining
    RBPromiseResolveStateReady,
    /// Promise has been resolved. Which also mean it has a valid result value (and thus a valid state)
@@ -72,7 +72,7 @@ typedef enum RBPromiseResolveState : NSUInteger {
 
 @property(nonatomic, copy, readonly)RBActionableOnSuccess   onSuccess;
 @property(nonatomic, copy, readonly)RBActionableCatched     onCatch;
-
+@property(nonatomic, copy, readonly)RBActionableReady          ready;
 
 /**
  * @brief Abort all chained promises to current one

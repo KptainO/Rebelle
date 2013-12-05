@@ -37,6 +37,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 @synthesize executer_   = _executer;
 @synthesize onSuccess   = _onSuccess;
 @synthesize onCatch     = _onCatch;
+@synthesize ready       = _ready;
 
 - (id)init {
    if (!(self = [super init]))
@@ -53,8 +54,12 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
    self.then = ^RBPromise *(RBPromiseFulfilled onFulfilled, RBPromiseRejected onRejected) {
       RBPromise *promise = [RBPromise new];
 
-      promise.onSuccess(onFulfilled);
-      promise.onCatch(NSException.class, onRejected);
+      this.ready();
+
+      promise
+      .onSuccess(onFulfilled)
+      .onCatch(NSException.class, onRejected)
+      .ready();
       
       [this.promises_ addObject:promise];
 
@@ -126,6 +131,22 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
    return _onCatch;
 }
 
+- (RBActionableReady)ready {
+   __weak typeof(self) this = self;
+
+   if (!_ready)
+      _ready = ^{
+         if (this.resolveState >= RBPromiseResolveStateReady)
+            return this;
+
+         this.resolveState = RBPromiseResolveStateReady;
+
+         return this;
+      };
+
+   return _ready;
+}
+
 - (BOOL)isResolved {
    return self.resolveState == RBPromiseResolveStateResolved;
 }
@@ -140,6 +161,9 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
       return;
 
    _state = state;
+
+   if (self.resolveState == RBPromiseResolveStateNotReady)
+      return;
 
    if (state == RBPromiseStateFulfilled)
       [self.executer_ execute:self.action_.succeeded withValue:self.result_];
