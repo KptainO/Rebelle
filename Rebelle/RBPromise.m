@@ -8,9 +8,8 @@
 
 #import "RBPromise.h"
 
-#import "RBErrorException.h"
-
 #import "RBExecuter.h"
+#import "RBResolver.h"
 
 NSString *const RBPromisePropertyState = @"state";
 NSString *const RBPromisePropertyResolved = @"resolved";
@@ -21,20 +20,18 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 @property(nonatomic, assign)RBPromiseState   state;
 
 // Private:
-@property(nonatomic, strong)id<NSObject>     result_;
-
 @property(nonatomic, strong)NSMutableArray   *promises_;
 @property(nonatomic, copy)RBPromiseFulfilled onFulfilled_;
 @property(nonatomic, copy)RBPromiseRejected  onRejected_;
 
 @property(nonatomic, strong)RBExecuter       *executer_;
-
+@property(nonatomic, strong)RBResolver       *resolver_;
 @end
 
 @implementation RBPromise
 
-@synthesize result_     = result_;
 @synthesize executer_   = _executer;
+@synthesize resolver_   = _resolver;
 
 @dynamic resolved;
 
@@ -46,6 +43,7 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 
    self.promises_ = [NSMutableArray new];
    self.executer_ = [RBExecuter new];
+   self.resolver_ = [RBResolver new];
 
    // Define "then" block which will be called each time user do promise.then()
    // It save defined blocks + associated generated promise
@@ -69,21 +67,7 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 }
 
 - (void)resolve:(id)value {
-   if (value == self)
-      @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                     reason:@"promise can't be resolved with self as resolving value"
-                                   userInfo:nil];
-
-   // Avoid a non pending promise to transition to another state
-   // (https://github.com/promises-aplus/promises-spec#promise-states)
-   //
-   // Also avoid a pending promise waiting for its result to resolve (aka a promise) to run resolve
-   // once again
-   // https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure (2.1)
-   if (![self isStatePending] || self.result_)
-      return;
-
-   self.result_ = value;
+   [self.resolver_ resolve:value];
 }
 
 - (void)cancel {
@@ -104,11 +88,7 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 }
 
 - (BOOL)isResolved {
-   return ![self isStatePending] && self.state != RBPromiseStateAborted && self.executer_.executed;
-}
-
-- (BOOL)isStatePending {
-   return self.state == RBPromiseStatePending;
+   return self.state != RBPromiseStatePending && self.state != RBPromiseStateAborted && self.executer_.executed;
 }
 
 - (void)setState:(RBPromiseState)state {
@@ -119,39 +99,26 @@ NSString *const RBPromisePropertyResolved = @"resolved";
    _state = state;
 
    if (state == RBPromiseStateFulfilled)
-      [self.executer_ execute:self.onFulfilled_ withValue:self.result_];
+      [self.executer_ execute:self.onFulfilled_ withValue:self.resolver_.result];
    else if (state == RBPromiseStateRejected)
-      [self.executer_ execute:self.onRejected_ withValue:self.result_];
+      [self.executer_ execute:self.onRejected_ withValue:self.resolver_.result];
 }
 
-+ (BOOL)automaticallyNotifiesObserversOfResult_ {
-   return NO;
-}
+#pragma mark - Protected methods
 
-- (void)setResult_:(id<NSObject>)result {
+- (void)setResolver_:(RBResolver *)resolver {
+   if (resolver == _resolver)
+      return;
 
-   // Remove observer that may have been added previously on result_ (see above)
-   if ([result_ isKindOfClass:RBPromise.class])
-      [(RBPromise *)result_ removeObserver:self forKeyPath:RBPromisePropertyResolved];
+   [_resolver removeObserver:self
+                  forKeyPath:RBResolverPropertyState];
 
-   [self willChangeValueForKey:@"result_"];
-   result_ = [result isKindOfClass:NSError.class] ? [RBErrorException exceptionWithError:(NSError *)result message:nil] : result;
-   [self didChangeValueForKey:@"result_"];
+   _resolver = resolver;
 
-   // Don't do anything if it's a RBPromise, just observe
-   if ([result_ isKindOfClass:RBPromise.class])
-   {
-      [(RBPromise *)result_ addObserver:self
-                            forKeyPath:RBPromisePropertyResolved
-                               options:0
-                               context:(__bridge void *)(RBPromisePropertyResolved)];
-      // Manually trigger observing code (using NSKeyValueObservingOptionInitial is error prone in our case)
-      [self _observePromiseResolve:(RBPromise *)result];
-   }
-   else if ([result isKindOfClass:NSException.class])
-      self.state = RBPromiseStateRejected;
-   else
-      self.state = RBPromiseStateFulfilled;
+   [_resolver addObserver:self
+               forKeyPath:RBResolverPropertyState
+                  options:0
+                  context:(__bridge void *)(RBResolverPropertyState)];
 }
 
 #pragma mark - Private methods
@@ -183,17 +150,15 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 
       return;
    }
-   // else result_(aka a Promise) maybe changed state
-   else if (context == (__bridge void *)(RBPromisePropertyResolved))
-      [self _observePromiseResolve:object];
+   else if (context == (__bridge void *)(RBResolverPropertyState))
+      [self _observeResolverState];
 }
 
-- (void)_observePromiseResolve:(RBPromise *)promise {
-   // Promise not yet resolved
-   if (![promise isResolved])
-      return;
-
-   self.result_ = promise.result_;
+- (void)_observeResolverState {
+   if (self.resolver_.state == RBPromiseStateFulfilled)
+      self.state = RBPromiseStateFulfilled;
+   else if (self.resolver_.state == RBPromiseStateRejected)
+      self.state = RBPromiseStateRejected;
 }
 
 @end

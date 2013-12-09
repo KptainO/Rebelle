@@ -75,9 +75,6 @@ typedef enum {
  */
 - (void)abort;
 
-
-- (BOOL)isStatePending;
-
 @end
 
 /// Contain all selectors that are considered as protected
