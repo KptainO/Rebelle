@@ -10,18 +10,22 @@
 
 #import "RBPromise.h"
 #import "RBExecuter.h"
+#import "RBResolver.h"
 
 SPEC_BEGIN(RBPromiseTests)
 
 describe(@"test", ^ {
    __block RBPromise *promise;
    __block RBExecuter *promiseExecuter;
+   __block RBResolver *promiseResolver;
 
    beforeEach(^ {
       promise = [RBPromise new];
       promiseExecuter = [RBExecuter nullMock];
+      promiseResolver = [RBResolver nullMock];
 
-      [promise setValue:promiseExecuter forKey:@"executer_"];
+      [promise stub:@selector(executer_) andReturn:promiseExecuter];
+      [promise stub:@selector(resolver_) andReturn:promiseResolver];
    });
 
    afterEach(^{
@@ -51,14 +55,13 @@ describe(@"test", ^ {
          RBPromiseFulfilled fulfilled = ^id(id result){ return nil; };
 
          // Stub current promise for test
+         [RBPromise stub:@selector(new) andReturn:x];
          [promise stub:@selector(isResolved) andReturn:theValue(YES)];
-         [[promiseExecuter should] receive:@selector(result) andReturn:@"Hello World"];
 
          // Test expectations
+         [[promiseExecuter should] receive:@selector(result) andReturn:@"Hello World"];
          [[x should] receive:@selector(resolve:) withArguments:@"Hello World"];
 
-         // Mock RBPromise object that will be created by then() call method
-         [[RBPromise should] receive:@selector(new) andReturn:x];
          promise.then(fulfilled, nil);
       });
 
@@ -67,39 +70,42 @@ describe(@"test", ^ {
 
    describe(@"resolving", ^{
 
-      it(@"with RBPromise pending, then resolved", ^{
-         // @FIXME
-         // [[promiseExecuter should] receive:@selector(execute:withValue:) withArguments:nil, @"Hello Resolved"];
+      it(@"should call resolver", ^{
+         [[promiseResolver should] receive:@selector(resolve:) withArguments:@"Hello Promise"];
+
+         [promise resolve:@"Hello Promise"];
       });
-      
-      it(@"with RBPromise already resolved", ^{
-         // @FIXME
-         //[[promiseExecuter should] receive:@selector(execute:withValue:) withArguments:nil, @"Hello World"];
+
+      it (@"should call executer when resolver is fulfilled", ^{
+         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+         [promiseResolver stub:@selector(result) andReturn:@"Hello Promise"];
+
+         [[promiseExecuter should] receive:@selector(execute:withValue:) withArguments:nil,@"Hello Promise"];
+
+         [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:nil context:(__bridge void *)(RBResolverPropertyState)];
+      });
+
+      it(@"with RBPromise", ^{
+         RBPromise *x = [RBPromise mock];
+         RBResolver *resolver = [RBResolver mock];
+
+         [[x should] receive:@selector(resolver_) andReturn:resolver];
+         [[promiseResolver should] receive:@selector(resolve:) withArguments:resolver];
+
+         [promise resolve:x];
       });
 
       it(@"Chain calls when resolved", ^{
          RBPromise *x = promise.then(nil, nil);
-         RBExecuter *xExecuter = [RBExecuter mock];
 
-         [x setValue:xExecuter forKey:@"executer_"];
          [promiseExecuter stub:@selector(executed) andReturn:theValue(YES)];
-         // Manually notify about executer.executed value
-         // Required so that promise loop on sub promises
-         [promiseExecuter stub:@selector(execute:withValue:) withBlock:^id(NSArray *arguments) {
-            [promise observeValueForKeyPath:NSStringFromSelector(@selector(executed))
-                                   ofObject:promiseExecuter
-                                     change:nil
-                                    context:(__bridge void *)(RBExecuterExecutedProperty)];
 
-            return nil;
-         }];
-
-
-         [[promiseExecuter should] receive:@selector(execute:withValue:)];
          [[promiseExecuter should] receive:@selector(result) andReturn:@"Hello Executer"];
-         [[xExecuter should] receive:@selector(execute:withValue:) andReturn:nil withArguments:nil, @"Hello Executer"];
+         [[x should] receive:@selector(resolve:) withArguments:@"Hello Executer"];
 
-         [promise resolve:@"Hello World"];
+         // We're only testing part where executer finish executing
+         // We don't care about previous resoving phases (already tested inside other tests)
+         [promise observeValueForKeyPath:RBExecuterExecutedProperty ofObject:self change:nil context:(__bridge void *)(RBExecuterExecutedProperty)];
       });
    });
 });

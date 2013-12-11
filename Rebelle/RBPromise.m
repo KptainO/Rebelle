@@ -67,7 +67,12 @@ NSString *const RBPromisePropertyResolved = @"resolved";
 }
 
 - (void)resolve:(id)value {
-   [self.resolver_ resolve:value];
+   // If we're receiving a RBPromise object, then resolve will indeed happen with its internal resolver object
+   // (RBResolver should not be aware of the RBPromise Facade object)
+   if ([value isKindOfClass:RBPromise.class])
+      [self.resolver_ resolve:((RBPromise *)value).resolver_];
+   else
+      [self.resolver_ resolve:value];
 }
 
 - (void)cancel {

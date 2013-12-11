@@ -10,6 +10,9 @@
 
 #import "RBThenable.h"
 
+@class RBResolver;
+@class RBExecuter;
+
 extern NSString *const RBPromisePropertyResolved;
 
 typedef enum {
@@ -80,4 +83,8 @@ typedef enum {
 /// Contain all selectors that are considered as protected
 /// **MUST** not be used by others
 @interface RBPromise (Protected)
+
+- (RBResolver *)resolver_;
+- (RBExecuter *)executer_;
+
 @end
