@@ -1,0 +1,3 @@
+language: objective-c
+xcode_workspace: Rebelle.xcworkspace
+xcode_scheme: Rebelle
