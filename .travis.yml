@@ -1,6 +1,9 @@
 language: objective-c
 
+before_install: gem install cocoapods
+
 xcode_workspace: Rebelle.xcworkspace
 xcode_scheme: Rebelle
-
-before_install: gem install cocoapods
+xcode_sdk:
+  - iphonesimulator6.1
+  - iphonesimulator7.0
