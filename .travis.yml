@@ -1,3 +1,6 @@
 language: objective-c
+
 xcode_workspace: Rebelle.xcworkspace
 xcode_scheme: Rebelle
+
+before_install: gem install cocoapods
