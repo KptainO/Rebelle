@@ -3,7 +3,7 @@ language: objective-c
 before_install:
   - gem install cocoapods -v 0.28.0
   - brew update
-  - brew install xctool
+  - brew uninstall xctool && brew install xctool
 
 xcode_workspace: Rebelle.xcworkspace
 xcode_scheme: Rebelle
