@@ -22,6 +22,9 @@
 		49D5809F181DD0E4002F0A18 /* RBExecuterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */; };
 		49EC299517DD2E37008B4F8D /* libRebelle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AD817B67C0C00678D26 /* libRebelle.a */; };
 		49F055C017D7E884007DADC8 /* RBPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F055BE17D7E5D5007DADC8 /* RBPromise.m */; };
+		49FDB06A185B611A004B8664 /* RBResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 49FDB068185B611A004B8664 /* RBResolver.h */; };
+		49FDB06B185B611A004B8664 /* RBResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB069185B611A004B8664 /* RBResolver.m */; };
+		49FDB06D185B6122004B8664 /* RBResolverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB06C185B6122004B8664 /* RBResolverTests.m */; };
 		49FE8ADC17B67C0C00678D26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
 		D32161264C444F5B894F18A1 /* libPods-RebelleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBCAF481A6441588F45BD6C /* libPods-RebelleTests.a */; };
 /* End PBXBuildFile section */
@@ -53,6 +56,9 @@
 		49F055BD17D7E5D5007DADC8 /* RBPromise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBPromise.h; sourceTree = "<group>"; };
 		49F055BE17D7E5D5007DADC8 /* RBPromise.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBPromise.m; sourceTree = "<group>"; };
 		49F055BF17D7E5D5007DADC8 /* RBThenable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBThenable.h; sourceTree = "<group>"; };
+		49FDB068185B611A004B8664 /* RBResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBResolver.h; sourceTree = "<group>"; };
+		49FDB069185B611A004B8664 /* RBResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBResolver.m; sourceTree = "<group>"; };
+		49FDB06C185B6122004B8664 /* RBResolverTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBResolverTests.m; sourceTree = "<group>"; };
 		49FE8AD817B67C0C00678D26 /* libRebelle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRebelle.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49FE8ADB17B67C0C00678D26 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49FE8ADF17B67C0C00678D26 /* Rebelle-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rebelle-Prefix.pch"; sourceTree = "<group>"; };
@@ -88,6 +94,7 @@
 		49C510CE17DD2D8900648C5B /* RebelleTests */ = {
 			isa = PBXGroup;
 			children = (
+				49FDB06C185B6122004B8664 /* RBResolverTests.m */,
 				49C510DC17DD2D9900648C5B /* RBPromiseTests.m */,
 				49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */,
 				49C510CF17DD2D8900648C5B /* Supporting Files */,
@@ -140,6 +147,8 @@
 		49FE8ADD17B67C0C00678D26 /* Rebelle */ = {
 			isa = PBXGroup;
 			children = (
+				49FDB068185B611A004B8664 /* RBResolver.h */,
+				49FDB069185B611A004B8664 /* RBResolver.m */,
 				49171A7B1831941600681C12 /* Rebelle.h */,
 				49CD909617DFB64300E934AF /* RBErrorException.h */,
 				49CD909717DFB64300E934AF /* RBErrorException.m */,
@@ -172,6 +181,7 @@
 				2188D6461819B713007BAB40 /* RBExecuter.h in Headers */,
 				2188D6471819B713007BAB40 /* RBPromise.h in Headers */,
 				2188D6481819B713007BAB40 /* RBThenable.h in Headers */,
+				49FDB06A185B611A004B8664 /* RBResolver.h in Headers */,
 				49171A7C1831941600681C12 /* Rebelle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49FDB06D185B6122004B8664 /* RBResolverTests.m in Sources */,
 				49D5809F181DD0E4002F0A18 /* RBExecuterTests.m in Sources */,
 				49C510DD17DD2D9900648C5B /* RBPromiseTests.m in Sources */,
 			);
@@ -307,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49CD909817DFB64300E934AF /* RBErrorException.m in Sources */,
+				49FDB06B185B611A004B8664 /* RBResolver.m in Sources */,
 				49F055C017D7E884007DADC8 /* RBPromise.m in Sources */,
 				49C27B3A17E65EBD008FB8E4 /* RBExecuter.m in Sources */,
 			);
