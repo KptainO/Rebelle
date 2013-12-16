@@ -6,8 +6,11 @@ before_install:
   - brew uninstall xctool && brew install xctool
 
 xcode_workspace: Rebelle.xcworkspace
+xcode_scheme:    Rebelle
+xcode_sdk:       iphonesimulator
 
 matrix:
   include:
-    - { xcode_scheme: Rebelle, xcode_sdk: iphonesimulator }
-    - { xcode_scheme: Rebelle-OSX, xcode_sdk: macosx }
+    -
+      xcode_scheme: Rebelle-OSX
+      xcode_sdk:    macosx
