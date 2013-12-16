@@ -1,3 +1,10 @@
+
+## Development
+
+### Enhancements
+
+* Add OSX support - [#4](issues/4)
+
 ## 1.1.0
 
 #### Enhancements
