@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "49F7E93A185F053A00DF7818"
-               BuildableName = "RebelleTests-OSX.xctest"
+               BuildableName = "RebelleTests-OSX.octest"
                BlueprintName = "RebelleTests-OSX"
                ReferencedContainer = "container:Rebelle.xcodeproj">
             </BuildableReference>
