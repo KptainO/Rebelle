@@ -12,6 +12,8 @@
 
 typedef id<RBActionable>(^RBActionableCatched)(Class exceptionCatchClass, RBPromiseRejected catchAction);
 typedef id<RBActionable>(^RBActionableOnSuccess)(RBPromiseFulfilled onFulfilled);
+typedef id<RBActionable>(^RBActionableReady)(void);
+
 
 /**
  * Define a chainable API allowing user to define callback actions
@@ -34,5 +36,7 @@ typedef id<RBActionable>(^RBActionableOnSuccess)(RBPromiseFulfilled onFulfilled)
  * block execution
  */
 @property(nonatomic, copy, readonly)RBActionableCatched  onCatch;
+
+@property(nonatomic, copy, readonly)RBActionableReady ready;
 
 @end

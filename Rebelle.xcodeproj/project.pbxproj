@@ -11,6 +11,12 @@
 		2188D6461819B713007BAB40 /* RBExecuter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C27B3817E65EBD008FB8E4 /* RBExecuter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2188D6471819B713007BAB40 /* RBPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BD17D7E5D5007DADC8 /* RBPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2188D6481819B713007BAB40 /* RBThenable.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BF17D7E5D5007DADC8 /* RBThenable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4907ACAE185F101800351A8A /* Rebelle.h in Headers */ = {isa = PBXBuildFile; fileRef = 49171A7B1831941600681C12 /* Rebelle.h */; };
+		4907ACAF185F102900351A8A /* RBErrorException.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CD909617DFB64300E934AF /* RBErrorException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4907ACB0185F102900351A8A /* RBPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BD17D7E5D5007DADC8 /* RBPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4907ACB1185F102900351A8A /* RBThenable.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BF17D7E5D5007DADC8 /* RBThenable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4907ACB2185F103500351A8A /* RBResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 49FDB068185B611A004B8664 /* RBResolver.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4907ACB3185F103500351A8A /* RBExecuter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C27B3817E65EBD008FB8E4 /* RBExecuter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		49171A7C1831941600681C12 /* Rebelle.h in Headers */ = {isa = PBXBuildFile; fileRef = 49171A7B1831941600681C12 /* Rebelle.h */; };
 		49C27B3A17E65EBD008FB8E4 /* RBExecuter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C27B3917E65EBD008FB8E4 /* RBExecuter.m */; };
 		49C510CB17DD2D8900648C5B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C510CA17DD2D8800648C5B /* SenTestingKit.framework */; };
@@ -22,7 +28,22 @@
 		49D5809F181DD0E4002F0A18 /* RBExecuterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */; };
 		49EC299517DD2E37008B4F8D /* libRebelle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AD817B67C0C00678D26 /* libRebelle.a */; };
 		49F055C017D7E884007DADC8 /* RBPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F055BE17D7E5D5007DADC8 /* RBPromise.m */; };
+		49F7E92C185F053A00DF7818 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F7E92B185F053A00DF7818 /* Cocoa.framework */; };
+		49F7E93C185F053A00DF7818 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AE917B67C0C00678D26 /* XCTest.framework */; };
+		49F7E93D185F053A00DF7818 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F7E92B185F053A00DF7818 /* Cocoa.framework */; };
+		49F7E940185F053A00DF7818 /* libRebelle-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F7E92A185F053A00DF7818 /* libRebelle-OSX.a */; };
+		49F7E94F185F059200DF7818 /* RBResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB069185B611A004B8664 /* RBResolver.m */; };
+		49F7E950185F059200DF7818 /* RBErrorException.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CD909717DFB64300E934AF /* RBErrorException.m */; };
+		49F7E951185F059200DF7818 /* RBExecuter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C27B3917E65EBD008FB8E4 /* RBExecuter.m */; };
+		49F7E952185F059200DF7818 /* RBPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F055BE17D7E5D5007DADC8 /* RBPromise.m */; };
+		49F7E956185F0AD700DF7818 /* RBResolverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB06C185B6122004B8664 /* RBResolverTests.m */; };
+		49F7E957185F0B2A00DF7818 /* RBPromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C510DC17DD2D9900648C5B /* RBPromiseTests.m */; };
+		49F7E958185F0B2D00DF7818 /* RBExecuterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */; };
+		49FDB06A185B611A004B8664 /* RBResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 49FDB068185B611A004B8664 /* RBResolver.h */; };
+		49FDB06B185B611A004B8664 /* RBResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB069185B611A004B8664 /* RBResolver.m */; };
+		49FDB06D185B6122004B8664 /* RBResolverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB06C185B6122004B8664 /* RBResolverTests.m */; };
 		49FE8ADC17B67C0C00678D26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
+		854F837A057D405CABCF004F /* libPods-RebelleTests-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B94F1AAD0E4143BEAC55E5 /* libPods-RebelleTests-OSX.a */; };
 		D32161264C444F5B894F18A1 /* libPods-RebelleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBCAF481A6441588F45BD6C /* libPods-RebelleTests.a */; };
 /* End PBXBuildFile section */
 
@@ -34,10 +55,20 @@
 			remoteGlobalIDString = 49FE8AD717B67C0C00678D26;
 			remoteInfo = Rebelle;
 		};
+		49F7E93E185F053A00DF7818 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49FE8AD017B67C0C00678D26 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49F7E929185F053A00DF7818;
+			remoteInfo = "Rebelle-OSX";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13B94F1AAD0E4143BEAC55E5 /* libPods-RebelleTests-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RebelleTests-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C8B0A6460764364B9CB2359 /* Pods-RebelleTests-OSX.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RebelleTests-OSX.xcconfig"; path = "Pods/Pods-RebelleTests-OSX.xcconfig"; sourceTree = "<group>"; };
 		47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RebelleTests.xcconfig"; path = "Pods/Pods-RebelleTests.xcconfig"; sourceTree = SOURCE_ROOT; };
+		4907ACAD185F0F7800351A8A /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		49171A7B1831941600681C12 /* Rebelle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rebelle.h; sourceTree = "<group>"; };
 		49C27B3817E65EBD008FB8E4 /* RBExecuter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBExecuter.h; sourceTree = "<group>"; };
 		49C27B3917E65EBD008FB8E4 /* RBExecuter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBExecuter.m; sourceTree = "<group>"; };
@@ -53,6 +84,15 @@
 		49F055BD17D7E5D5007DADC8 /* RBPromise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBPromise.h; sourceTree = "<group>"; };
 		49F055BE17D7E5D5007DADC8 /* RBPromise.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBPromise.m; sourceTree = "<group>"; };
 		49F055BF17D7E5D5007DADC8 /* RBThenable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBThenable.h; sourceTree = "<group>"; };
+		49F7E92A185F053A00DF7818 /* libRebelle-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRebelle-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		49F7E92B185F053A00DF7818 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		49F7E92E185F053A00DF7818 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		49F7E92F185F053A00DF7818 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		49F7E930185F053A00DF7818 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		49F7E93B185F053A00DF7818 /* RebelleTests-OSX.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RebelleTests-OSX.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		49FDB068185B611A004B8664 /* RBResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBResolver.h; sourceTree = "<group>"; };
+		49FDB069185B611A004B8664 /* RBResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBResolver.m; sourceTree = "<group>"; };
+		49FDB06C185B6122004B8664 /* RBResolverTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBResolverTests.m; sourceTree = "<group>"; };
 		49FE8AD817B67C0C00678D26 /* libRebelle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRebelle.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49FE8ADB17B67C0C00678D26 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49FE8ADF17B67C0C00678D26 /* Rebelle-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rebelle-Prefix.pch"; sourceTree = "<group>"; };
@@ -74,6 +114,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49F7E927185F053A00DF7818 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49F7E92C185F053A00DF7818 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49F7E938185F053A00DF7818 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49F7E93D185F053A00DF7818 /* Cocoa.framework in Frameworks */,
+				49F7E93C185F053A00DF7818 /* XCTest.framework in Frameworks */,
+				49F7E940185F053A00DF7818 /* libRebelle-OSX.a in Frameworks */,
+				854F837A057D405CABCF004F /* libPods-RebelleTests-OSX.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		49FE8AD517B67C0C00678D26 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,9 +144,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4907ACAC185F0F7800351A8A /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				4907ACAD185F0F7800351A8A /* Common.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		49C510CE17DD2D8900648C5B /* RebelleTests */ = {
 			isa = PBXGroup;
 			children = (
+				49FDB06C185B6122004B8664 /* RBResolverTests.m */,
 				49C510DC17DD2D9900648C5B /* RBPromiseTests.m */,
 				49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */,
 				49C510CF17DD2D8900648C5B /* Supporting Files */,
@@ -105,14 +173,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		49F7E92D185F053A00DF7818 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49F7E92E185F053A00DF7818 /* Foundation.framework */,
+				49F7E92F185F053A00DF7818 /* CoreData.framework */,
+				49F7E930185F053A00DF7818 /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
 		49FE8ACF17B67C0C00678D26 = {
 			isa = PBXGroup;
 			children = (
+				4907ACAC185F0F7800351A8A /* Config */,
 				49FE8ADD17B67C0C00678D26 /* Rebelle */,
 				49C510CE17DD2D8900648C5B /* RebelleTests */,
 				49FE8ADA17B67C0C00678D26 /* Frameworks */,
 				49FE8AD917B67C0C00678D26 /* Products */,
 				47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */,
+				1C8B0A6460764364B9CB2359 /* Pods-RebelleTests-OSX.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,6 +201,8 @@
 			children = (
 				49FE8AD817B67C0C00678D26 /* libRebelle.a */,
 				49C510C917DD2D8800648C5B /* RebelleTests.octest */,
+				49F7E92A185F053A00DF7818 /* libRebelle-OSX.a */,
+				49F7E93B185F053A00DF7818 /* RebelleTests-OSX.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +215,9 @@
 				49FE8AEC17B67C0C00678D26 /* UIKit.framework */,
 				9EBCAF481A6441588F45BD6C /* libPods-RebelleTests.a */,
 				49C510CA17DD2D8800648C5B /* SenTestingKit.framework */,
+				49F7E92B185F053A00DF7818 /* Cocoa.framework */,
+				49F7E92D185F053A00DF7818 /* Other Frameworks */,
+				13B94F1AAD0E4143BEAC55E5 /* libPods-RebelleTests-OSX.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -140,6 +225,8 @@
 		49FE8ADD17B67C0C00678D26 /* Rebelle */ = {
 			isa = PBXGroup;
 			children = (
+				49FDB068185B611A004B8664 /* RBResolver.h */,
+				49FDB069185B611A004B8664 /* RBResolver.m */,
 				49171A7B1831941600681C12 /* Rebelle.h */,
 				49CD909617DFB64300E934AF /* RBErrorException.h */,
 				49CD909717DFB64300E934AF /* RBErrorException.m */,
@@ -172,7 +259,21 @@
 				2188D6461819B713007BAB40 /* RBExecuter.h in Headers */,
 				2188D6471819B713007BAB40 /* RBPromise.h in Headers */,
 				2188D6481819B713007BAB40 /* RBThenable.h in Headers */,
+				49FDB06A185B611A004B8664 /* RBResolver.h in Headers */,
 				49171A7C1831941600681C12 /* Rebelle.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49F7E928185F053A00DF7818 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4907ACAF185F102900351A8A /* RBErrorException.h in Headers */,
+				4907ACB0185F102900351A8A /* RBPromise.h in Headers */,
+				4907ACB1185F102900351A8A /* RBThenable.h in Headers */,
+				4907ACB3185F103500351A8A /* RBExecuter.h in Headers */,
+				4907ACB2185F103500351A8A /* RBResolver.h in Headers */,
+				4907ACAE185F101800351A8A /* Rebelle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +299,43 @@
 			productName = RebelleTests;
 			productReference = 49C510C917DD2D8800648C5B /* RebelleTests.octest */;
 			productType = "com.apple.product-type.bundle";
+		};
+		49F7E929185F053A00DF7818 /* Rebelle-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49F7E949185F053A00DF7818 /* Build configuration list for PBXNativeTarget "Rebelle-OSX" */;
+			buildPhases = (
+				49F7E926185F053A00DF7818 /* Sources */,
+				49F7E927185F053A00DF7818 /* Frameworks */,
+				49F7E928185F053A00DF7818 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Rebelle-OSX";
+			productName = "Rebelle-OSX";
+			productReference = 49F7E92A185F053A00DF7818 /* libRebelle-OSX.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		49F7E93A185F053A00DF7818 /* RebelleTests-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49F7E94C185F053A00DF7818 /* Build configuration list for PBXNativeTarget "RebelleTests-OSX" */;
+			buildPhases = (
+				A3035BA1831D49DB9E870587 /* Check Pods Manifest.lock */,
+				49F7E937185F053A00DF7818 /* Sources */,
+				49F7E938185F053A00DF7818 /* Frameworks */,
+				49F7E939185F053A00DF7818 /* Resources */,
+				0B63118F230A4CC586FB2E37 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49F7E93F185F053A00DF7818 /* PBXTargetDependency */,
+			);
+			name = "RebelleTests-OSX";
+			productName = "Rebelle-OSXTests";
+			productReference = 49F7E93B185F053A00DF7818 /* RebelleTests-OSX.octest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		49FE8AD717B67C0C00678D26 /* Rebelle */ = {
 			isa = PBXNativeTarget;
@@ -244,6 +382,8 @@
 			targets = (
 				49FE8AD717B67C0C00678D26 /* Rebelle */,
 				49C510C817DD2D8800648C5B /* RebelleTests */,
+				49F7E929185F053A00DF7818 /* Rebelle-OSX */,
+				49F7E93A185F053A00DF7818 /* RebelleTests-OSX */,
 			);
 		};
 /* End PBXProject section */
@@ -257,9 +397,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49F7E939185F053A00DF7818 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0B63118F230A4CC586FB2E37 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-RebelleTests-OSX-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		26BF60B5DE514E2EA17D4E2E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -290,6 +452,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-RebelleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A3035BA1831D49DB9E870587 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -297,8 +474,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49FDB06D185B6122004B8664 /* RBResolverTests.m in Sources */,
 				49D5809F181DD0E4002F0A18 /* RBExecuterTests.m in Sources */,
 				49C510DD17DD2D9900648C5B /* RBPromiseTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49F7E926185F053A00DF7818 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49F7E94F185F059200DF7818 /* RBResolver.m in Sources */,
+				49F7E950185F059200DF7818 /* RBErrorException.m in Sources */,
+				49F7E951185F059200DF7818 /* RBExecuter.m in Sources */,
+				49F7E952185F059200DF7818 /* RBPromise.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49F7E937185F053A00DF7818 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49F7E958185F0B2D00DF7818 /* RBExecuterTests.m in Sources */,
+				49F7E956185F0AD700DF7818 /* RBResolverTests.m in Sources */,
+				49F7E957185F0B2A00DF7818 /* RBPromiseTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49CD909817DFB64300E934AF /* RBErrorException.m in Sources */,
+				49FDB06B185B611A004B8664 /* RBResolver.m in Sources */,
 				49F055C017D7E884007DADC8 /* RBPromise.m in Sources */,
 				49C27B3A17E65EBD008FB8E4 /* RBExecuter.m in Sources */,
 			);
@@ -319,6 +519,11 @@
 			isa = PBXTargetDependency;
 			target = 49FE8AD717B67C0C00678D26 /* Rebelle */;
 			targetProxy = 49C510D717DD2D8900648C5B /* PBXContainerItemProxy */;
+		};
+		49F7E93F185F053A00DF7818 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49F7E929185F053A00DF7818 /* Rebelle-OSX */;
+			targetProxy = 49F7E93E185F053A00DF7818 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -372,8 +577,95 @@
 			};
 			name = Release;
 		};
+		49F7E94A185F053A00DF7818 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		49F7E94B185F053A00DF7818 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		49F7E94D185F053A00DF7818 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C8B0A6460764364B9CB2359 /* Pods-RebelleTests-OSX.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RebelleTests/RebelleTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "RebelleTests/RebelleTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		49F7E94E185F053A00DF7818 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C8B0A6460764364B9CB2359 /* Pods-RebelleTests-OSX.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RebelleTests/RebelleTests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "RebelleTests/RebelleTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		49FE8AF917B67C0C00678D26 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4907ACAD185F0F7800351A8A /* Common.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -411,6 +703,7 @@
 		};
 		49FE8AFA17B67C0C00678D26 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4907ACAD185F0F7800351A8A /* Common.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -473,6 +766,24 @@
 			buildConfigurations = (
 				49C510DA17DD2D8900648C5B /* Debug */,
 				49C510DB17DD2D8900648C5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49F7E949185F053A00DF7818 /* Build configuration list for PBXNativeTarget "Rebelle-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49F7E94A185F053A00DF7818 /* Debug */,
+				49F7E94B185F053A00DF7818 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49F7E94C185F053A00DF7818 /* Build configuration list for PBXNativeTarget "RebelleTests-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49F7E94D185F053A00DF7818 /* Debug */,
+				49F7E94E185F053A00DF7818 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

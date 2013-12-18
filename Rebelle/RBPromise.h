@@ -16,6 +16,9 @@
 // This just re-declare RBThenable with a covariant return type
 typedef RBPromise *(^RBPromiseThenableThen)(RBPromiseFulfilled onFulfilled, RBPromiseRejected onRejected);
 
+@class RBResolver;
+@class RBExecuter;
+
 extern NSString *const RBPromisePropertyResolved;
 
 typedef enum {
@@ -92,12 +95,13 @@ typedef enum RBPromiseResolveState : NSUInteger {
  */
 - (void)abort;
 
-
-- (BOOL)isStatePending;
-
 @end
 
 /// Contain all selectors that are considered as protected
 /// **MUST** not be used by others
 @interface RBPromise (Protected)
+
+- (RBResolver *)resolver_;
+- (RBExecuter *)executer_;
+
 @end
