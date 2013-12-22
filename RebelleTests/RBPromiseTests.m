@@ -68,8 +68,6 @@ describe(@"test", ^ {
 
          promise.then(fulfilled, nil);
       });
-
-
    });
 
    describe(@"resolving", ^{
@@ -84,12 +82,13 @@ describe(@"test", ^ {
          [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
          [promiseResolver stub:@selector(result) andReturn:@"Hello Promise"];
 
+         [[promiseExecuter should] receive:@selector(executed) andReturn:theValue(NO)];
          [[promiseExecuter should] receive:@selector(execute:withValue:) withArguments:nil,@"Hello Promise"];
 
-         [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:nil context:(__bridge void *)(RBResolverPropertyState)];
+         promise.ready();
       });
 
-      it(@"with RBPromise", ^{
+      it(@"should call RBPromise resolver", ^{
          RBPromise *x = [RBPromise mock];
          RBResolver *resolver = [RBResolver mock];
 

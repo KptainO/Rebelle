@@ -64,14 +64,11 @@ typedef enum RBPromiseResolveState : NSUInteger {
 
 /// the promise (result) state
 /// - Pending, resolve has not yet happened or nothing started inside it
-/// - Fulfilled, promise was fulfilled, internal resolve process (resolveState) may still need to happen
-/// - Rejected, promise was fulfilled, internal resolve process (resolveState) may still need to happen
+/// - Fulfilled, promise was fulfilled, but callbacks may not have happened yet
+/// - Rejected, promise was fulfilled, but callbacks may not have happened yet
 @property(nonatomic, assign, readonly)RBPromiseState  state;
 
-/// The overall promise resolution state which encompass the result state
-/// Exposed as an attribute so that KVO can be done on it
-/// @see RBPromiseResolveState to have more information about each enum value
-@property(nonatomic, assign, readonly)RBPromiseResolveState resolveState;
+@property(nonatomic, assign, readonly)BOOL isResolved;
 
 @property(nonatomic, copy, readonly)RBActionableOnSuccess   onSuccess;
 @property(nonatomic, copy, readonly)RBActionableCatched     onCatch;

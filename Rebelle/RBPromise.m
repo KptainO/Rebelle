@@ -17,9 +17,9 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
 @interface RBPromise ()
 // Public:
-@property(nonatomic, copy)RBPromiseThenableThen  then;
-@property(nonatomic, assign)RBPromiseState   state;
-@property(nonatomic, assign)RBPromiseResolveState  resolveState;
+@property(nonatomic, copy)RBPromiseThenableThen    then;
+@property(nonatomic, assign)RBPromiseState         state;
+@property(nonatomic, assign)BOOL                   isReady_;
 
 // Private:
 @property(nonatomic, strong)NSMutableArray   *promises_;
@@ -33,6 +33,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
 @synthesize executer_   = _executer;
 @synthesize resolver_   = _resolver;
+@synthesize isReady_    = _isReady;
 
 @synthesize onSuccess   = _onSuccess;
 @synthesize onCatch     = _onCatch;
@@ -128,10 +129,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
    if (!_ready)
       _ready = ^{
-         if (this.resolveState >= RBPromiseResolveStateReady)
-            return this;
-
-         this.resolveState = RBPromiseResolveStateReady;
+         this.isReady_ = YES;
 
          return this;
       };
@@ -140,7 +138,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 }
 
 - (BOOL)isResolved {
-   return self.state != RBPromiseStatePending && self.state != RBPromiseStateAborted && self.executer_.executed;
+   return self.executer_.executed;
 }
 
 - (void)setState:(RBPromiseState)state {
@@ -150,13 +148,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
    _state = state;
 
-   if (self.resolveState == RBPromiseResolveStateNotReady)
-      return;
-
-   if (state == RBPromiseStateFulfilled)
-      [self.executer_ execute:self.action_.succeeded withValue:self.resolver_.result];
-   else if (state == RBPromiseStateRejected)
-      [self.executer_ execute:self.action_.catched withValue:self.resolver_.result];
+   [self _executeIfNeeded];
 }
 
 #pragma mark - Protected methods
@@ -176,8 +168,6 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
                   context:(__bridge void *)(RBResolverPropertyState)];
 }
 
-#pragma mark - Private methods
-
 - (void)setExecuter_:(RBExecuter *)executer {
    if (executer == _executer)
       return;
@@ -193,11 +183,23 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
                   context:(__bridge void *)(RBExecuterExecutedProperty)];
 }
 
+#pragma mark - Private methods
+
+- (void)setIsReady_:(BOOL)isReady {
+   if (isReady == _isReady)
+      return;
+
+   _isReady = isReady;
+
+   [self _executeIfNeeded];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
    // Executer finished execution
    if (context == (__bridge void *)(RBExecuterExecutedProperty))
    {
-      self.resolveState = RBPromiseResolveStateResolved;
+      [self willChangeValueForKey:RBPromisePropertyResolved];
+      [self didChangeValueForKey:RBPromisePropertyResolved];
 
       for (RBPromise *promise in self.promises_)
          [promise resolve:self.executer_.result];
@@ -213,6 +215,19 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
       self.state = RBPromiseStateFulfilled;
    else if (self.resolver_.state == RBPromiseStateRejected)
       self.state = RBPromiseStateRejected;
+}
+
+- (void)_executeIfNeeded {
+   if (!self.isReady_)
+      return;
+
+   if (!self.executer_.executed)
+   {
+      if (self.resolver_.state == RBPromiseStateFulfilled)
+         [self.executer_ execute:self.action_.succeeded withValue:self.resolver_.result];
+      else if (self.resolver_.state == RBPromiseStateRejected)
+         [self.executer_ execute:self.action_.catched withValue:self.resolver_.result];
+   }
 }
 
 @end
