@@ -13,10 +13,10 @@
  */
 @interface RBActionSet : NSObject
 
-@property(nonatomic, copy)RBPromiseFulfilled      succeeded;
-@property(nonatomic, copy)RBPromiseRejected       catched;
+@property(nonatomic, copy)RBPromiseFulfilled                succeeded;
+@property(nonatomic, copy, readonly)RBPromiseRejected       catched;
 
-- (void)setOnCatch:(Class)exceptionCatchClass do:(RBPromiseRejected)action;
+- (void)setCatched:(Class)exceptionCatchClass do:(RBPromiseRejected)action;
 
 @end
 

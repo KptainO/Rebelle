@@ -113,7 +113,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
    if (!_onCatch)
       _onCatch = ^(Class exceptionCatchClass, RBPromiseRejected catchAction) {
-      [this.action_ setOnCatch:exceptionCatchClass do:catchAction];
+      [this.action_ setCatched:exceptionCatchClass do:catchAction];
       
       return this;
    };

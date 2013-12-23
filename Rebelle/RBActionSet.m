@@ -37,15 +37,18 @@
    _succeeded = succeeded;
 }
 
-- (void)setOnCatch:(Class)exceptionCatchClass do:(RBPromiseRejected)action {
+- (void)setCatched:(Class)exceptionCatchClass do:(RBPromiseRejected)action {
    if (!action)
       action = ^id(NSException *exception) { return nil; };
 
-      if (![self.exceptionCatchClasses_ containsObject:exceptionCatchClass])
-      {
-         [self.exceptionCatchClasses_ addObject:exceptionCatchClass];
-         [self.exceptionAction_ addObject:[action copy]];
-      }
+   if (!exceptionCatchClass)
+      exceptionCatchClass = NSNull.class;
+
+   if (![self.exceptionCatchClasses_ containsObject:exceptionCatchClass])
+   {
+      [self.exceptionCatchClasses_ addObject:exceptionCatchClass];
+      [self.exceptionAction_ addObject:[action copy]];
+   }
 }
 
 - (RBPromiseRejected)catched {
@@ -59,9 +62,13 @@
 #pragma mark - Protected methods
 
 - (RBPromiseRejected)_actionForException:(NSException *)exception {
+   Class exceptionClass;
+
    for (int i = 0; i < self.exceptionCatchClasses_.count; ++i)
    {
-      if ([exception isKindOfClass:self.exceptionCatchClasses_[i]])
+      exceptionClass = self.exceptionCatchClasses_[i];
+
+      if ([exception isKindOfClass:exceptionClass] || [[NSNull null] isKindOfClass:exceptionClass])
          return self.exceptionAction_[i];
    }
 
