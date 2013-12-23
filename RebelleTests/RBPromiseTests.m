@@ -33,7 +33,7 @@ describe(@"test", ^ {
       promise = nil;
    });
 
-   describe(@"then method", ^{
+   describe(@"next method", ^{
       it(@"simple call", ^{
          RBPromise *promise2 = promise.then(nil, nil);
 
@@ -50,23 +50,31 @@ describe(@"test", ^ {
          [[[promise3 valueForKey:@"promises_"] should] beEmpty];
       });
 
-      it(@"call callbacks when promise already resolved", ^{
+      it(@"call next resolve when current promise already resolved", ^{
          RBPromise *x = [RBPromise nullMock];
-         RBPromiseFulfilled fulfilled = ^id(id result){ return nil; };
 
          // Stub current promise for test
          [RBPromise stub:@selector(new) andReturn:x];
          [promise stub:@selector(isResolved) andReturn:theValue(YES)];
 
-         [x stub:@selector(onSuccess) andReturn:^{ return x; }];
-         [x stub:@selector(onCatch) andReturn:^{ return x; }];
-         [x stub:@selector(ready) andReturn:^{ return x; }];
-
          // Test expectations
          [[promiseExecuter should] receive:@selector(result) andReturn:@"Hello World"];
          [[x should] receive:@selector(resolve:) withArguments:@"Hello World"];
 
-         promise.then(fulfilled, nil);
+         promise.next();
+      });
+
+      it(@"next should mark current promise as ready", ^{
+         promise.next();
+
+         [[[promise valueForKey:@"isReady_"] should] equal:theValue(YES)];
+      });
+
+      it(@"then should define callbacks", ^{
+         RBPromiseFulfilled success = ^RBPromise *(id value){ return nil; };
+         RBPromiseRejected failure = ^NSException *(NSException *exception) { return nil; };
+
+         promise.then(success, failure);
       });
    });
 
@@ -109,6 +117,31 @@ describe(@"test", ^ {
          // We're only testing part where executer finish executing
          // We don't care about previous resoving phases (already tested inside other tests)
          [promise observeValueForKeyPath:RBExecuterExecutedProperty ofObject:self change:nil context:(__bridge void *)(RBExecuterExecutedProperty)];
+      });
+
+      it(@"with promise not ready()", ^{
+         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+
+         [[promiseExecuter shouldNot] receive:@selector(execute:withValue:)];
+
+         [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:Nil context:(__bridge void *)(RBResolverPropertyState)];
+      });
+
+      it(@"with promise ready() before", ^{
+         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+
+         [[promiseExecuter should] receive:@selector(execute:withValue:)];
+
+         promise.ready();
+      });
+
+      it(@"with promise ready() after", ^{
+         promise.ready();
+
+         [[promiseExecuter should] receive:@selector(execute:withValue:)];
+
+         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+         [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:Nil context:(__bridge void *)(RBResolverPropertyState)];
       });
    });
 });
