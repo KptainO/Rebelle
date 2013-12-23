@@ -6,15 +6,15 @@
 // file that was distributed with this source code
 //
 
-#import "RBAction.h"
+#import "RBActionSet.h"
 
 // Private API
-@interface RBAction ()
+@interface RBActionSet ()
 @property(nonatomic, strong)NSMutableArray *exceptionAction_;
 @property(nonatomic, strong)NSMutableArray *exceptionCatchClasses_;
 @end
 
-@implementation RBAction
+@implementation RBActionSet
 
 #pragma mark - Ctor/Dtor
 

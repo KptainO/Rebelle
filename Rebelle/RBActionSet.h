@@ -6,9 +6,12 @@
 // file that was distributed with this source code
 //
 
-#import "RBActionable.h"
+#import "RBHandler.h"
 
-@interface RBAction : NSObject
+/**
+ * Store a set of related actions
+ */
+@interface RBActionSet : NSObject
 
 @property(nonatomic, copy)RBPromiseFulfilled      succeeded;
 @property(nonatomic, copy)RBPromiseRejected       catched;
@@ -19,6 +22,6 @@
 
 // Contain all selectors that are considered as protected
 // **MUST** not be used by others
-@interface RBAction (Protected)
+@interface RBActionSet (Protected)
 - (RBPromiseRejected)_actionForException:(NSException *)exception;
 @end

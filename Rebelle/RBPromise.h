@@ -8,13 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RBThenable.h"
-#import "RBActionable.h"
+#import "RBHandler.h"
 
 @class RBPromise;
-
-// This just re-declare RBThenable with a covariant return type
-typedef RBPromise *(^RBPromiseThenableThen)(RBPromiseFulfilled onFulfilled, RBPromiseRejected onRejected);
 
 @class RBResolver;
 @class RBExecuter;
@@ -27,15 +23,6 @@ typedef enum {
    RBPromiseStateRejected,
    RBPromiseStateAborted,
 } RBPromiseState;
-
-typedef enum RBPromiseResolveState : NSUInteger {
-   /// Promise is in configuration mode so any resolve call will not perform the resolve chaining
-   RBPromiseResolveStateNotReady,
-   /// Promise is ready to do the resolve chaining
-   RBPromiseResolveStateReady,
-   /// Promise has been resolved. Which also mean it has a valid result value (and thus a valid state)
-   RBPromiseResolveStateResolved
-} RBPromiseResolveState;
 
 /**
  * Thenable promise
@@ -58,9 +45,9 @@ typedef enum RBPromiseResolveState : NSUInteger {
  * For more information about how a promise work/what it does, check Promises/A+ documentation
  * https://github.com/promises-aplus/promises-spec
  */
-@interface RBPromise : NSObject<RBThenable, RBActionable>
+@interface RBPromise : NSObject<RBHandler>
 
-@property(nonatomic, copy, readonly)RBPromiseThenableThen then;
+@property(nonatomic, copy, readonly)RBHandlerThen     then;
 
 /// the promise (result) state
 /// - Pending, resolve has not yet happened or nothing started inside it
@@ -70,9 +57,9 @@ typedef enum RBPromiseResolveState : NSUInteger {
 
 @property(nonatomic, assign, readonly)BOOL isResolved;
 
-@property(nonatomic, copy, readonly)RBActionableOnSuccess   onSuccess;
-@property(nonatomic, copy, readonly)RBActionableCatched     onCatch;
-@property(nonatomic, copy, readonly)RBActionableReady          ready;
+@property(nonatomic, copy, readonly)RBHandlerOnSuccess      onSuccess;
+@property(nonatomic, copy, readonly)RBHandlerCatched        onCatch;
+@property(nonatomic, copy, readonly)RBHandlerReady          ready;
 
 /**
  * @brief Abort all chained promises to current one
@@ -91,6 +78,8 @@ typedef enum RBPromiseResolveState : NSUInteger {
  *
  */
 - (void)abort;
+
+- (void)resolve:(id)value;
 
 @end
 

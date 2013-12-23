@@ -24,6 +24,4 @@ typedef id<RBThenable>(^RBThenableThen)(RBPromiseFulfilled onFulfilled, RBPromis
 
 @property(nonatomic, copy, readonly)RBThenableThen then;
 
-- (void)resolve:(id)value;
-
 @end

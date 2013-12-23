@@ -9,7 +9,7 @@
 #import "RBPromise.h"
 
 #import "RBExecuter.h"
-#import "RBAction.h"
+#import "RBActionSet.h"
 #import "RBResolver.h"
 
 NSString *const RBPromisePropertyState = @"state";
@@ -17,7 +17,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
 @interface RBPromise ()
 // Public:
-@property(nonatomic, copy)RBPromiseThenableThen    then;
+@property(nonatomic, copy)RBHandlerThen    then;
 @property(nonatomic, assign)RBPromiseState         state;
 @property(nonatomic, assign)BOOL                   isReady_;
 
@@ -26,7 +26,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 @property(nonatomic, strong)RBExecuter       *executer_;
 @property(nonatomic, strong)RBResolver       *resolver_;
 
-@property(nonatomic, strong)RBAction         *action_;
+@property(nonatomic, strong)RBActionSet         *action_;
 @end
 
 @implementation RBPromise
@@ -49,7 +49,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
    self.executer_ = [RBExecuter new];
    self.resolver_ = [RBResolver new];
 
-   self.action_ = [RBAction new];
+   self.action_ = [RBActionSet new];
 
    // Define "then" block which will be called each time user do promise.then()
    // It save defined blocks + associated generated promise
@@ -98,7 +98,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
    [self cancel];
 }
 
-- (RBActionableOnSuccess)onSuccess {
+- (RBHandlerOnSuccess)onSuccess {
    __weak typeof(self) this = self;
 
    if (!_onSuccess)
@@ -111,7 +111,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
    return _onSuccess;
 }
 
-- (RBActionableCatched)onCatch {
+- (RBHandlerCatched)onCatch {
    __weak typeof(self) this = self;
 
    if (!_onCatch)
@@ -124,7 +124,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
    return _onCatch;
 }
 
-- (RBActionableReady)ready {
+- (RBHandlerReady)ready {
    __weak typeof(self) this = self;
 
    if (!_ready)
