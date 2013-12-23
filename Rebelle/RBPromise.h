@@ -47,19 +47,22 @@ typedef enum {
  */
 @interface RBPromise : NSObject<RBHandler>
 
-@property(nonatomic, copy, readonly)RBHandlerThen     then;
+@property(nonatomic, copy, readonly)RBHandlerThen           then;
+
+@property(nonatomic, copy, readonly)RBHandlerOnSuccess      onSuccess;
+@property(nonatomic, copy, readonly)RBHandlerCatched        onCatch;
+@property(nonatomic, copy, readonly)RBHandlerReady          ready;
+@property(nonatomic, copy, readonly)RBHandlerNext           next;
 
 /// the promise (result) state
 /// - Pending, resolve has not yet happened or nothing started inside it
 /// - Fulfilled, promise was fulfilled, but callbacks may not have happened yet
 /// - Rejected, promise was fulfilled, but callbacks may not have happened yet
-@property(nonatomic, assign, readonly)RBPromiseState  state;
+@property(nonatomic, assign, readonly)RBPromiseState        state;
 
-@property(nonatomic, assign, readonly)BOOL isResolved;
+@property(nonatomic, assign, readonly)BOOL                  isResolved;
 
-@property(nonatomic, copy, readonly)RBHandlerOnSuccess      onSuccess;
-@property(nonatomic, copy, readonly)RBHandlerCatched        onCatch;
-@property(nonatomic, copy, readonly)RBHandlerReady          ready;
+
 
 /**
  * @brief Abort all chained promises to current one

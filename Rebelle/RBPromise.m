@@ -17,14 +17,14 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
 @interface RBPromise ()
 // Public:
-@property(nonatomic, copy)RBHandlerThen    then;
-@property(nonatomic, assign)RBPromiseState         state;
-@property(nonatomic, assign)BOOL                   isReady_;
+@property(nonatomic, assign)RBPromiseState      state;
 
 // Private:
-@property(nonatomic, strong)NSMutableArray   *promises_;
-@property(nonatomic, strong)RBExecuter       *executer_;
-@property(nonatomic, strong)RBResolver       *resolver_;
+@property(nonatomic, assign)BOOL                isReady_;
+
+@property(nonatomic, strong)NSMutableArray      *promises_;
+@property(nonatomic, strong)RBExecuter          *executer_;
+@property(nonatomic, strong)RBResolver          *resolver_;
 
 @property(nonatomic, strong)RBActionSet         *action_;
 @end
@@ -35,43 +35,21 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 @synthesize resolver_   = _resolver;
 @synthesize isReady_    = _isReady;
 
+@synthesize then        = _then;
 @synthesize onSuccess   = _onSuccess;
 @synthesize onCatch     = _onCatch;
 @synthesize ready       = _ready;
+@synthesize next        = _next;
 
 - (id)init {
    if (!(self = [super init]))
       return nil;
-
-   __block typeof(self) this = self;
 
    self.promises_ = [NSMutableArray new];
    self.executer_ = [RBExecuter new];
    self.resolver_ = [RBResolver new];
 
    self.action_ = [RBActionSet new];
-
-   // Define "then" block which will be called each time user do promise.then()
-   // It save defined blocks + associated generated promise
-   self.then = ^RBPromise *(RBPromiseFulfilled onFulfilled, RBPromiseRejected onRejected) {
-      RBPromise *promise = [RBPromise new];
-
-      this.ready();
-
-      promise
-      .onSuccess(onFulfilled)
-      .onCatch(NSException.class, onRejected)
-      .ready();
-      
-      [this.promises_ addObject:promise];
-
-      // If our current promise is already resolved, then launch our new promise resolution
-      // procedure (otherwise it won't never be called automatically)
-      if ([this isResolved])
-         [promise resolve:this.executer_.result];
-
-      return promise;
-   };
 
    return self;
 }
@@ -96,6 +74,25 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
    [self.executer_ cancel];
    [self cancel];
+}
+
+- (RBHandlerThen)then {
+   __weak typeof(self) this = self;
+
+   if (_then)
+      return _then;
+
+   // Define "then" block which will be called each time user do promise.then()
+   // It basically call next() + define success/failure callbacks
+   _then = ^(RBPromiseFulfilled onFulfilled, RBPromiseRejected onRejected) {
+
+      return this.next()
+      .onSuccess(onFulfilled)
+      .onCatch(NSException.class, onRejected)
+      .ready();
+   };
+
+   return _then;
 }
 
 - (RBHandlerOnSuccess)onSuccess {
@@ -135,6 +132,32 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
       };
 
    return _ready;
+}
+
+- (RBHandlerNext)next {
+   __weak typeof(self) this = self;
+
+   if (_next)
+      return _next;
+
+   _next = ^ {
+      RBPromise *promise = [RBPromise new];
+
+      // Mark current promise as ready
+      this.ready();
+
+      // Then add the new one as child and return it to user
+      [this.promises_ addObject:promise];
+
+      // If our current promise is already resolved, then launch our new promise resolution
+      // procedure (otherwise it won't never be called automatically)
+      if ([this isResolved])
+         [promise resolve:this.executer_.result];
+
+      return promise;
+   };
+
+   return _next;
 }
 
 - (BOOL)isResolved {

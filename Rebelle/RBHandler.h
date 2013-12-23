@@ -16,6 +16,7 @@ typedef id<RBHandler>(^RBHandlerThen)(RBPromiseFulfilled onFulfilled, RBPromiseR
 typedef id<RBHandler>(^RBHandlerCatched)(Class exceptionCatchClass, RBPromiseRejected catchAction);
 typedef id<RBHandler>(^RBHandlerOnSuccess)(RBPromiseFulfilled onFulfilled);
 typedef id<RBHandler>(^RBHandlerReady)(void);
+typedef id<RBHandler>(^RBHandlerNext)(void);
 
 /**
  * Define an API providing callback entry points
@@ -32,6 +33,10 @@ typedef id<RBHandler>(^RBHandlerReady)(void);
 /// Should mark the RBHandler object as ready to call callbacks if required
 /// Until this method is called no callbacks should be callable
 @property(nonatomic, copy, readonly)RBHandlerReady          ready;
+
+/// Should return a new RBHandler compatible object
+/// This method should also automatically mark current object as ready
+@property(nonatomic, copy, readonly)RBHandlerNext           next;
 
 /// Should represent a success block callback
 @property(nonatomic, copy, readonly)RBHandlerOnSuccess      onSuccess;
