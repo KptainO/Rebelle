@@ -50,7 +50,7 @@ describe(@"test", ^ {
          [[[promise3 valueForKey:@"promises_"] should] beEmpty];
       });
 
-      it(@"call next resolve when current promise already resolved", ^{
+      it(@"resolve next when current promise already resolved", ^{
          RBPromise *x = [RBPromise nullMock];
 
          // Stub current promise for test
@@ -73,8 +73,21 @@ describe(@"test", ^ {
       it(@"then should define callbacks", ^{
          RBPromiseFulfilled success = ^RBPromise *(id value){ return nil; };
          RBPromiseRejected failure = ^NSException *(NSException *exception) { return nil; };
+         RBPromise *x = [RBPromise mock];
+
+         [promise stub:@selector(next) andReturn:^{ return x; }];
+         [x stub:@selector(ready) andReturn:^{ return x; }];
+
+         [[x should] receive:@selector(onSuccess) andReturn:^{ return x; } withArguments:success];
+         [[x should] receive:@selector(onCatch) andReturn:^{ return x; } withArguments:NSException.class, failure];
 
          promise.then(success, failure);
+      });
+   });
+
+   describe(@"ready", ^{
+      it(@"auto after delay", ^{
+         [[expectFutureValue([promise valueForKey:@"isReady_"]) shouldEventuallyBeforeTimingOutAfter(1)] equal:theValue(YES)];
       });
    });
 

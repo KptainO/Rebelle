@@ -51,6 +51,10 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
    self.action_ = [RBActionSet new];
 
+   // To ensure callbacks are called in-time, promise must be marked as "ready"
+   // To ease programmer life who might forget to call ready(), we do it automatically after a short delay
+   [self performSelector:@selector(_autoReady) withObject:nil afterDelay:0.2];
+
    return self;
 }
 
@@ -251,6 +255,10 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
       else if (self.resolver_.state == RBPromiseStateRejected)
          [self.executer_ execute:self.action_.catched withValue:self.resolver_.result];
    }
+}
+
+- (void)_autoReady {
+   self.ready();
 }
 
 @end
