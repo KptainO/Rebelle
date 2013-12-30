@@ -58,6 +58,11 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
    return self;
 }
 
+- (void)dealloc {
+   self.resolver_ = nil;
+   self.executer_ = nil;
+}
+
 - (void)resolve:(id)value {
    // If we're receiving a RBPromise object, then resolve will indeed happen with its internal resolver object
    // (RBResolver should not be aware of the RBPromise Facade object)

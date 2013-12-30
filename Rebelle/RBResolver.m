@@ -22,6 +22,10 @@ NSString *const RBResolverPropertyState = @"state";
 
 #pragma mark - Ctor/Dtor
 
+- (void)dealloc {
+   self.result = nil;
+}
+
 #pragma mark - Public methods
 
 - (void)resolve:(id)value {
