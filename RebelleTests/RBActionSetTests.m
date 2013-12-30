@@ -24,6 +24,14 @@ describe(@"test", ^{
    });
 
    describe(@"catch", ^{
+      it(@"should return exception x when no catch defined", ^{
+         NSException *x = [NSException exceptionWithName:@"ExceptionX"
+                                                  reason:@""
+                                                userInfo:nil];
+
+         [[actionSet.catched(x) should] equal:x];
+      });
+
       it(@"should catch all when class is nil", ^{
          __block BOOL invoked = NO;
          RBPromiseRejected action = ^(NSException *exception) {

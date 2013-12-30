@@ -55,7 +55,7 @@
    return ^id(NSException *reason) {
       RBPromiseRejected rejected = [self _actionForException:reason];
 
-      return rejected(reason);
+      return rejected ? rejected(reason) : reason;
    };
 }
 
@@ -72,7 +72,7 @@
          return self.exceptionAction_[i];
    }
 
-   return ^id(NSException *reason) { return reason; };
+   return nil;
 }
 
 #pragma mark - Private methods
