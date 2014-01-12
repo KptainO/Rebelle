@@ -16,11 +16,11 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 /// Private API
 @interface RBExecuter ()
 @property(nonatomic, assign)BOOL    executed;
+@property(nonatomic, assign)BOOL    canceled;
 @property(nonatomic, strong)id      result;
 
 /// original thread where object was created to ensure callbacks are executed on the same one
 @property(nonatomic, weak)NSThread  *originalThread_;
-@property(nonatomic, assign)BOOL    canceled_;
 
 @property(nonatomic, strong)RBActionSet   *actionSet_;
 
@@ -68,7 +68,7 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
    if (self.executed)
       return;
 
-   self.canceled_ = YES;
+   self.canceled = YES;
 }
 
 #pragma mark - Protected methods
@@ -76,7 +76,7 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 
 #pragma mark - Private methods
 - (void)_execute:(RBResolver *)resolver {
-   if (self.executed || self.canceled_)
+   if (self.executed || self.canceled)
       return;
 
    if (resolver.state != RBResolverStateFulfilled && resolver.state != RBResolverStateRejected)

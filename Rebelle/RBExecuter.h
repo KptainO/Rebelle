@@ -26,6 +26,7 @@ typedef id(^ExecuteCallback)(id value);
 @interface RBExecuter : NSObject
 
 @property(nonatomic, assign, readonly)BOOL   executed;
+@property(nonatomic, assign, readonly)BOOL   canceled;
 @property(nonatomic, strong, readonly)id     result;
 
 + (instancetype)executerWithActionSet:(RBActionSet *)actionSet;

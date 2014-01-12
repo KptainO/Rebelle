@@ -91,6 +91,53 @@ describe(@"test", ^ {
       });
    });
 
+   describe(@"cancelation", ^{
+      it(@"cancel BEFORE resolved", ^{
+         // Just create sub promises
+         RBPromise *x1 = promise.next();
+         RBPromise *x2 = promise.next();
+
+         [[theValue(promise.state) shouldNot] equal:theValue(RBPromiseStateAborted)];
+         [[x1 should] receive:@selector(abort)];
+         [[x2 should] receive:@selector(abort)];
+
+         promise.ready();
+         [promise cancel];
+      });
+
+      it(@"abort (immediate stop) BEFORE resolved", ^{
+         [[promiseExecuter should] receive:@selector(cancel)];
+
+         promise.ready();
+         [promise abort];
+
+         [[theValue(promise.state) should] equal:theValue(RBPromiseStateAborted)];
+      });
+
+      it(@"abort AFTER resolved BEFORE executed", ^{
+         [promise stub:@selector(state) andReturn:theValue(RBPromiseStateFulfilled)];
+
+         [[promiseExecuter shouldNot] receive:@selector(cancel)];
+
+         promise.ready();
+         [promise abort];
+
+         [[theValue(promise.state) shouldNot] equal:theValue(RBPromiseStateAborted)];
+      });
+
+      it(@"abort AFTER executed", ^{
+         [promise stub:@selector(state) andReturn:theValue(RBPromiseStateFulfilled)];
+         [promiseExecuter stub:@selector(executed) andReturn:theValue(YES)];
+
+         [[promiseExecuter shouldNot] receive:@selector(cancel)];
+
+         promise.ready();
+         [promise abort];
+
+         [[theValue(promise.state) shouldNot] equal:theValue(RBPromiseStateAborted)];
+      });
+   });
+
    describe(@"resolving", ^{
 
       it(@"should call resolver", ^{

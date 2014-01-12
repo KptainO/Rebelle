@@ -80,7 +80,6 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 - (void)abort {
    self.state = RBPromiseStateAborted;
 
-   [self.executer_ cancel];
    [self cancel];
 }
 
@@ -253,7 +252,9 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
    if (!self.isReady_)
       return;
 
-   if (!self.executer_.executed)
+   if (self.state == RBPromiseStateAborted)
+      [self.executer_ cancel];
+   else if (!self.executer_.executed)
       [self.executer_ execute:self.resolver_];
 }
 
