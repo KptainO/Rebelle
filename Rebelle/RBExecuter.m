@@ -8,7 +8,8 @@
 
 #import "RBExecuter.h"
 
-#import "RBPromise.h"
+#import "RBResolver.h"
+#import "RBActionSet.h"
 
 NSString   *const RBExecuterExecutedProperty = @"executed";
 
@@ -21,16 +22,23 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 @property(nonatomic, weak)NSThread  *originalThread_;
 @property(nonatomic, assign)BOOL    canceled_;
 
+@property(nonatomic, strong)RBActionSet   *actionSet_;
+
 @end
 
 @implementation RBExecuter
 
 #pragma mark - Ctor/Dtor
 
-- (id)init {
++ (instancetype)executerWithActionSet:(RBActionSet *)actionSet {
+   return [[self alloc] initWithActionSet:actionSet];
+}
+
+- (instancetype)initWithActionSet:(RBActionSet *)actionSet {
   if (!(self = [super init]))
     return nil;
 
+   self.actionSet_ = actionSet;
    self.originalThread_ = [NSThread currentThread];
 
   return self;
@@ -38,24 +46,21 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 
 #pragma mark - Public methods
 
-- (void)execute:(ExecuteCallback)callback withValue:(id)value {
-   SEL selector = @selector(_execute:withValue:);
+- (void)execute:(RBResolver *)resolver {
+   SEL selector = @selector(_execute:);
    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
 
-   callback = [callback copy];
-
    invocation.selector = selector;
-   [invocation setArgument:&callback atIndex:2];
-   [invocation setArgument:&value atIndex:3];
+   [invocation setArgument:&resolver atIndex:2];
    [invocation retainArguments];
 
    // Execute method on originalThread no matter if it is current thread or not
    // Plus queue it at the end of the thread run loop
    [invocation performSelector:@selector(invokeWithTarget:)
-                onThread:self.originalThread_
-              withObject:self
-           waitUntilDone:NO];
+                      onThread:self.originalThread_
+                    withObject:self
+                 waitUntilDone:NO];
 }
 
 - (void)cancel {
@@ -70,12 +75,20 @@ NSString   *const RBExecuterExecutedProperty = @"executed";
 
 
 #pragma mark - Private methods
-- (void)_execute:(ExecuteCallback)callback withValue:(id)value {
+- (void)_execute:(RBResolver *)resolver {
    if (self.executed || self.canceled_)
       return;
 
+   if (resolver.state != RBResolverStateFulfilled && resolver.state != RBResolverStateRejected)
+      return;
+
    @try {
-      self.result = !callback ? value : callback(value);
+      if (resolver.state == RBResolverStateFulfilled)
+         self.result = self.actionSet_.succeeded(resolver.result);
+      else
+         self.result = self.actionSet_.catched(resolver.result);
+
+      // finally block
    }
    @catch (NSException *exception) {
       self.result = exception;

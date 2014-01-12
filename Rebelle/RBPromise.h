@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RBThenable.h"
+#import "RBHandler.h"
+
+@class RBPromise;
 
 @class RBResolver;
 @class RBExecuter;
@@ -43,22 +45,24 @@ typedef enum {
  * For more information about how a promise work/what it does, check Promises/A+ documentation
  * https://github.com/promises-aplus/promises-spec
  */
-@interface RBPromise : NSObject<RBThenable>
+@interface RBPromise : NSObject<RBHandler>
 
-@property(nonatomic, copy, readonly)RBThenableThen then;
+@property(nonatomic, copy, readonly)RBHandlerThen           then;
 
-/// the promise state
+@property(nonatomic, copy, readonly)RBHandlerOnSuccess      onSuccess;
+@property(nonatomic, copy, readonly)RBHandlerCatched        onCatch;
+@property(nonatomic, copy, readonly)RBHandlerReady          ready;
+@property(nonatomic, copy, readonly)RBHandlerNext           next;
+
+/// the promise (result) state
 /// - Pending, resolve has not yet happened or nothing started inside it
-/// - Fulfilled, promise was fulfilled, internal resolve process may still need to happen
-/// - Rejected, promise was fulfilled, internal resolve process may still need to happen
-@property(nonatomic, assign, readonly)RBPromiseState  state;
+/// - Fulfilled, promise was fulfilled, but callbacks may not have happened yet
+/// - Rejected, promise was fulfilled, but callbacks may not have happened yet
+@property(nonatomic, assign, readonly)RBPromiseState        state;
 
-/// Set to YES if promise is entirely completed, that is state is not longer pending
-/// and internal resolve process has been completed
-/// Exposed as an attribute so that KVO can be done on it
-@property(nonatomic, assign, readonly, getter = isResolved)BOOL   resolved;
+@property(nonatomic, assign, readonly)BOOL                  isResolved;
 
-- (void)resolve:(id)value;
+
 
 /**
  * @brief Abort all chained promises to current one
@@ -77,6 +81,8 @@ typedef enum {
  *
  */
 - (void)abort;
+
+- (void)resolve:(id)value;
 
 @end
 

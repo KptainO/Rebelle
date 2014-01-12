@@ -33,13 +33,13 @@ describe(@"test", ^ {
       promise = nil;
    });
 
-   describe(@"then method", ^{
+   describe(@"next method", ^{
       it(@"simple call", ^{
          RBPromise *promise2 = promise.then(nil, nil);
 
          [[promise2 should] beKindOfClass:RBPromise.class];
       });
-      
+
       it(@"chaining", ^{
          RBPromise *promise2 = promise.then(nil, nil);
          RBPromise *promise3 = promise2.then(nil, nil);
@@ -50,9 +50,8 @@ describe(@"test", ^ {
          [[[promise3 valueForKey:@"promises_"] should] beEmpty];
       });
 
-      it(@"call callbacks when promise already resolved", ^{
+      it(@"resolve next when current promise already resolved", ^{
          RBPromise *x = [RBPromise nullMock];
-         RBPromiseFulfilled fulfilled = ^id(id result){ return nil; };
 
          // Stub current promise for test
          [RBPromise stub:@selector(new) andReturn:x];
@@ -62,10 +61,34 @@ describe(@"test", ^ {
          [[promiseExecuter should] receive:@selector(result) andReturn:@"Hello World"];
          [[x should] receive:@selector(resolve:) withArguments:@"Hello World"];
 
-         promise.then(fulfilled, nil);
+         promise.next();
       });
 
+      it(@"next should mark current promise as ready", ^{
+         promise.next();
 
+         [[[promise valueForKey:@"isReady_"] should] equal:theValue(YES)];
+      });
+
+      it(@"then should define callbacks", ^{
+         RBPromiseFulfilled success = ^RBPromise *(id value){ return nil; };
+         RBPromiseRejected failure = ^NSException *(NSException *exception) { return nil; };
+         RBPromise *x = [RBPromise mock];
+
+         [promise stub:@selector(next) andReturn:^{ return x; }];
+         [x stub:@selector(ready) andReturn:^{ return x; }];
+
+         [[x should] receive:@selector(onSuccess) andReturn:^{ return x; } withArguments:success];
+         [[x should] receive:@selector(onCatch) andReturn:^{ return x; } withArguments:NSException.class, failure];
+
+         promise.then(success, failure);
+      });
+   });
+
+   describe(@"ready", ^{
+      it(@"auto after delay", ^{
+         [[expectFutureValue([promise valueForKey:@"isReady_"]) shouldEventuallyBeforeTimingOutAfter(1)] equal:theValue(YES)];
+      });
    });
 
    describe(@"resolving", ^{
@@ -80,12 +103,13 @@ describe(@"test", ^ {
          [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
          [promiseResolver stub:@selector(result) andReturn:@"Hello Promise"];
 
-         [[promiseExecuter should] receive:@selector(execute:withValue:) withArguments:nil,@"Hello Promise"];
+         [[promiseExecuter should] receive:@selector(executed) andReturn:theValue(NO)];
+         [[promiseExecuter should] receive:@selector(execute:) withArguments:promiseResolver];
 
-         [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:nil context:(__bridge void *)(RBResolverPropertyState)];
+         promise.ready();
       });
 
-      it(@"with RBPromise", ^{
+      it(@"should call RBPromise resolver", ^{
          RBPromise *x = [RBPromise mock];
          RBResolver *resolver = [RBResolver mock];
 
@@ -106,6 +130,31 @@ describe(@"test", ^ {
          // We're only testing part where executer finish executing
          // We don't care about previous resoving phases (already tested inside other tests)
          [promise observeValueForKeyPath:RBExecuterExecutedProperty ofObject:self change:nil context:(__bridge void *)(RBExecuterExecutedProperty)];
+      });
+
+      it(@"with promise not ready()", ^{
+         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+
+         [[promiseExecuter shouldNot] receive:@selector(execute:)];
+
+         [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:Nil context:(__bridge void *)(RBResolverPropertyState)];
+      });
+
+      it(@"with promise ready() before", ^{
+         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+
+         [[promiseExecuter should] receive:@selector(execute:)];
+
+         promise.ready();
+      });
+
+      it(@"with promise ready() after", ^{
+         promise.ready();
+
+         [[promiseExecuter should] receive:@selector(execute:)];
+
+         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+         [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:Nil context:(__bridge void *)(RBResolverPropertyState)];
       });
    });
 });
