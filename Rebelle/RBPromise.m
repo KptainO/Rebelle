@@ -46,10 +46,9 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
       return nil;
 
    self.promises_ = [NSMutableArray new];
-   self.executer_ = [RBExecuter new];
-   self.resolver_ = [RBResolver new];
-
    self.action_ = [RBActionSet new];
+   self.resolver_ = [RBResolver new];
+   self.executer_ = [RBExecuter executerWithActionSet:self.action_];
 
    // To ensure callbacks are called in-time, promise must be marked as "ready"
    // To ease programmer life who might forget to call ready(), we do it automatically after a short delay
@@ -135,6 +134,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
    if (!_ready)
       _ready = ^{
+         NSLog(@"Going ready!");
          this.isReady_ = YES;
 
          return this;
@@ -254,12 +254,7 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
       return;
 
    if (!self.executer_.executed)
-   {
-      if (self.resolver_.state == RBPromiseStateFulfilled)
-         [self.executer_ execute:self.action_.succeeded withValue:self.resolver_.result];
-      else if (self.resolver_.state == RBPromiseStateRejected)
-         [self.executer_ execute:self.action_.catched withValue:self.resolver_.result];
-   }
+      [self.executer_ execute:self.resolver_];
 }
 
 - (void)_autoReady {

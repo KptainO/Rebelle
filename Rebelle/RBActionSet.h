@@ -10,10 +10,21 @@
 
 /**
  * Store a set of related actions
+ * It *NEVER* return a nil block but always a wrapper one if no one was defined by user
  */
 @interface RBActionSet : NSObject
 
+/**
+ * Define success action
+ * When calling getter, if no block is defined it return one returning passed argument
+ */
 @property(nonatomic, copy)RBPromiseFulfilled                succeeded;
+
+/**
+ * When called if no block is defined OR none is found for passed exception, then the exception
+ * is returned into a wrapped block
+ * Use ::setCatched:do: to set one or more catch/exception blocks
+ */
 @property(nonatomic, copy, readonly)RBPromiseRejected       catched;
 
 - (void)setCatched:(Class)exceptionCatchClass do:(RBPromiseRejected)action;

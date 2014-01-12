@@ -16,6 +16,9 @@
 
 @implementation RBActionSet
 
+@synthesize succeeded   = _succeeded;
+@dynamic catched;
+
 #pragma mark - Ctor/Dtor
 
 - (id)init {
@@ -35,6 +38,13 @@
       return;
 
    _succeeded = succeeded;
+}
+
+- (RBPromiseFulfilled)succeeded {
+   if (_succeeded)
+      return _succeeded;
+
+   return [^id(id value) { return value; } copy];
 }
 
 - (void)setCatched:(Class)exceptionCatchClass do:(RBPromiseRejected)action {

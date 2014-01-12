@@ -104,7 +104,7 @@ describe(@"test", ^ {
          [promiseResolver stub:@selector(result) andReturn:@"Hello Promise"];
 
          [[promiseExecuter should] receive:@selector(executed) andReturn:theValue(NO)];
-         [[promiseExecuter should] receive:@selector(execute:withValue:) withArguments:nil,@"Hello Promise"];
+         [[promiseExecuter should] receive:@selector(execute:) withArguments:promiseResolver];
 
          promise.ready();
       });
@@ -135,7 +135,7 @@ describe(@"test", ^ {
       it(@"with promise not ready()", ^{
          [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
 
-         [[promiseExecuter shouldNot] receive:@selector(execute:withValue:)];
+         [[promiseExecuter shouldNot] receive:@selector(execute:)];
 
          [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:Nil context:(__bridge void *)(RBResolverPropertyState)];
       });
@@ -143,7 +143,7 @@ describe(@"test", ^ {
       it(@"with promise ready() before", ^{
          [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
 
-         [[promiseExecuter should] receive:@selector(execute:withValue:)];
+         [[promiseExecuter should] receive:@selector(execute:)];
 
          promise.ready();
       });
@@ -151,7 +151,7 @@ describe(@"test", ^ {
       it(@"with promise ready() after", ^{
          promise.ready();
 
-         [[promiseExecuter should] receive:@selector(execute:withValue:)];
+         [[promiseExecuter should] receive:@selector(execute:)];
 
          [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
          [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:Nil context:(__bridge void *)(RBResolverPropertyState)];

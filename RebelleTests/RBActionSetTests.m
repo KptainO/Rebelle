@@ -23,6 +23,14 @@ describe(@"test", ^{
       actionSet = [RBActionSet new];
    });
 
+   describe(@"success", ^{
+      it(@"should return argument when NIL", ^{
+         NSString *result = @"Hello World";
+
+         [[actionSet.succeeded(result) should] equal:result];
+      });
+   });
+
    describe(@"catch", ^{
       it(@"should return exception x when no catch defined", ^{
          NSException *x = [NSException exceptionWithName:@"ExceptionX"

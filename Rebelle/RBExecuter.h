@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class RBActionSet;
+@class RBResolver;
+
 #import "RBThenable.h"
 
 extern NSString   *const RBExecuterExecutedProperty;
@@ -25,7 +28,13 @@ typedef id(^ExecuteCallback)(id value);
 @property(nonatomic, assign, readonly)BOOL   executed;
 @property(nonatomic, strong, readonly)id     result;
 
-- (void)execute:(ExecuteCallback)callback withValue:(id)value;
++ (instancetype)executerWithActionSet:(RBActionSet *)actionSet;
+- (instancetype)initWithActionSet:(RBActionSet *)actionSet;
+
++ (id)new UNAVAILABLE_ATTRIBUTE;
+- (id)init UNAVAILABLE_ATTRIBUTE;
+
+- (void)execute:(RBResolver *)resolver;
 
 - (void)cancel;
 
@@ -35,5 +44,5 @@ typedef id(^ExecuteCallback)(id value);
 /// Contain all selectors that are considered as protected
 /// **MUST** not be used by others
 @interface RBExecuter (Protected)
-- (void)_execute:(ExecuteCallback)callback withValue:(id)value;
+- (void)_execute:(RBResolver *)resolver;
 @end
