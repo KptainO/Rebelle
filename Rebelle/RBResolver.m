@@ -74,7 +74,7 @@ NSString *const RBResolverPropertyState = @"state";
       // Manually trigger observing code (using NSKeyValueObservingOptionInitial is error prone in our case)
       [self _observeResolver:(RBResolver *)result];
    }
-   else if ([result isKindOfClass:NSException.class])
+   else if ([_result isKindOfClass:NSException.class])
       self.state = RBResolverStateRejected;
    else
       self.state = RBResolverStateFulfilled;

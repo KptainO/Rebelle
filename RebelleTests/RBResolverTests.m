@@ -32,6 +32,12 @@ describe(@"test", ^{
          [[theValue(resolver.state) should] equal:theValue(RBResolverStateRejected)];
       });
 
+      it(@"simple REJECTED with NSError", ^{
+         [resolver resolve:[NSError nullMock]];
+
+         [[theValue(resolver.state) should] equal:theValue(RBResolverStateRejected)];
+      });
+
       it(@"only once even if called x times", ^{
          [resolver resolve:@"OK"];
          [resolver resolve:[NSException exceptionWithName:@"" reason:nil userInfo:nil]];
