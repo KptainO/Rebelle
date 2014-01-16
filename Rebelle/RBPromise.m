@@ -15,6 +15,11 @@
 NSString *const RBPromisePropertyState = @"state";
 NSString *const RBPromisePropertyResolved = @"resolveState";
 
+/**
+ * Keep alive promises while executing their RBExecuter content
+ */
+static NSMutableSet *asyncExecuterPromisesTasks = nil;
+
 @interface RBPromise ()
 // Public:
 @property(nonatomic, assign)RBPromiseState      state;
@@ -133,7 +138,6 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
    if (!_ready)
       _ready = ^{
-         NSLog(@"Going ready!");
          this.isReady_ = YES;
 
          return this;
@@ -205,6 +209,8 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
    [_executer removeObserver:self
                   forKeyPath:RBExecuterExecutedProperty];
+   [_executer removeObserver:self
+                  forKeyPath:RBExecuterCanceledProperty];
 
    _executer = executer;
 
@@ -212,6 +218,10 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
                forKeyPath:RBExecuterExecutedProperty
                   options:0
                   context:(__bridge void *)(RBExecuterExecutedProperty)];
+   [_executer addObserver:self
+               forKeyPath:RBExecuterCanceledProperty
+                  options:0
+                  context:(__bridge void *)(RBExecuterCanceledProperty)];
 }
 
 #pragma mark - Private methods
@@ -226,6 +236,10 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+   if (context == (__bridge void *)(RBExecuterCanceledProperty))
+   {
+      [self _removeAsyncExecuteTask];
+   }
    // Executer finished execution
    if (context == (__bridge void *)(RBExecuterExecutedProperty))
    {
@@ -234,6 +248,8 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 
       for (RBPromise *promise in self.promises_)
          [promise resolve:self.executer_.result];
+
+      [self _removeAsyncExecuteTask];
 
       return;
    }
@@ -249,17 +265,30 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 }
 
 - (void)_executeIfNeeded {
-   if (!self.isReady_)
+   if (!self.isReady_ || self.state == RBPromiseStatePending)
       return;
 
+   [self _addAsyncExecuteTask];
+
    if (self.state == RBPromiseStateAborted)
-      [self.executer_ cancel];
-   else if (!self.executer_.executed)
-      [self.executer_ execute:self.resolver_];
+      return [self.executer_ cancel];
+
+   [self.executer_ execute:self.resolver_];
 }
 
 - (void)_autoReady {
    self.ready();
+}
+
+- (void)_addAsyncExecuteTask {
+   if (!asyncExecuterPromisesTasks)
+      asyncExecuterPromisesTasks = [NSMutableSet new];
+
+   [asyncExecuterPromisesTasks addObject:self];
+}
+
+- (void)_removeAsyncExecuteTask {
+   [asyncExecuterPromisesTasks removeObject:self];
 }
 
 @end

@@ -14,6 +14,7 @@
 #import "RBThenable.h"
 
 extern NSString   *const RBExecuterExecutedProperty;
+extern NSString   *const RBExecuterCanceledProperty;
 
 typedef id(^ExecuteCallback)(id value);
 

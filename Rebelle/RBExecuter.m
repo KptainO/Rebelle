@@ -12,6 +12,7 @@
 #import "RBActionSet.h"
 
 NSString   *const RBExecuterExecutedProperty = @"executed";
+NSString   *const RBExecuterCanceledProperty = @"canceled";
 
 /// Private API
 @interface RBExecuter ()

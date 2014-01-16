@@ -147,10 +147,9 @@ describe(@"test", ^ {
       });
 
       it (@"should call executer when resolver is fulfilled", ^{
-         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+         [promise stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
          [promiseResolver stub:@selector(result) andReturn:@"Hello Promise"];
 
-         [[promiseExecuter should] receive:@selector(executed) andReturn:theValue(NO)];
          [[promiseExecuter should] receive:@selector(execute:) withArguments:promiseResolver];
 
          promise.ready();
@@ -188,7 +187,7 @@ describe(@"test", ^ {
       });
 
       it(@"with promise ready() before", ^{
-         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+         [promise stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
 
          [[promiseExecuter should] receive:@selector(execute:)];
 
