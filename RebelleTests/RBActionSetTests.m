@@ -109,6 +109,14 @@ describe(@"test", ^{
 
          [[theValue(invoked) should] beFalse];
       });
+
+      it(@"should return exception when block is NIL", ^{
+         NSException *e = [NSException mock];
+
+         [actionSet setCatched:NSException.class do:nil];
+
+         [[actionSet.catched(e) should] equal:e];
+      });
    });
 });
 

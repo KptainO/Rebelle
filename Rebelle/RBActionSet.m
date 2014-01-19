@@ -49,7 +49,7 @@
 
 - (void)setCatched:(Class)exceptionCatchClass do:(RBPromiseRejected)action {
    if (!action)
-      action = ^id(NSException *exception) { return nil; };
+      action = ^id(NSException *exception) { return exception; };
 
    if (!exceptionCatchClass)
       exceptionCatchClass = NSNull.class;
