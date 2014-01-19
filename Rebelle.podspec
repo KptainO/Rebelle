@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name                  = "Rebelle"
-  s.version               = "1.1.0"
+  s.version               = "1.2.0"
   s.source                = { :git => "https://github.com/KptainO/Rebelle.git", :tag => s.version.to_s }
 
   s.summary	          = "Objective-C implementation of Promises/A+ with a nice chainable syntax!"
