@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RBHandler.h"
+#import "RBThenablePlus.h"
 
 @class RBPromise;
 
@@ -45,14 +45,14 @@ typedef enum {
  * For more information about how a promise work/what it does, check Promises/A+ documentation
  * https://github.com/promises-aplus/promises-spec
  */
-@interface RBPromise : NSObject<RBHandler>
+@interface RBPromise : NSObject<RBThenablePlus>
 
-@property(nonatomic, copy, readonly)RBHandlerThen           then;
+@property(nonatomic, copy, readonly)RBThenablePlusThen           then;
 
-@property(nonatomic, copy, readonly)RBHandlerOnSuccess      onSuccess;
-@property(nonatomic, copy, readonly)RBHandlerCatched        onCatch;
-@property(nonatomic, copy, readonly)RBHandlerReady          ready;
-@property(nonatomic, copy, readonly)RBHandlerNext           next;
+@property(nonatomic, copy, readonly)RBThenablePlusOnSuccess      onSuccess;
+@property(nonatomic, copy, readonly)RBThenablePlusCatched        onCatch;
+@property(nonatomic, copy, readonly)RBThenablePlusReady          ready;
+@property(nonatomic, copy, readonly)RBThenablePlusNext           next;
 
 /// the promise (result) state
 /// - Pending, resolve has not yet happened or nothing started inside it

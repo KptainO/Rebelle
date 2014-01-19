@@ -88,7 +88,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
    [self cancel];
 }
 
-- (RBHandlerThen)then {
+- (RBThenablePlusThen)then {
    __weak typeof(self) this = self;
 
    if (_then)
@@ -107,7 +107,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
    return _then;
 }
 
-- (RBHandlerOnSuccess)onSuccess {
+- (RBThenablePlusOnSuccess)onSuccess {
    __weak typeof(self) this = self;
 
    if (!_onSuccess)
@@ -120,7 +120,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
    return _onSuccess;
 }
 
-- (RBHandlerCatched)onCatch {
+- (RBThenablePlusCatched)onCatch {
    __weak typeof(self) this = self;
 
    if (!_onCatch)
@@ -133,7 +133,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
    return _onCatch;
 }
 
-- (RBHandlerReady)ready {
+- (RBThenablePlusReady)ready {
    __weak typeof(self) this = self;
 
    if (!_ready)
@@ -146,7 +146,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
    return _ready;
 }
 
-- (RBHandlerNext)next {
+- (RBThenablePlusNext)next {
    __weak typeof(self) this = self;
 
    if (_next)

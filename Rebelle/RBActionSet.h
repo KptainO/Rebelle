@@ -6,7 +6,7 @@
 // file that was distributed with this source code
 //
 
-#import "RBHandler.h"
+#import "RBThenablePlus.h"
 
 /**
  * Store a set of related actions

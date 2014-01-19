@@ -14,7 +14,7 @@
 
 #import <objc/runtime.h>
 
-SPEC_BEGIN(RBHandlerTests)
+SPEC_BEGIN(RBActionSetTests)
 
 describe(@"test", ^{
    __block RBActionSet *actionSet = nil;
