@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		2188D6451819B712007BAB40 /* RBErrorException.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CD909617DFB64300E934AF /* RBErrorException.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2188D6461819B713007BAB40 /* RBExecuter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C27B3817E65EBD008FB8E4 /* RBExecuter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2188D6461819B713007BAB40 /* RBExecuter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C27B3817E65EBD008FB8E4 /* RBExecuter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2188D6471819B713007BAB40 /* RBPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BD17D7E5D5007DADC8 /* RBPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2188D6481819B713007BAB40 /* RBThenable.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BF17D7E5D5007DADC8 /* RBThenable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4907ACAE185F101800351A8A /* Rebelle.h in Headers */ = {isa = PBXBuildFile; fileRef = 49171A7B1831941600681C12 /* Rebelle.h */; };
+		4907ACAE185F101800351A8A /* Rebelle.h in Headers */ = {isa = PBXBuildFile; fileRef = 49171A7B1831941600681C12 /* Rebelle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4907ACAF185F102900351A8A /* RBErrorException.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CD909617DFB64300E934AF /* RBErrorException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4907ACB0185F102900351A8A /* RBPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BD17D7E5D5007DADC8 /* RBPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4907ACB1185F102900351A8A /* RBThenable.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F055BF17D7E5D5007DADC8 /* RBThenable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4907ACB2185F103500351A8A /* RBResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 49FDB068185B611A004B8664 /* RBResolver.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4907ACB3185F103500351A8A /* RBExecuter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C27B3817E65EBD008FB8E4 /* RBExecuter.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		49171A7C1831941600681C12 /* Rebelle.h in Headers */ = {isa = PBXBuildFile; fileRef = 49171A7B1831941600681C12 /* Rebelle.h */; };
+		4907ACB2185F103500351A8A /* RBResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 49FDB068185B611A004B8664 /* RBResolver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4907ACB3185F103500351A8A /* RBExecuter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C27B3817E65EBD008FB8E4 /* RBExecuter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49171A7C1831941600681C12 /* Rebelle.h in Headers */ = {isa = PBXBuildFile; fileRef = 49171A7B1831941600681C12 /* Rebelle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49C27B3A17E65EBD008FB8E4 /* RBExecuter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C27B3917E65EBD008FB8E4 /* RBExecuter.m */; };
 		49C510CB17DD2D8900648C5B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C510CA17DD2D8800648C5B /* SenTestingKit.framework */; };
 		49C510CC17DD2D8900648C5B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
@@ -25,12 +25,12 @@
 		49C510D317DD2D8900648C5B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49C510D117DD2D8900648C5B /* InfoPlist.strings */; };
 		49C510DD17DD2D9900648C5B /* RBPromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C510DC17DD2D9900648C5B /* RBPromiseTests.m */; };
 		49CD909817DFB64300E934AF /* RBErrorException.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CD909717DFB64300E934AF /* RBErrorException.m */; };
+		49CED373188C70FE00E6B5CA /* RBThenablePlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CED372188C70FE00E6B5CA /* RBThenablePlus.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49CED374188C70FE00E6B5CA /* RBThenablePlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CED372188C70FE00E6B5CA /* RBThenablePlus.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49D2198218689196006191A0 /* RBActionSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2197F18689196006191A0 /* RBActionSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49D2198318689196006191A0 /* RBActionSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2197F18689196006191A0 /* RBActionSet.h */; };
+		49D2198318689196006191A0 /* RBActionSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2197F18689196006191A0 /* RBActionSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49D2198418689196006191A0 /* RBActionSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D2198018689196006191A0 /* RBActionSet.m */; };
 		49D2198518689196006191A0 /* RBActionSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D2198018689196006191A0 /* RBActionSet.m */; };
-		49D2198918689796006191A0 /* RBHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2198818689796006191A0 /* RBHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49D2198A18689796006191A0 /* RBHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2198818689796006191A0 /* RBHandler.h */; };
 		49D2198C1868B165006191A0 /* RBActionSetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D2198B1868B165006191A0 /* RBActionSetTests.m */; };
 		49D2198D1868B165006191A0 /* RBActionSetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D2198B1868B165006191A0 /* RBActionSetTests.m */; };
 		49D5809F181DD0E4002F0A18 /* RBExecuterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */; };
@@ -47,7 +47,7 @@
 		49F7E956185F0AD700DF7818 /* RBResolverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB06C185B6122004B8664 /* RBResolverTests.m */; };
 		49F7E957185F0B2A00DF7818 /* RBPromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C510DC17DD2D9900648C5B /* RBPromiseTests.m */; };
 		49F7E958185F0B2D00DF7818 /* RBExecuterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */; };
-		49FDB06A185B611A004B8664 /* RBResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 49FDB068185B611A004B8664 /* RBResolver.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		49FDB06A185B611A004B8664 /* RBResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 49FDB068185B611A004B8664 /* RBResolver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49FDB06B185B611A004B8664 /* RBResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB069185B611A004B8664 /* RBResolver.m */; };
 		49FDB06D185B6122004B8664 /* RBResolverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB06C185B6122004B8664 /* RBResolverTests.m */; };
 		49FE8ADC17B67C0C00678D26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
@@ -88,9 +88,9 @@
 		49C510DC17DD2D9900648C5B /* RBPromiseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBPromiseTests.m; sourceTree = "<group>"; };
 		49CD909617DFB64300E934AF /* RBErrorException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBErrorException.h; sourceTree = "<group>"; };
 		49CD909717DFB64300E934AF /* RBErrorException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBErrorException.m; sourceTree = "<group>"; };
+		49CED372188C70FE00E6B5CA /* RBThenablePlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBThenablePlus.h; sourceTree = "<group>"; };
 		49D2197F18689196006191A0 /* RBActionSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBActionSet.h; sourceTree = "<group>"; };
 		49D2198018689196006191A0 /* RBActionSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBActionSet.m; sourceTree = "<group>"; };
-		49D2198818689796006191A0 /* RBHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBHandler.h; sourceTree = "<group>"; };
 		49D2198B1868B165006191A0 /* RBActionSetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBActionSetTests.m; sourceTree = "<group>"; };
 		49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBExecuterTests.m; sourceTree = "<group>"; };
 		49F055BD17D7E5D5007DADC8 /* RBPromise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBPromise.h; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 		49FE8ADD17B67C0C00678D26 /* Rebelle */ = {
 			isa = PBXGroup;
 			children = (
-				49D2198818689796006191A0 /* RBHandler.h */,
+				49CED372188C70FE00E6B5CA /* RBThenablePlus.h */,
 				49D2197F18689196006191A0 /* RBActionSet.h */,
 				49D2198018689196006191A0 /* RBActionSet.m */,
 				49FDB068185B611A004B8664 /* RBResolver.h */,
@@ -272,13 +272,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				49D2198218689196006191A0 /* RBActionSet.h in Headers */,
-				49D2198918689796006191A0 /* RBHandler.h in Headers */,
 				2188D6451819B712007BAB40 /* RBErrorException.h in Headers */,
 				2188D6471819B713007BAB40 /* RBPromise.h in Headers */,
 				2188D6481819B713007BAB40 /* RBThenable.h in Headers */,
-				49FDB06A185B611A004B8664 /* RBResolver.h in Headers */,
-				2188D6461819B713007BAB40 /* RBExecuter.h in Headers */,
 				49171A7C1831941600681C12 /* Rebelle.h in Headers */,
+				2188D6461819B713007BAB40 /* RBExecuter.h in Headers */,
+				49CED373188C70FE00E6B5CA /* RBThenablePlus.h in Headers */,
+				49FDB06A185B611A004B8664 /* RBResolver.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,14 +286,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4907ACAE185F101800351A8A /* Rebelle.h in Headers */,
 				4907ACAF185F102900351A8A /* RBErrorException.h in Headers */,
 				4907ACB0185F102900351A8A /* RBPromise.h in Headers */,
-				49D2198318689196006191A0 /* RBActionSet.h in Headers */,
-				49D2198A18689796006191A0 /* RBHandler.h in Headers */,
-				4907ACB1185F102900351A8A /* RBThenable.h in Headers */,
 				4907ACB3185F103500351A8A /* RBExecuter.h in Headers */,
+				49D2198318689196006191A0 /* RBActionSet.h in Headers */,
+				4907ACB1185F102900351A8A /* RBThenable.h in Headers */,
+				49CED374188C70FE00E6B5CA /* RBThenablePlus.h in Headers */,
 				4907ACB2185F103500351A8A /* RBResolver.h in Headers */,
-				4907ACAE185F101800351A8A /* Rebelle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +580,7 @@
 				);
 				INFOPLIST_FILE = "RebelleTests/RebelleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -597,6 +598,7 @@
 				GCC_PREFIX_HEADER = "RebelleTests/RebelleTests-Prefix.pch";
 				INFOPLIST_FILE = "RebelleTests/RebelleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -720,7 +722,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -762,6 +764,7 @@
 				DSTROOT = /tmp/Rebelle.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PRODUCT_NAME)";
