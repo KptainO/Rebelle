@@ -14,6 +14,6 @@
 - (void) placesForQuery:(NSString*)query
              completion:(void (^)(NSArray * places, NSError * error))completionBlock;
 
-- (RBPromise*) placesForQuery:(NSString*)query;
+- (id<RBThenablePlus>) placesForQuery:(NSString*)query;
 
 @end

@@ -57,9 +57,9 @@
     [task resume];
 }
 
-- (RBPromise*) placesForQuery:(NSString *)query
+- (id<RBThenablePlus>) placesForQuery:(NSString *)query
 {
-    NSString * apiURL = [@"http://api.navitia.io/v0/paris/places.json?q=" stringByAppendingString:query];
+   NSString * apiURL = [@"http://api.navitia.io/v0/paris/places.json?q=" stringByAppendingString:query ?: @""];
     RBPromise * promise = [RBPromise new];
     
     NSURLSessionTask * task =
@@ -70,17 +70,20 @@
      }];
     
     [task resume];
-    
-    return promise.then( ^(NSData * data) {
-        NSError * jsonError;
-        NSDictionary * jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-        return jsonResponse ?: jsonError;
-    }, nil)
-    
-    .then( ^(NSDictionary * jsonResponse) {
-        NSError * noPlacesError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:nil];
-        return jsonResponse[@"places"] ?: noPlacesError;
-    }, nil);
+
+   return promise
+   .next()
+   .onSuccess(^(NSData * data) {
+      NSError * jsonError;
+      NSDictionary * jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+
+      return jsonResponse ?: jsonError;
+   })
+   .then(^(NSDictionary * jsonResponse) {
+      NSError * noPlacesError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:nil];
+
+      return jsonResponse[@"places"] ?: noPlacesError;
+   }, nil);
 }
 
 @end
