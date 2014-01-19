@@ -99,6 +99,8 @@ So what does this code ?
 4. Once tweets are collected, we're executing another block
 5. And so go on...
 
+> For more information about ```then``` and the chain syntax used by Rebelle, check the wiki [Promise chaining](../../wiki/Promise-chaining) page
+
 ### What about NSError ?!      
 
 As shown before, the failure block take only NSException objects as argument (`^id(NSException exception)`). As NSError are also often used in Objective-C Rebelle also consider NSError objects as a failure and pass them to the failure block by wrapping them inside an RBErrorException class instance.
