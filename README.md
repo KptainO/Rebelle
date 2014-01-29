@@ -103,7 +103,23 @@ So what does this code ?
 
 ### What about NSError ?!      
 
-As shown before, the failure block take only NSException objects as argument (`^id(NSException exception)`). As NSError are also often used in Objective-C Rebelle also consider NSError objects as a failure and pass them to the failure block by wrapping them inside an RBErrorException class instance.
+Your promise will be marked as failed/rejected if you resolve it with either a `NSError` or `NSException` object.
+The only difference is that `NSError` objects are wrapped into a `RBErrorException` when passed to the failure block whose signature is (`^id(NSException *exception)`).
+
+```Objective-C
+
+/// NSError example
+NSError *error = [NSError errorWithDomain:@"FileDomain" code:0 userInfo:nil];
+
+[promise resolve:error]
+.then(nil, ^(RBErrorException *e) { NSLog(@"Domain error is %@", e.error.domain); return e; });
+
+
+/// NSException example
+NSException *e = [NSException exceptionWithName:@"FileNotFoundException" reason:nil userInfo:nil];
+
+[promise resolve:e].then(nil, ^(NSException *e) { NSLog(@"Exception is %@", e.name); return e; });
+````
 
 ## Install
 
