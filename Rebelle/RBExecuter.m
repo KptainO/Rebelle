@@ -8,7 +8,7 @@
 
 #import "RBExecuter.h"
 
-#import "RBResolver.h"
+#import "RBFuture.h"
 #import "RBActionSet.h"
 
 NSString   *const RBExecuterExecutedProperty = @"executed";
@@ -47,13 +47,13 @@ NSString   *const RBExecuterCanceledProperty = @"canceled";
 
 #pragma mark - Public methods
 
-- (void)execute:(RBResolver *)resolver {
+- (void)execute:(RBFuture *)future {
    SEL selector = @selector(_execute:);
    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
 
    invocation.selector = selector;
-   [invocation setArgument:&resolver atIndex:2];
+   [invocation setArgument:&future atIndex:2];
    [invocation retainArguments];
 
    // Execute method on originalThread no matter if it is current thread or not
@@ -76,18 +76,18 @@ NSString   *const RBExecuterCanceledProperty = @"canceled";
 
 
 #pragma mark - Private methods
-- (void)_execute:(RBResolver *)resolver {
+- (void)_execute:(RBFuture *)future {
    if (self.executed || self.canceled)
       return;
 
-   if (resolver.state != RBResolverStateFulfilled && resolver.state != RBResolverStateRejected)
+   if (future.state != RBFutureStateFulfilled && future.state != RBFutureStateRejected)
       return;
 
    @try {
-      if (resolver.state == RBResolverStateFulfilled)
-         self.result = self.actionSet_.succeeded(resolver.result);
+      if (future.state == RBFutureStateFulfilled)
+         self.result = self.actionSet_.succeeded(future.result);
       else
-         self.result = self.actionSet_.catched(resolver.result);
+         self.result = self.actionSet_.catched(future.result);
 
       // finally block
    }

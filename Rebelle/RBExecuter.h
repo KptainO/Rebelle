@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class RBActionSet;
-@class RBResolver;
+@class RBFuture;
 
 #import "RBThenable.h"
 
@@ -36,7 +36,7 @@ typedef id(^ExecuteCallback)(id value);
 + (id)new UNAVAILABLE_ATTRIBUTE;
 - (id)init UNAVAILABLE_ATTRIBUTE;
 
-- (void)execute:(RBResolver *)resolver;
+- (void)execute:(RBFuture *)future;
 
 - (void)cancel;
 
@@ -46,5 +46,5 @@ typedef id(^ExecuteCallback)(id value);
 /// Contain all selectors that are considered as protected
 /// **MUST** not be used by others
 @interface RBExecuter (Protected)
-- (void)_execute:(RBResolver *)resolver;
+- (void)_execute:(RBFuture *)future;
 @end

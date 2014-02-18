@@ -10,22 +10,22 @@
 
 #import "RBPromise.h"
 #import "RBExecuter.h"
-#import "RBResolver.h"
+#import "RBFuture.h"
 
 SPEC_BEGIN(RBPromiseTests)
 
 describe(@"test", ^ {
    __block RBPromise *promise;
    __block RBExecuter *promiseExecuter;
-   __block RBResolver *promiseResolver;
+   __block RBFuture *promiseFuture;
 
    beforeEach(^ {
       promise = [RBPromise new];
       promiseExecuter = [RBExecuter nullMock];
-      promiseResolver = [RBResolver nullMock];
+      promiseFuture = [RBFuture nullMock];
 
       [promise stub:@selector(executer_) andReturn:promiseExecuter];
-      [promise stub:@selector(resolver_) andReturn:promiseResolver];
+      [promise stub:@selector(future_) andReturn:promiseFuture];
    });
 
    afterEach(^{
@@ -140,27 +140,27 @@ describe(@"test", ^ {
 
    describe(@"resolving", ^{
 
-      it(@"should call resolver", ^{
-         [[promiseResolver should] receive:@selector(resolve:) withArguments:@"Hello Promise"];
+      it(@"should call future", ^{
+         [[promiseFuture should] receive:@selector(resolve:) withArguments:@"Hello Promise"];
 
          [promise resolve:@"Hello Promise"];
       });
 
-      it (@"should call executer when resolver is fulfilled", ^{
-         [promise stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
-         [promiseResolver stub:@selector(result) andReturn:@"Hello Promise"];
+      it (@"should call executer when future is fulfilled", ^{
+         [promise stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
+         [promiseFuture stub:@selector(result) andReturn:@"Hello Promise"];
 
-         [[promiseExecuter should] receive:@selector(execute:) withArguments:promiseResolver];
+         [[promiseExecuter should] receive:@selector(execute:) withArguments:promiseFuture];
 
          promise.ready();
       });
 
-      it(@"should call RBPromise resolver", ^{
+      it(@"should call RBPromise future", ^{
          RBPromise *x = [RBPromise mock];
-         RBResolver *resolver = [RBResolver mock];
+         RBFuture *future = [RBFuture mock];
 
-         [[x should] receive:@selector(resolver_) andReturn:resolver];
-         [[promiseResolver should] receive:@selector(resolve:) withArguments:resolver];
+         [[x should] receive:@selector(future_) andReturn:future];
+         [[promiseFuture should] receive:@selector(resolve:) withArguments:future];
 
          [promise resolve:x];
       });
@@ -179,15 +179,15 @@ describe(@"test", ^ {
       });
 
       it(@"with promise not ready()", ^{
-         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+         [promiseFuture stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
 
          [[promiseExecuter shouldNot] receive:@selector(execute:)];
 
-         [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:Nil context:(__bridge void *)(RBResolverPropertyState)];
+         [promise observeValueForKeyPath:RBFuturePropertyState ofObject:promiseFuture change:Nil context:(__bridge void *)(RBFuturePropertyState)];
       });
 
       it(@"with promise ready() before", ^{
-         [promise stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+         [promise stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
 
          [[promiseExecuter should] receive:@selector(execute:)];
 
@@ -199,8 +199,8 @@ describe(@"test", ^ {
 
          [[promiseExecuter should] receive:@selector(execute:)];
 
-         [promiseResolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
-         [promise observeValueForKeyPath:RBResolverPropertyState ofObject:promiseResolver change:Nil context:(__bridge void *)(RBResolverPropertyState)];
+         [promiseFuture stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
+         [promise observeValueForKeyPath:RBFuturePropertyState ofObject:promiseFuture change:Nil context:(__bridge void *)(RBFuturePropertyState)];
       });
    });
 });

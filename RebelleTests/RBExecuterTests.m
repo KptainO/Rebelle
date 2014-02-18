@@ -12,28 +12,28 @@
 #import "RBPromise.h"
 #import "RBExecuter.h"
 #import "RBActionSet.h"
-#import "RBResolver.h"
+#import "RBFuture.h"
 
 SPEC_BEGIN(RBExecuterTests)
 
 describe(@"test", ^{
    __block RBExecuter *executer;
    __block RBActionSet *actions;
-   __block RBResolver  *resolver;
+   __block RBFuture  *future;
 
    beforeEach(^{
       actions = [RBActionSet mock];
-      resolver = [RBResolver nullMock];
+      future = [RBFuture nullMock];
 
       executer = [RBExecuter executerWithActionSet:actions];
    });
 
    describe(@"callbacks", ^{
       it(@"call success", ^{
-         [resolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
-         [resolver stub:@selector(result) andReturn:@"Hello"];
+         [future stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
+         [future stub:@selector(result) andReturn:@"Hello"];
 
-         [executer execute:resolver];
+         [executer execute:future];
 
          [[actions shouldEventually] receive:@selector(succeeded) andReturn:^NSString *(id value){ return nil; } withArguments:@"Hello"];
       });
@@ -41,10 +41,10 @@ describe(@"test", ^{
       it(@"call catch", ^{
          NSException *exception = [NSException nullMock];
 
-         [resolver stub:@selector(state) andReturn:theValue(RBResolverStateRejected)];
-         [resolver stub:@selector(result) andReturn:exception];
+         [future stub:@selector(state) andReturn:theValue(RBFutureStateRejected)];
+         [future stub:@selector(result) andReturn:exception];
 
-         [executer execute:resolver];
+         [executer execute:future];
 
          [[actions shouldEventually] receive:@selector(catched) andReturn:^NSException *(NSException *e){ return nil; } withArguments:exception];
       });
@@ -52,10 +52,10 @@ describe(@"test", ^{
 
    describe(@"result when", ^{
       it(@"returning value from callback", ^{
-         [resolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+         [future stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
          [actions stub:@selector(succeeded) andReturn:^{ return @"Good result"; } ];
 
-         [executer execute:resolver];
+         [executer execute:future];
 
          [[expectFutureValue(executer.result) shouldEventually] equal:@"Good result"];
       });
@@ -63,10 +63,10 @@ describe(@"test", ^{
       it(@"Throw an exception", ^{
          NSException *exception = [NSException nullMock];
 
-         [resolver stub:@selector(state) andReturn:theValue(RBResolverStateFulfilled)];
+         [future stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
          [actions stub:@selector(succeeded) andReturn:^{ @throw exception; return nil; }];
 
-         [executer execute:resolver];
+         [executer execute:future];
 
          [[expectFutureValue(executer.result) shouldEventually] equal:exception];
       });

@@ -10,7 +10,7 @@
 
 #import "RBExecuter.h"
 #import "RBActionSet.h"
-#import "RBResolver.h"
+#import "RBFuture.h"
 
 NSString *const RBPromisePropertyState = @"state";
 NSString *const RBPromisePropertyResolved = @"resolveState";
@@ -29,7 +29,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 
 @property(nonatomic, strong)NSMutableArray      *promises_;
 @property(nonatomic, strong)RBExecuter          *executer_;
-@property(nonatomic, strong)RBResolver          *resolver_;
+@property(nonatomic, strong)RBFuture            *future_;
 
 @property(nonatomic, strong)RBActionSet         *action_;
 @end
@@ -37,7 +37,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 @implementation RBPromise
 
 @synthesize executer_   = _executer;
-@synthesize resolver_   = _resolver;
+@synthesize future_   = _future;
 @synthesize isReady_    = _isReady;
 
 @synthesize then        = _then;
@@ -52,7 +52,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 
    self.promises_ = [NSMutableArray new];
    self.action_ = [RBActionSet new];
-   self.resolver_ = [RBResolver new];
+   self.future_ = [RBFuture new];
    self.executer_ = [RBExecuter executerWithActionSet:self.action_];
 
    // To ensure callbacks are called in-time, promise must be marked as "ready"
@@ -63,17 +63,17 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 }
 
 - (void)dealloc {
-   self.resolver_ = nil;
+   self.future_ = nil;
    self.executer_ = nil;
 }
 
 - (void)resolve:(id)value {
-   // If we're receiving a RBPromise object, then resolve will indeed happen with its internal resolver object
-   // (RBResolver should not be aware of the RBPromise Facade object)
+   // If we're receiving a RBPromise object, then resolve will indeed happen with its internal future object
+   // (RBFuture should not be aware of the RBPromise Facade object)
    if ([value isKindOfClass:RBPromise.class])
-      [self.resolver_ resolve:((RBPromise *)value).resolver_];
+      [self.future_ resolve:((RBPromise *)value).future_];
    else
-      [self.resolver_ resolve:value];
+      [self.future_ resolve:value];
 }
 
 - (void)cancel {
@@ -188,19 +188,19 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 
 #pragma mark - Protected methods
 
-- (void)setResolver_:(RBResolver *)resolver {
-   if (resolver == _resolver)
+- (void)setFuture_:(RBFuture *)future {
+   if (future == _future)
       return;
 
-   [_resolver removeObserver:self
-                  forKeyPath:RBResolverPropertyState];
+   [_future removeObserver:self
+                  forKeyPath:RBFuturePropertyState];
 
-   _resolver = resolver;
+   _future = future;
 
-   [_resolver addObserver:self
-               forKeyPath:RBResolverPropertyState
+   [_future addObserver:self
+               forKeyPath:RBFuturePropertyState
                   options:0
-                  context:(__bridge void *)(RBResolverPropertyState)];
+                  context:(__bridge void *)(RBFuturePropertyState)];
 }
 
 - (void)setExecuter_:(RBExecuter *)executer {
@@ -253,14 +253,14 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 
       return;
    }
-   else if (context == (__bridge void *)(RBResolverPropertyState))
-      [self _observeResolverState];
+   else if (context == (__bridge void *)(RBFuturePropertyState))
+      [self _observeFutureState];
 }
 
-- (void)_observeResolverState {
-   if (self.resolver_.state == RBPromiseStateFulfilled)
+- (void)_observeFutureState {
+   if (self.future_.state == RBPromiseStateFulfilled)
       self.state = RBPromiseStateFulfilled;
-   else if (self.resolver_.state == RBPromiseStateRejected)
+   else if (self.future_.state == RBPromiseStateRejected)
       self.state = RBPromiseStateRejected;
 }
 
@@ -273,7 +273,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
    if (self.state == RBPromiseStateAborted)
       return [self.executer_ cancel];
 
-   [self.executer_ execute:self.resolver_];
+   [self.executer_ execute:self.future_];
 }
 
 - (void)_autoReady {

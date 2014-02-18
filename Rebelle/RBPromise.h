@@ -12,7 +12,6 @@
 
 @class RBPromise;
 
-@class RBResolver;
 @class RBExecuter;
 
 extern NSString *const RBPromisePropertyResolved;
@@ -90,7 +89,7 @@ typedef enum {
 /// **MUST** not be used by others
 @interface RBPromise (Protected)
 
-- (RBResolver *)resolver_;
+- (RBFuture *)future_;
 - (RBExecuter *)executer_;
 
 @end

@@ -6,19 +6,19 @@
 // file that was distributed with this source code
 //
 
-#import "RBResolver.h"
+#import "RBFuture.h"
 
 #import "RBErrorException.h"
 
-NSString *const RBResolverPropertyState = @"state";
+NSString *const RBFuturePropertyState = @"state";
 
 // Private API
-@interface RBResolver ()
-@property(nonatomic, assign)RBResolverState     state;
+@interface RBFuture ()
+@property(nonatomic, assign)RBFutureState     state;
 @property(nonatomic, strong)id                  result;
 @end
 
-@implementation RBResolver
+@implementation RBFuture
 
 #pragma mark - Ctor/Dtor
 
@@ -31,13 +31,13 @@ NSString *const RBResolverPropertyState = @"state";
 - (void)resolve:(id)value {
    if (value == self)
       @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                     reason:@"resolver can't be resolved with self as resolving value"
+                                     reason:@"future can't be resolved with self as resolving value"
                                    userInfo:nil];
 
-   // Avoid a non pending resolver to transition to another state
+   // Avoid a non pending future to transition to another state
    // (https://github.com/promises-aplus/promises-spec#promise-states)
    //
-   // Also avoid a pending resolver waiting for its result to resolve (aka a resolver) to run resolve
+   // Also avoid a pending future waiting for its result to resolve (aka a future) to run resolve
    // once again
    // https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure (2.1)
    if (![self isStatePending] || self.result)
@@ -47,7 +47,7 @@ NSString *const RBResolverPropertyState = @"state";
 }
 
 - (BOOL)isStatePending {
-   return self.state == RBResolverStatePending;
+   return self.state == RBFutureStatePending;
 }
 
 + (BOOL)automaticallyNotifiesObserversOfResult {
@@ -57,32 +57,32 @@ NSString *const RBResolverPropertyState = @"state";
 - (void)setResult:(id<NSObject>)result {
 
    // Remove observer that may have been added previously on _result (see above)
-   if ([_result isKindOfClass:RBResolver.class])
-      [(RBResolver *)_result removeObserver:self forKeyPath:RBResolverPropertyState];
+   if ([_result isKindOfClass:RBFuture.class])
+      [(RBFuture *)_result removeObserver:self forKeyPath:RBFuturePropertyState];
 
    [self willChangeValueForKey:@"_result"];
    _result = [result isKindOfClass:NSError.class] ? [RBErrorException exceptionWithError:(NSError *)result message:nil] : result;
    [self didChangeValueForKey:@"_result"];
 
-   // Don't do anything if it's a resolver, just observe
-   if ([_result isKindOfClass:RBResolver.class])
+   // Don't do anything if it's a future, just observe
+   if ([_result isKindOfClass:RBFuture.class])
    {
-      [(RBResolver *)_result addObserver:self
-                             forKeyPath:RBResolverPropertyState
+      [(RBFuture *)_result addObserver:self
+                             forKeyPath:RBFuturePropertyState
                                 options:0
-                                context:(__bridge void *)(RBResolverPropertyState)];
+                                context:(__bridge void *)(RBFuturePropertyState)];
       // Manually trigger observing code (using NSKeyValueObservingOptionInitial is error prone in our case)
-      [self _observeResolver:(RBResolver *)result];
+      [self _observeFuture:(RBFuture *)result];
    }
    else if ([_result isKindOfClass:NSException.class])
-      self.state = RBResolverStateRejected;
+      self.state = RBFutureStateRejected;
    else
-      self.state = RBResolverStateFulfilled;
+      self.state = RBFutureStateFulfilled;
 }
 
-- (void)setState:(RBResolverState)state {
+- (void)setState:(RBFutureState)state {
    // Don't update if We are aleady on a final state (!= Pending)
-   if (_state == state || _state != RBResolverStatePending)
+   if (_state == state || _state != RBFutureStatePending)
       return;
 
    _state = state;
@@ -91,17 +91,17 @@ NSString *const RBResolverPropertyState = @"state";
 #pragma mark - Protected methods
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-   // result_(aka a resolver) may have changed state
-   if (context == (__bridge void *)(RBResolverPropertyState))
-      [self _observeResolver:object];
+   // result_(aka a future) may have changed state
+   if (context == (__bridge void *)(RBFuturePropertyState))
+      [self _observeFuture:object];
 }
 
-- (void)_observeResolver:(RBResolver *)resolver {
-   // resolver not yet resolved
-   if ((resolver.state == RBResolverStatePending))
+- (void)_observeFuture:(RBFuture *)future {
+   // future not yet resolved
+   if ((future.state == RBFutureStatePending))
       return;
 
-   self.result = resolver.result;
+   self.result = future.result;
 }
 
 #pragma mark - Private methods
