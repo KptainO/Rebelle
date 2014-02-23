@@ -54,7 +54,7 @@ describe(@"test", ^{
          // Try to re-resolve future
          [future resolve:@"OK"];
          [[theValue(future.state) should] equal:theValue(RBFutureStatePending)];
-         [[future.result should] equal:resolver2];
+         [future.result shouldBeNil];
       });
 
       it(@"with RBFuture pending, then fulfilled", ^{

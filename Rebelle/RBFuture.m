@@ -15,17 +15,18 @@ NSString *const RBFuturePropertyState = @"state";
 // Private API
 @interface RBFuture ()
 @property(nonatomic, assign)RBFutureState       state;
-@property(nonatomic, strong)id                  result;
+@property(nonatomic, strong)id                  computedResult_;
 @end
 
 @implementation RBFuture
 
-@synthesize result = _result;
+@synthesize computedResult_ = _computedResult;
 
 #pragma mark - Ctor/Dtor
 
 - (void)dealloc {
-   self.result = nil;
+   // Force setter use
+   self.computedResult_ = nil;
 }
 
 #pragma mark - Public methods
@@ -42,10 +43,10 @@ NSString *const RBFuturePropertyState = @"state";
    // Also avoid a pending future waiting for its result to resolve (aka a future) to run resolve
    // once again
    // https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure (2.1)
-   if (![self isStatePending] || self.result)
+   if (![self isStatePending] || self.computedResult_)
       return;
 
-   self.result = value;
+   self.computedResult_ = value;
 }
 
 - (void)abort {
@@ -56,38 +57,38 @@ NSString *const RBFuturePropertyState = @"state";
    return self.state == RBFutureStatePending;
 }
 
-+ (BOOL)automaticallyNotifiesObserversOfResult {
++ (BOOL)automaticallyNotifiesObserversOfComputedResult_ {
    return NO;
 }
 
-- (void)setResult:(id<NSObject>)result {
+- (void)setComputedResult_:(id<NSObject>)result {
 
-   // Remove observer that may have been added previously on _result (see above)
-   if ([_result isKindOfClass:RBFuture.class])
-      [(RBFuture *)_result removeObserver:self forKeyPath:RBFuturePropertyState];
+   // Remove observer that may have been added previously on _computedResult (see above)
+   if ([_computedResult isKindOfClass:RBFuture.class])
+      [(RBFuture *)_computedResult removeObserver:self forKeyPath:RBFuturePropertyState];
 
-   [self willChangeValueForKey:@"_result"];
-   _result = [result isKindOfClass:NSError.class] ? [RBErrorException exceptionWithError:(NSError *)result message:nil] : result;
-   [self didChangeValueForKey:@"_result"];
+   [self willChangeValueForKey:@"computedResult_"];
+   _computedResult = [result isKindOfClass:NSError.class] ? [RBErrorException exceptionWithError:(NSError *)result message:nil] : result;
+   [self didChangeValueForKey:@"computedResult_"];
 
    // Don't do anything if it's a future, just observe
-   if ([_result isKindOfClass:RBFuture.class])
+   if ([_computedResult isKindOfClass:RBFuture.class])
    {
-      [(RBFuture *)_result addObserver:self
+      [(RBFuture *)_computedResult addObserver:self
                              forKeyPath:RBFuturePropertyState
                                 options:0
                                 context:(__bridge void *)(RBFuturePropertyState)];
       // Manually trigger observing code (using NSKeyValueObservingOptionInitial is error prone in our case)
       [self _observeFuture:(RBFuture *)result];
    }
-   else if ([_result isKindOfClass:NSException.class])
+   else if ([_computedResult isKindOfClass:NSException.class])
       self.state = RBFutureStateRejected;
    else
       self.state = RBFutureStateFulfilled;
 }
 
 - (id)result {
-   return (self.state == RBFutureStatePending || self.state == RBFutureStateAborted) ? nil : _result;
+   return (self.state == RBFutureStatePending || self.state == RBFutureStateAborted) ? nil : self.computedResult_;
 }
 
 - (void)setState:(RBFutureState)state {
@@ -111,7 +112,7 @@ NSString *const RBFuturePropertyState = @"state";
    if ((future.state == RBFutureStatePending))
       return;
 
-   self.result = future.result;
+   self.computedResult_ = future.result;
 }
 
 #pragma mark - Private methods
