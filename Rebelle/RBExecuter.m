@@ -47,7 +47,7 @@ NSString   *const RBExecuterCanceledProperty = @"canceled";
 
 #pragma mark - Public methods
 
-- (void)execute:(RBFuture *)future {
+- (void)execute:(id<RBFuture>)future {
    SEL selector = @selector(_execute:);
    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
@@ -76,7 +76,7 @@ NSString   *const RBExecuterCanceledProperty = @"canceled";
 
 
 #pragma mark - Private methods
-- (void)_execute:(RBFuture *)future {
+- (void)_execute:(id<RBFuture>)future {
    if (self.executed || self.canceled)
       return;
 

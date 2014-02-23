@@ -15,11 +15,6 @@
 NSString *const RBPromisePropertyState = @"state";
 NSString *const RBPromisePropertyResolved = @"resolveState";
 
-/**
- * Keep alive promises while executing their RBExecuter content
- */
-static NSMutableSet *asyncExecuterPromisesTasks = nil;
-
 @interface RBPromise ()
 // Private:
 @property(nonatomic, assign)BOOL                isReady_;
@@ -203,8 +198,6 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 
    [_executer removeObserver:self
                   forKeyPath:RBExecuterExecutedProperty];
-   [_executer removeObserver:self
-                  forKeyPath:RBExecuterCanceledProperty];
 
    _executer = executer;
 
@@ -212,10 +205,6 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
                forKeyPath:RBExecuterExecutedProperty
                   options:0
                   context:(__bridge void *)(RBExecuterExecutedProperty)];
-   [_executer addObserver:self
-               forKeyPath:RBExecuterCanceledProperty
-                  options:0
-                  context:(__bridge void *)(RBExecuterCanceledProperty)];
 }
 
 #pragma mark - Private methods
@@ -230,10 +219,6 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-   if (context == (__bridge void *)(RBExecuterCanceledProperty))
-   {
-      [self _removeAsyncExecuteTask];
-   }
    // Executer finished execution
    if (context == (__bridge void *)(RBExecuterExecutedProperty))
    {
@@ -242,8 +227,6 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 
       for (RBPromise *promise in self.promises_)
          [promise resolve:self.executer_.result];
-
-      [self _removeAsyncExecuteTask];
 
       return;
    }
@@ -255,27 +238,14 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
    if (!self.isReady_ || self.state == RBFutureStatePending)
       return;
 
-   [self _addAsyncExecuteTask];
-
    if (self.state == RBFutureStateAborted)
       return [self.executer_ cancel];
 
-   [self.executer_ execute:self.future_];
+   [self.executer_ execute:self];
 }
 
 - (void)_autoReady {
    self.ready();
-}
-
-- (void)_addAsyncExecuteTask {
-   if (!asyncExecuterPromisesTasks)
-      asyncExecuterPromisesTasks = [NSMutableSet new];
-
-   [asyncExecuterPromisesTasks addObject:self];
-}
-
-- (void)_removeAsyncExecuteTask {
-   [asyncExecuterPromisesTasks removeObject:self];
 }
 
 @end

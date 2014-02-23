@@ -150,7 +150,7 @@ describe(@"test", ^ {
          [promise stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
          [promiseFuture stub:@selector(result) andReturn:@"Hello Promise"];
 
-         [[promiseExecuter should] receive:@selector(execute:) withArguments:promiseFuture];
+         [[promiseExecuter should] receive:@selector(execute:) withArguments:promise];
 
          promise.ready();
       });
