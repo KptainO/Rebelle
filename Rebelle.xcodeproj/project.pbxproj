@@ -23,10 +23,9 @@
 		49C510CD17DD2D8900648C5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AEC17B67C0C00678D26 /* UIKit.framework */; };
 		49C510D317DD2D8900648C5B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49C510D117DD2D8900648C5B /* InfoPlist.strings */; };
 		49C510DD17DD2D9900648C5B /* RBPromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C510DC17DD2D9900648C5B /* RBPromiseTests.m */; };
-		49C7957518B42400002AF4C0 /* RBFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C7957318B42400002AF4C0 /* RBFuture.h */; };
+		49C7957518B42400002AF4C0 /* RBFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C7957318B42400002AF4C0 /* RBFuture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49C7957618B42400002AF4C0 /* RBFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7957418B42400002AF4C0 /* RBFuture.m */; };
 		49C7957818B4240B002AF4C0 /* RBFutureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7957718B4240B002AF4C0 /* RBFutureTests.m */; };
-		49C7957918B4241A002AF4C0 /* RBFuture.h in Sources */ = {isa = PBXBuildFile; fileRef = 49C7957318B42400002AF4C0 /* RBFuture.h */; };
 		49C7957A18B4241A002AF4C0 /* RBFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7957418B42400002AF4C0 /* RBFuture.m */; };
 		49C7957B18B42423002AF4C0 /* RBFutureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7957718B4240B002AF4C0 /* RBFutureTests.m */; };
 		49CD909817DFB64300E934AF /* RBErrorException.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CD909717DFB64300E934AF /* RBErrorException.m */; };
@@ -271,6 +270,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49C7957518B42400002AF4C0 /* RBFuture.h in Headers */,
 				49D2198218689196006191A0 /* RBActionSet.h in Headers */,
 				2188D6451819B712007BAB40 /* RBErrorException.h in Headers */,
 				2188D6471819B713007BAB40 /* RBPromise.h in Headers */,
@@ -278,7 +278,6 @@
 				49171A7C1831941600681C12 /* Rebelle.h in Headers */,
 				2188D6461819B713007BAB40 /* RBExecuter.h in Headers */,
 				49CED373188C70FE00E6B5CA /* RBThenablePlus.h in Headers */,
-				49C7957518B42400002AF4C0 /* RBFuture.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +503,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49C7957918B4241A002AF4C0 /* RBFuture.h in Sources */,
 				49C7957A18B4241A002AF4C0 /* RBFuture.m in Sources */,
 				49D2198518689196006191A0 /* RBActionSet.m in Sources */,
 				49F7E950185F059200DF7818 /* RBErrorException.m in Sources */,
