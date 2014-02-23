@@ -64,7 +64,7 @@ NSString *const RBFuturePropertyState = @"state";
 - (void)setComputedResult_:(id<NSObject>)result {
 
    // Remove observer that may have been added previously on _computedResult (see above)
-   if ([_computedResult isKindOfClass:RBFuture.class])
+   if ([_computedResult conformsToProtocol:@protocol(RBFuture)])
       [(RBFuture *)_computedResult removeObserver:self forKeyPath:RBFuturePropertyState];
 
    [self willChangeValueForKey:@"computedResult_"];
@@ -72,7 +72,7 @@ NSString *const RBFuturePropertyState = @"state";
    [self didChangeValueForKey:@"computedResult_"];
 
    // Don't do anything if it's a future, just observe
-   if ([_computedResult isKindOfClass:RBFuture.class])
+   if ([_computedResult conformsToProtocol:@protocol(RBFuture)])
    {
       [(RBFuture *)_computedResult addObserver:self
                              forKeyPath:RBFuturePropertyState
@@ -107,7 +107,7 @@ NSString *const RBFuturePropertyState = @"state";
       [self _observeFuture:object];
 }
 
-- (void)_observeFuture:(RBFuture *)future {
+- (void)_observeFuture:(id<RBFuture>)future {
    // future not yet resolved
    if ((future.state == RBFutureStatePending))
       return;
