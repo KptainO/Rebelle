@@ -14,11 +14,13 @@ NSString *const RBFuturePropertyState = @"state";
 
 // Private API
 @interface RBFuture ()
-@property(nonatomic, assign)RBFutureState     state;
+@property(nonatomic, assign)RBFutureState       state;
 @property(nonatomic, strong)id                  result;
 @end
 
 @implementation RBFuture
+
+@synthesize result = _result;
 
 #pragma mark - Ctor/Dtor
 
@@ -44,6 +46,10 @@ NSString *const RBFuturePropertyState = @"state";
       return;
 
    self.result = value;
+}
+
+- (void)abort {
+   self.state = RBFutureStateAborted;
 }
 
 - (BOOL)isStatePending {
@@ -78,6 +84,10 @@ NSString *const RBFuturePropertyState = @"state";
       self.state = RBFutureStateRejected;
    else
       self.state = RBFutureStateFulfilled;
+}
+
+- (id)result {
+   return (self.state == RBFutureStatePending || self.state == RBFutureStateAborted) ? nil : _result;
 }
 
 - (void)setState:(RBFutureState)state {

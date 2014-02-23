@@ -21,9 +21,6 @@ NSString *const RBPromisePropertyResolved = @"resolveState";
 static NSMutableSet *asyncExecuterPromisesTasks = nil;
 
 @interface RBPromise ()
-// Public:
-@property(nonatomic, assign)RBPromiseState      state;
-
 // Private:
 @property(nonatomic, assign)BOOL                isReady_;
 
@@ -37,7 +34,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 @implementation RBPromise
 
 @synthesize executer_   = _executer;
-@synthesize future_   = _future;
+@synthesize future_     = _future;
 @synthesize isReady_    = _isReady;
 
 @synthesize then        = _then;
@@ -83,8 +80,7 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
 }
 
 - (void)abort {
-   self.state = RBPromiseStateAborted;
-
+   [self.future_ abort];
    [self cancel];
 }
 
@@ -176,14 +172,12 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
    return self.executer_.executed;
 }
 
-- (void)setState:(RBPromiseState)state {
-   // Don't update if We are aleady on a final state (!= Pending)
-   if (_state == state || _state != RBPromiseStatePending)
-      return;
+- (id)result {
+   return self.future_.result;
+}
 
-   _state = state;
-
-   [self _executeIfNeeded];
+- (RBFutureState)state {
+   return self.future_.state;
 }
 
 #pragma mark - Protected methods
@@ -254,23 +248,16 @@ static NSMutableSet *asyncExecuterPromisesTasks = nil;
       return;
    }
    else if (context == (__bridge void *)(RBFuturePropertyState))
-      [self _observeFutureState];
-}
-
-- (void)_observeFutureState {
-   if (self.future_.state == RBPromiseStateFulfilled)
-      self.state = RBPromiseStateFulfilled;
-   else if (self.future_.state == RBPromiseStateRejected)
-      self.state = RBPromiseStateRejected;
+      [self _executeIfNeeded];
 }
 
 - (void)_executeIfNeeded {
-   if (!self.isReady_ || self.state == RBPromiseStatePending)
+   if (!self.isReady_ || self.state == RBFutureStatePending)
       return;
 
    [self _addAsyncExecuteTask];
 
-   if (self.state == RBPromiseStateAborted)
+   if (self.state == RBFutureStateAborted)
       return [self.executer_ cancel];
 
    [self.executer_ execute:self.future_];

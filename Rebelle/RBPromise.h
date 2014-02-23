@@ -9,19 +9,12 @@
 #import <Foundation/Foundation.h>
 
 #import "RBThenablePlus.h"
+#import "RBFuture.h"
 
 @class RBPromise;
-
 @class RBExecuter;
 
 extern NSString *const RBPromisePropertyResolved;
-
-typedef enum {
-   RBPromiseStatePending,
-   RBPromiseStateFulfilled,
-   RBPromiseStateRejected,
-   RBPromiseStateAborted,
-} RBPromiseState;
 
 /**
  * Thenable promise
@@ -44,7 +37,7 @@ typedef enum {
  * For more information about how a promise work/what it does, check Promises/A+ documentation
  * https://github.com/promises-aplus/promises-spec
  */
-@interface RBPromise : NSObject<RBThenablePlus>
+@interface RBPromise : NSObject<RBThenablePlus, RBFuture>
 
 @property(nonatomic, copy, readonly)RBThenablePlusThen           then;
 
@@ -53,11 +46,8 @@ typedef enum {
 @property(nonatomic, copy, readonly)RBThenablePlusReady          ready;
 @property(nonatomic, copy, readonly)RBThenablePlusNext           next;
 
-/// the promise (result) state
-/// - Pending, resolve has not yet happened or nothing started inside it
-/// - Fulfilled, promise was fulfilled, but callbacks may not have happened yet
-/// - Rejected, promise was fulfilled, but callbacks may not have happened yet
-@property(nonatomic, assign, readonly)RBPromiseState        state;
+@property(nonatomic, assign, readonly)RBFutureState               state;
+@property(nonatomic, strong, readonly)id                          result;
 
 @property(nonatomic, assign, readonly)BOOL                  isResolved;
 
@@ -74,7 +64,7 @@ typedef enum {
  * @brief Completely stop resolve process of this promise and its chained ones 
  *
  * It merely work like ::cancel expect that the current promise is also canceled and set its state
- * to RBPromiseStateAborted
+ * to RBFutureStateAborted
  * Note though that if promise was already fulfilled/rejected prior to ::abort call state won't
  * be changed and only chained promises will be aborted
  *
