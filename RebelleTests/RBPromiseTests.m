@@ -97,7 +97,7 @@ describe(@"test", ^ {
          RBPromise *x1 = promise.next();
          RBPromise *x2 = promise.next();
 
-         [[theValue(promise.state) shouldNot] equal:theValue(RBPromiseStateAborted)];
+         [[theValue(promise.state) shouldNot] equal:theValue(RBFutureStateAborted)];
          [[x1 should] receive:@selector(abort)];
          [[x2 should] receive:@selector(abort)];
 
@@ -106,27 +106,31 @@ describe(@"test", ^ {
       });
 
       it(@"abort (immediate stop) BEFORE resolved", ^{
+         [promiseFuture stub:@selector(state) andReturn:theValue(RBFutureStateAborted)];
+
+         [[promiseFuture should] receive:@selector(abort)];
          [[promiseExecuter should] receive:@selector(cancel)];
 
-         promise.ready();
          [promise abort];
+         promise.ready();
+         //[promise observeValueForKeyPath:RBFuturePropertyState ofObject:promiseFuture change:nil context:(__bridge void *)(RBFuturePropertyState)];
 
-         [[theValue(promise.state) should] equal:theValue(RBPromiseStateAborted)];
+         [[theValue(promise.state) should] equal:theValue(RBFutureStateAborted)];
       });
 
       it(@"abort AFTER resolved BEFORE executed", ^{
-         [promise stub:@selector(state) andReturn:theValue(RBPromiseStateFulfilled)];
+         [promise stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
 
          [[promiseExecuter shouldNot] receive:@selector(cancel)];
 
-         promise.ready();
          [promise abort];
+         promise.ready();
 
-         [[theValue(promise.state) shouldNot] equal:theValue(RBPromiseStateAborted)];
+         [[theValue(promise.state) shouldNot] equal:theValue(RBFutureStateAborted)];
       });
 
       it(@"abort AFTER executed", ^{
-         [promise stub:@selector(state) andReturn:theValue(RBPromiseStateFulfilled)];
+         [promise stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
          [promiseExecuter stub:@selector(executed) andReturn:theValue(YES)];
 
          [[promiseExecuter shouldNot] receive:@selector(cancel)];
@@ -134,7 +138,7 @@ describe(@"test", ^ {
          promise.ready();
          [promise abort];
 
-         [[theValue(promise.state) shouldNot] equal:theValue(RBPromiseStateAborted)];
+         [[theValue(promise.state) shouldNot] equal:theValue(RBFutureStateAborted)];
       });
    });
 
