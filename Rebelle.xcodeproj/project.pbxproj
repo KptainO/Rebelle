@@ -28,6 +28,18 @@
 		49C7957818B4240B002AF4C0 /* RBFutureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7957718B4240B002AF4C0 /* RBFutureTests.m */; };
 		49C7957A18B4241A002AF4C0 /* RBFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7957418B42400002AF4C0 /* RBFuture.m */; };
 		49C7957B18B42423002AF4C0 /* RBFutureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7957718B4240B002AF4C0 /* RBFutureTests.m */; };
+		49CAB7AB18DC82E900445D6A /* RBFutureStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CAB7A918DC82E900445D6A /* RBFutureStrategy.h */; };
+		49CAB7AC18DC82E900445D6A /* RBFutureStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CAB7A918DC82E900445D6A /* RBFutureStrategy.h */; };
+		49CAB7B118DC8EAB00445D6A /* RBFutureStrategyFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CAB7AF18DC8EAB00445D6A /* RBFutureStrategyFactory.h */; };
+		49CAB7B218DC8EAB00445D6A /* RBFutureStrategyFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CAB7AF18DC8EAB00445D6A /* RBFutureStrategyFactory.h */; };
+		49CAB7B318DC8EAB00445D6A /* RBFutureStrategyFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CAB7B018DC8EAB00445D6A /* RBFutureStrategyFactory.m */; };
+		49CAB7B418DC8EAB00445D6A /* RBFutureStrategyFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CAB7B018DC8EAB00445D6A /* RBFutureStrategyFactory.m */; };
+		49CAB7B718DC9B2100445D6A /* RBFutureStrategyFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CAB7B518DC9B2100445D6A /* RBFutureStrategyFuture.h */; };
+		49CAB7B818DC9B2100445D6A /* RBFutureStrategyFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CAB7B518DC9B2100445D6A /* RBFutureStrategyFuture.h */; };
+		49CAB7B918DC9B2100445D6A /* RBFutureStrategyFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CAB7B618DC9B2100445D6A /* RBFutureStrategyFuture.m */; };
+		49CAB7BA18DC9B2100445D6A /* RBFutureStrategyFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CAB7B618DC9B2100445D6A /* RBFutureStrategyFuture.m */; };
+		49CD4CCE18DEFDC400E3F1B6 /* RBFutureStrategyFutureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CD4CCD18DEFDC400E3F1B6 /* RBFutureStrategyFutureTests.m */; };
+		49CD4CCF18DEFDC400E3F1B6 /* RBFutureStrategyFutureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CD4CCD18DEFDC400E3F1B6 /* RBFutureStrategyFutureTests.m */; };
 		49CD909817DFB64300E934AF /* RBErrorException.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CD909717DFB64300E934AF /* RBErrorException.m */; };
 		49CED373188C70FE00E6B5CA /* RBThenablePlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CED372188C70FE00E6B5CA /* RBThenablePlus.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49CED374188C70FE00E6B5CA /* RBThenablePlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 49CED372188C70FE00E6B5CA /* RBThenablePlus.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -88,6 +100,12 @@
 		49C7957318B42400002AF4C0 /* RBFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBFuture.h; sourceTree = "<group>"; };
 		49C7957418B42400002AF4C0 /* RBFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFuture.m; sourceTree = "<group>"; };
 		49C7957718B4240B002AF4C0 /* RBFutureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFutureTests.m; sourceTree = "<group>"; };
+		49CAB7A918DC82E900445D6A /* RBFutureStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBFutureStrategy.h; sourceTree = "<group>"; };
+		49CAB7AF18DC8EAB00445D6A /* RBFutureStrategyFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBFutureStrategyFactory.h; sourceTree = "<group>"; };
+		49CAB7B018DC8EAB00445D6A /* RBFutureStrategyFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFutureStrategyFactory.m; sourceTree = "<group>"; };
+		49CAB7B518DC9B2100445D6A /* RBFutureStrategyFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBFutureStrategyFuture.h; sourceTree = "<group>"; };
+		49CAB7B618DC9B2100445D6A /* RBFutureStrategyFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFutureStrategyFuture.m; sourceTree = "<group>"; };
+		49CD4CCD18DEFDC400E3F1B6 /* RBFutureStrategyFutureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFutureStrategyFutureTests.m; sourceTree = "<group>"; };
 		49CD909617DFB64300E934AF /* RBErrorException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBErrorException.h; sourceTree = "<group>"; };
 		49CD909717DFB64300E934AF /* RBErrorException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBErrorException.m; sourceTree = "<group>"; };
 		49CED372188C70FE00E6B5CA /* RBThenablePlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBThenablePlus.h; sourceTree = "<group>"; };
@@ -166,6 +184,7 @@
 		49C510CE17DD2D8900648C5B /* RebelleTests */ = {
 			isa = PBXGroup;
 			children = (
+				49CD4CCB18DEFDAA00E3F1B6 /* Future */,
 				49C7957718B4240B002AF4C0 /* RBFutureTests.m */,
 				49C510DC17DD2D9900648C5B /* RBPromiseTests.m */,
 				49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */,
@@ -183,6 +202,26 @@
 				49C510D617DD2D8900648C5B /* RebelleTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		49CAB79A18DC821E00445D6A /* Future */ = {
+			isa = PBXGroup;
+			children = (
+				49CAB7A918DC82E900445D6A /* RBFutureStrategy.h */,
+				49CAB7AF18DC8EAB00445D6A /* RBFutureStrategyFactory.h */,
+				49CAB7B018DC8EAB00445D6A /* RBFutureStrategyFactory.m */,
+				49CAB7B518DC9B2100445D6A /* RBFutureStrategyFuture.h */,
+				49CAB7B618DC9B2100445D6A /* RBFutureStrategyFuture.m */,
+			);
+			path = Future;
+			sourceTree = "<group>";
+		};
+		49CD4CCB18DEFDAA00E3F1B6 /* Future */ = {
+			isa = PBXGroup;
+			children = (
+				49CD4CCD18DEFDC400E3F1B6 /* RBFutureStrategyFutureTests.m */,
+			);
+			path = Future;
 			sourceTree = "<group>";
 		};
 		49F7E92D185F053A00DF7818 /* Other Frameworks */ = {
@@ -237,6 +276,7 @@
 		49FE8ADD17B67C0C00678D26 /* Rebelle */ = {
 			isa = PBXGroup;
 			children = (
+				49CAB79A18DC821E00445D6A /* Future */,
 				49C7957318B42400002AF4C0 /* RBFuture.h */,
 				49C7957418B42400002AF4C0 /* RBFuture.m */,
 				49CED372188C70FE00E6B5CA /* RBThenablePlus.h */,
@@ -270,14 +310,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49CAB7B718DC9B2100445D6A /* RBFutureStrategyFuture.h in Headers */,
 				49C7957518B42400002AF4C0 /* RBFuture.h in Headers */,
 				49D2198218689196006191A0 /* RBActionSet.h in Headers */,
 				2188D6451819B712007BAB40 /* RBErrorException.h in Headers */,
 				2188D6471819B713007BAB40 /* RBPromise.h in Headers */,
+				49CAB7B118DC8EAB00445D6A /* RBFutureStrategyFactory.h in Headers */,
 				2188D6481819B713007BAB40 /* RBThenable.h in Headers */,
 				49171A7C1831941600681C12 /* Rebelle.h in Headers */,
 				2188D6461819B713007BAB40 /* RBExecuter.h in Headers */,
 				49CED373188C70FE00E6B5CA /* RBThenablePlus.h in Headers */,
+				49CAB7AB18DC82E900445D6A /* RBFutureStrategy.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,8 +328,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49CAB7B218DC8EAB00445D6A /* RBFutureStrategyFactory.h in Headers */,
 				4907ACAE185F101800351A8A /* Rebelle.h in Headers */,
 				4907ACAF185F102900351A8A /* RBErrorException.h in Headers */,
+				49CAB7B818DC9B2100445D6A /* RBFutureStrategyFuture.h in Headers */,
+				49CAB7AC18DC82E900445D6A /* RBFutureStrategy.h in Headers */,
 				4907ACB0185F102900351A8A /* RBPromise.h in Headers */,
 				4907ACB3185F103500351A8A /* RBExecuter.h in Headers */,
 				49D2198318689196006191A0 /* RBActionSet.h in Headers */,
@@ -495,6 +541,7 @@
 				49C7957818B4240B002AF4C0 /* RBFutureTests.m in Sources */,
 				49D2198C1868B165006191A0 /* RBActionSetTests.m in Sources */,
 				49D5809F181DD0E4002F0A18 /* RBExecuterTests.m in Sources */,
+				49CD4CCE18DEFDC400E3F1B6 /* RBFutureStrategyFutureTests.m in Sources */,
 				49C510DD17DD2D9900648C5B /* RBPromiseTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,7 +554,9 @@
 				49D2198518689196006191A0 /* RBActionSet.m in Sources */,
 				49F7E950185F059200DF7818 /* RBErrorException.m in Sources */,
 				49F7E951185F059200DF7818 /* RBExecuter.m in Sources */,
+				49CAB7B418DC8EAB00445D6A /* RBFutureStrategyFactory.m in Sources */,
 				49F7E952185F059200DF7818 /* RBPromise.m in Sources */,
+				49CAB7BA18DC9B2100445D6A /* RBFutureStrategyFuture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +567,7 @@
 				49C7957B18B42423002AF4C0 /* RBFutureTests.m in Sources */,
 				49D2198D1868B165006191A0 /* RBActionSetTests.m in Sources */,
 				49F7E958185F0B2D00DF7818 /* RBExecuterTests.m in Sources */,
+				49CD4CCF18DEFDC400E3F1B6 /* RBFutureStrategyFutureTests.m in Sources */,
 				49F7E957185F0B2A00DF7818 /* RBPromiseTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,7 +580,9 @@
 				49CD909817DFB64300E934AF /* RBErrorException.m in Sources */,
 				49F055C017D7E884007DADC8 /* RBPromise.m in Sources */,
 				49C7957618B42400002AF4C0 /* RBFuture.m in Sources */,
+				49CAB7B318DC8EAB00445D6A /* RBFutureStrategyFactory.m in Sources */,
 				49C27B3A17E65EBD008FB8E4 /* RBExecuter.m in Sources */,
+				49CAB7B918DC9B2100445D6A /* RBFutureStrategyFuture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
