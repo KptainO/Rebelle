@@ -9,6 +9,8 @@
 #import <Kiwi.h>
 
 #import "RBFuture.h"
+#import "RBFutureStrategyFactory.h"
+#import "RBFutureStrategy.h"
 
 SPEC_BEGIN(RBFutureTests)
 
@@ -17,6 +19,9 @@ describe(@"test", ^{
 
    beforeEach(^{
       future = [RBFuture new];
+
+      // Always return no strategy
+      [RBFutureStrategyFactory stub:@selector(create:) andReturn:nil];
    });
 
    describe(@"resolve", ^{
@@ -45,10 +50,10 @@ describe(@"test", ^{
          [[theValue(future.state) should] equal:theValue(RBFutureStateFulfilled)];
       });
 
-      it(@"with RBFuture pending, then re-call resolve:", ^{
-         RBFuture *resolver2 = [RBFuture new];
+      it(@"with strategy pending, then re-call resolve:", ^{
+         [RBFutureStrategyFactory stub:@selector(create:) andReturn:[KWMock nullMockForProtocol:@protocol(RBFutureStrategy)]];
 
-         [future resolve:resolver2];
+         [future resolve:@"Hello World"];
          [[theValue(future.state) should] equal:theValue(RBFutureStatePending)];
 
          // Try to re-resolve future
@@ -57,29 +62,19 @@ describe(@"test", ^{
          [future.result shouldBeNil];
       });
 
-      it(@"with RBFuture pending, then fulfilled", ^{
-         RBFuture *resolver2 = [RBFuture mock];
+      it(@"with strategy notifying computation", ^{
+         id<RBFutureStrategy> strategy = [KWMock nullMockForProtocol:@protocol(RBFutureStrategy)];
 
-         [resolver2 stub:@selector(state) andReturn:theValue(RBFutureStatePending)];
-         [future resolve:resolver2];
+         [RBFutureStrategyFactory stub:@selector(create:) andReturn:strategy];
+         [future resolve:@"Hello World"];
+         // Need to re-stub selector so that next call to it by RBFuture does not interfer
+         [RBFutureStrategyFactory stub:@selector(create:) andReturn:nil];
 
-         [[resolver2 should] receive:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
-         [[resolver2 should] receive:@selector(result) andReturn:@"Hello Resolved"];
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"RBComputationDoneNotification"
+                                                             object:strategy
+                                                           userInfo:@{ @"result" : @"World Hello" }];
 
-         // Manually trigger notification about resolver2 being fulfilled
-         [future observeValueForKeyPath:RBFuturePropertyState
-                                ofObject:resolver2
-                                  change:nil
-                                 context:(__bridge void *)(RBFuturePropertyState)];
-      });
-
-      it(@"with RBFuture already fulfilled", ^{
-         RBFuture *resolver2 = [RBFuture new];
-
-         [[resolver2 should] receive:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
-         [[resolver2 should] receive:@selector(result) andReturn:@"Hello World"];
-
-         [future resolve:resolver2];
+         [[future.result should] equal:@"World Hello"];
       });
 
       it(@"with self throw an exception", ^{

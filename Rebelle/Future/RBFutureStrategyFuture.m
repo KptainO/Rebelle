@@ -46,7 +46,7 @@
 
 - (void)_observeFuture {
    // future not yet resolved
-   if ((self.future_.state == RBFutureStatePending))
+   if (!self.future_ || (self.future_.state == RBFutureStatePending))
       return;
 
    id result = self.future_.result;
@@ -64,9 +64,9 @@
    [(NSObject *)_future removeObserver:self forKeyPath:RBFuturePropertyState];
    _future = future;
    [(NSObject<RBFuture> *)_future addObserver:self
-                                        forKeyPath:RBFuturePropertyState
-                                           options:0
-                                           context:(__bridge void *)(RBFuturePropertyState)];
+                                   forKeyPath:RBFuturePropertyState
+                                      options:0
+                                      context:(__bridge void *)(RBFuturePropertyState)];
    // Manually trigger observing code (using NSKeyValueObservingOptionInitial is error prone in our case)
    [self _observeFuture];
 }
