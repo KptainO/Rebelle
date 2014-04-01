@@ -33,7 +33,7 @@ describe(@"test", ^{
 
          [strategy compute:future];
 
-         [[future should] receive:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
+         [[future should] receive:@selector(state) andReturn:theValue(RBFutureStateFulfilled) withCountAtLeast:1];
 
          [strategy observeValueForKeyPath:RBFuturePropertyState
                                  ofObject:future
@@ -42,7 +42,7 @@ describe(@"test", ^{
       });
 
       it(@"with RBFuture already fulfilled", ^{
-         [[future should] receive:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
+         [[future should] receive:@selector(state) andReturn:theValue(RBFutureStateFulfilled) withCountAtLeast:1];
          [[future should] receive:@selector(result) andReturn:@"Hello World"];
 
          [[notificationCenter should] receive:@selector(postNotificationName:object:userInfo:)
@@ -52,7 +52,7 @@ describe(@"test", ^{
       });
 
       it(@"with result NIL", ^{
-         [[future should] receive:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
+         [[future should] receive:@selector(state) andReturn:theValue(RBFutureStateFulfilled) withCountAtLeast:1];
          [[future should] receive:@selector(result) andReturn:nil];
 
          [[notificationCenter should] receive:@selector(postNotificationName:object:userInfo:)
