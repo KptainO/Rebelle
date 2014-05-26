@@ -6,11 +6,14 @@ PODS:
   - Kiwi/SenTestingKit (2.2.3):
     - Kiwi/ARC
     - Kiwi/NonARC
+  - SLObjectiveCRuntimeAdditions (1.1.3)
 
 DEPENDENCIES:
   - Kiwi (~> 2.2.0)
+  - SLObjectiveCRuntimeAdditions (~> 1.1x)
 
 SPEC CHECKSUMS:
-  Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
+  Kiwi: 7b9bc7294de746357213067a1df49cc0a59384e8
+  SLObjectiveCRuntimeAdditions: 5b702a1dcca4d115b328d5e7ca6d093e45875994
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.33.1

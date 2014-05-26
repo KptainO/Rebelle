@@ -15,4 +15,6 @@ Pod::Spec.new do |s|
   s.prefix_header_file    = 'Rebelle/Rebelle-Prefix.pch'
   s.private_header_files  = 'Rebelle/RBExecuter.h'
   s.requires_arc          = true
+  
+  s.dependency		 'SLObjectiveCRuntimeAdditions', '~> 1.1x'
 end

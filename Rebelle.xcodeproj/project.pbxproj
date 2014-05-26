@@ -51,6 +51,10 @@
 		49D2198D1868B165006191A0 /* RBActionSetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D2198B1868B165006191A0 /* RBActionSetTests.m */; };
 		49D5809F181DD0E4002F0A18 /* RBExecuterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */; };
 		49EC299517DD2E37008B4F8D /* libRebelle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AD817B67C0C00678D26 /* libRebelle.a */; };
+		49EE792F19327363002DAB7E /* RBFutureArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 49EE792D19327363002DAB7E /* RBFutureArray.h */; };
+		49EE793019327363002DAB7E /* RBFutureArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 49EE792D19327363002DAB7E /* RBFutureArray.h */; };
+		49EE793119327363002DAB7E /* RBFutureArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EE792E19327363002DAB7E /* RBFutureArray.m */; };
+		49EE793219327363002DAB7E /* RBFutureArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EE792E19327363002DAB7E /* RBFutureArray.m */; };
 		49F055C017D7E884007DADC8 /* RBPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F055BE17D7E5D5007DADC8 /* RBPromise.m */; };
 		49F7E92C185F053A00DF7818 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F7E92B185F053A00DF7818 /* Cocoa.framework */; };
 		49F7E93C185F053A00DF7818 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8AE917B67C0C00678D26 /* XCTest.framework */; };
@@ -63,6 +67,8 @@
 		49F7E958185F0B2D00DF7818 /* RBExecuterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */; };
 		49FE8ADC17B67C0C00678D26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FE8ADB17B67C0C00678D26 /* Foundation.framework */; };
 		854F837A057D405CABCF004F /* libPods-RebelleTests-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B94F1AAD0E4143BEAC55E5 /* libPods-RebelleTests-OSX.a */; };
+		B74AE536DF804B8B8A7C9FA5 /* libPods-Rebelle-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FAA9B6473804B3BB40D2D7D /* libPods-Rebelle-OSX.a */; };
+		C46E170E4DA74DF5AD690CEA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9584A1547344B209360728E /* libPods.a */; };
 		D32161264C444F5B894F18A1 /* libPods-RebelleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBCAF481A6441588F45BD6C /* libPods-RebelleTests.a */; };
 /* End PBXBuildFile section */
 
@@ -84,8 +90,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06CA418CA4E1481CBD389404 /* Pods-Rebelle-OSX.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rebelle-OSX.xcconfig"; path = "Pods/Pods-Rebelle-OSX.xcconfig"; sourceTree = "<group>"; };
 		13B94F1AAD0E4143BEAC55E5 /* libPods-RebelleTests-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RebelleTests-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8B0A6460764364B9CB2359 /* Pods-RebelleTests-OSX.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RebelleTests-OSX.xcconfig"; path = "Pods/Pods-RebelleTests-OSX.xcconfig"; sourceTree = "<group>"; };
+		2176019EBCF24B4680060EEC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RebelleTests.xcconfig"; path = "Pods/Pods-RebelleTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		4907ACAD185F0F7800351A8A /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		49171A7B1831941600681C12 /* Rebelle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rebelle.h; sourceTree = "<group>"; };
@@ -100,6 +108,7 @@
 		49C7957318B42400002AF4C0 /* RBFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBFuture.h; sourceTree = "<group>"; };
 		49C7957418B42400002AF4C0 /* RBFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFuture.m; sourceTree = "<group>"; };
 		49C7957718B4240B002AF4C0 /* RBFutureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFutureTests.m; sourceTree = "<group>"; };
+		49C9329CC7F84608973CCC2D /* Pods-Rebelle.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rebelle.xcconfig"; path = "Pods/Pods-Rebelle.xcconfig"; sourceTree = "<group>"; };
 		49CAB7A918DC82E900445D6A /* RBFutureStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBFutureStrategy.h; sourceTree = "<group>"; };
 		49CAB7AF18DC8EAB00445D6A /* RBFutureStrategyFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBFutureStrategyFactory.h; sourceTree = "<group>"; };
 		49CAB7B018DC8EAB00445D6A /* RBFutureStrategyFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFutureStrategyFactory.m; sourceTree = "<group>"; };
@@ -113,6 +122,8 @@
 		49D2198018689196006191A0 /* RBActionSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBActionSet.m; sourceTree = "<group>"; };
 		49D2198B1868B165006191A0 /* RBActionSetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBActionSetTests.m; sourceTree = "<group>"; };
 		49D5809E181DD0E4002F0A18 /* RBExecuterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBExecuterTests.m; sourceTree = "<group>"; };
+		49EE792D19327363002DAB7E /* RBFutureArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBFutureArray.h; sourceTree = "<group>"; };
+		49EE792E19327363002DAB7E /* RBFutureArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFutureArray.m; sourceTree = "<group>"; };
 		49F055BD17D7E5D5007DADC8 /* RBPromise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBPromise.h; sourceTree = "<group>"; };
 		49F055BE17D7E5D5007DADC8 /* RBPromise.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBPromise.m; sourceTree = "<group>"; };
 		49F055BF17D7E5D5007DADC8 /* RBThenable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBThenable.h; sourceTree = "<group>"; };
@@ -127,7 +138,11 @@
 		49FE8ADF17B67C0C00678D26 /* Rebelle-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rebelle-Prefix.pch"; sourceTree = "<group>"; };
 		49FE8AE917B67C0C00678D26 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		49FE8AEC17B67C0C00678D26 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		4FAA9B6473804B3BB40D2D7D /* libPods-Rebelle-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Rebelle-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		628715DCE48F4BDAA9A8F616 /* libPods-Rebelle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Rebelle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBCAF481A6441588F45BD6C /* libPods-RebelleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RebelleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9584A1547344B209360728E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1787281063A443C86A25EA1 /* libPods-Rebelle-RebelleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Rebelle-RebelleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49F7E92C185F053A00DF7818 /* Cocoa.framework in Frameworks */,
+				B74AE536DF804B8B8A7C9FA5 /* libPods-Rebelle-OSX.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49FE8ADC17B67C0C00678D26 /* Foundation.framework in Frameworks */,
+				C46E170E4DA74DF5AD690CEA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +224,8 @@
 		49CAB79A18DC821E00445D6A /* Future */ = {
 			isa = PBXGroup;
 			children = (
+				49EE792D19327363002DAB7E /* RBFutureArray.h */,
+				49EE792E19327363002DAB7E /* RBFutureArray.m */,
 				49CAB7A918DC82E900445D6A /* RBFutureStrategy.h */,
 				49CAB7AF18DC8EAB00445D6A /* RBFutureStrategyFactory.h */,
 				49CAB7B018DC8EAB00445D6A /* RBFutureStrategyFactory.m */,
@@ -244,6 +263,9 @@
 				49FE8AD917B67C0C00678D26 /* Products */,
 				47321C7F58094DA19903103E /* Pods-RebelleTests.xcconfig */,
 				1C8B0A6460764364B9CB2359 /* Pods-RebelleTests-OSX.xcconfig */,
+				2176019EBCF24B4680060EEC /* Pods.xcconfig */,
+				49C9329CC7F84608973CCC2D /* Pods-Rebelle.xcconfig */,
+				06CA418CA4E1481CBD389404 /* Pods-Rebelle-OSX.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -269,6 +291,10 @@
 				49F7E92B185F053A00DF7818 /* Cocoa.framework */,
 				49F7E92D185F053A00DF7818 /* Other Frameworks */,
 				13B94F1AAD0E4143BEAC55E5 /* libPods-RebelleTests-OSX.a */,
+				C9584A1547344B209360728E /* libPods.a */,
+				628715DCE48F4BDAA9A8F616 /* libPods-Rebelle.a */,
+				D1787281063A443C86A25EA1 /* libPods-Rebelle-RebelleTests.a */,
+				4FAA9B6473804B3BB40D2D7D /* libPods-Rebelle-OSX.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -313,6 +339,7 @@
 				49CAB7B718DC9B2100445D6A /* RBFutureStrategyFuture.h in Headers */,
 				49C7957518B42400002AF4C0 /* RBFuture.h in Headers */,
 				49D2198218689196006191A0 /* RBActionSet.h in Headers */,
+				49EE792F19327363002DAB7E /* RBFutureArray.h in Headers */,
 				2188D6451819B712007BAB40 /* RBErrorException.h in Headers */,
 				2188D6471819B713007BAB40 /* RBPromise.h in Headers */,
 				49CAB7B118DC8EAB00445D6A /* RBFutureStrategyFactory.h in Headers */,
@@ -338,6 +365,7 @@
 				49D2198318689196006191A0 /* RBActionSet.h in Headers */,
 				4907ACB1185F102900351A8A /* RBThenable.h in Headers */,
 				49CED374188C70FE00E6B5CA /* RBThenablePlus.h in Headers */,
+				49EE793019327363002DAB7E /* RBFutureArray.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,9 +396,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49F7E949185F053A00DF7818 /* Build configuration list for PBXNativeTarget "Rebelle-OSX" */;
 			buildPhases = (
+				1348C50F2E074D2DA70751AF /* Check Pods Manifest.lock */,
 				49F7E926185F053A00DF7818 /* Sources */,
 				49F7E927185F053A00DF7818 /* Frameworks */,
 				49F7E928185F053A00DF7818 /* Headers */,
+				BEEC4E5A41E84FE1B2A8FE52 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -405,9 +435,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49FE8AFB17B67C0C00678D26 /* Build configuration list for PBXNativeTarget "Rebelle" */;
 			buildPhases = (
+				C8F4805BED584319B38B5454 /* Check Pods Manifest.lock */,
 				49FE8AD417B67C0C00678D26 /* Sources */,
 				49FE8AD517B67C0C00678D26 /* Frameworks */,
 				2188D6441819B702007BAB40 /* Headers */,
+				F9C64C0360C341F381EF2E2B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -424,7 +456,7 @@
 		49FE8AD017B67C0C00678D26 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = JC;
 				TargetAttributes = {
 					49C510C817DD2D8800648C5B = {
@@ -483,7 +515,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-RebelleTests-OSX-resources.sh\"\n";
+			shellScript = "#\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1348C50F2E074D2DA70751AF /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		26BF60B5DE514E2EA17D4E2E /* Check Pods Manifest.lock */ = {
@@ -513,7 +560,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-RebelleTests-resources.sh\"\n";
+			shellScript = "#\"${SRCROOT}/Pods/Pods-RebelleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A3035BA1831D49DB9E870587 /* Check Pods Manifest.lock */ = {
@@ -529,6 +576,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BEEC4E5A41E84FE1B2A8FE52 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-Rebelle-OSX-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8F4805BED584319B38B5454 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F9C64C0360C341F381EF2E2B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-Rebelle-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -550,6 +642,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49EE793219327363002DAB7E /* RBFutureArray.m in Sources */,
 				49C7957A18B4241A002AF4C0 /* RBFuture.m in Sources */,
 				49D2198518689196006191A0 /* RBActionSet.m in Sources */,
 				49F7E950185F059200DF7818 /* RBErrorException.m in Sources */,
@@ -576,6 +669,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49EE793119327363002DAB7E /* RBFutureArray.m in Sources */,
 				49D2198418689196006191A0 /* RBActionSet.m in Sources */,
 				49CD909817DFB64300E934AF /* RBErrorException.m in Sources */,
 				49F055C017D7E884007DADC8 /* RBPromise.m in Sources */,
@@ -630,7 +724,6 @@
 				);
 				INFOPLIST_FILE = "RebelleTests/RebelleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -648,13 +741,13 @@
 				GCC_PREFIX_HEADER = "RebelleTests/RebelleTests-Prefix.pch";
 				INFOPLIST_FILE = "RebelleTests/RebelleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
 		49F7E94A185F053A00DF7818 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06CA418CA4E1481CBD389404 /* Pods-Rebelle-OSX.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -676,6 +769,7 @@
 		};
 		49F7E94B185F053A00DF7818 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06CA418CA4E1481CBD389404 /* Pods-Rebelle-OSX.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -772,7 +866,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -810,12 +904,11 @@
 		};
 		49FE8AFC17B67C0C00678D26 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2176019EBCF24B4680060EEC /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/Rebelle.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
@@ -824,11 +917,11 @@
 		};
 		49FE8AFD17B67C0C00678D26 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2176019EBCF24B4680060EEC /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/Rebelle.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rebelle/Rebelle-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
