@@ -48,6 +48,23 @@ describe(@"test", ^{
 
          [[actions shouldEventually] receive:@selector(catched) andReturn:^NSException *(NSException *e){ return nil; } withArguments:exception];
       });
+
+      it(@"call success with multiple arguments", ^{
+         [future stub:@selector(state) andReturn:theValue(RBFutureStateFulfilled)];
+         [future stub:@selector(result) andReturn:@[@"Hello", @"World"]];
+
+         [executer execute:future];
+
+         [[actions shouldEventually] receive:@selector(succeeded) andReturn:^(id arg1, id arg2) { return nil; } withArguments:@"Hello", @"World"];
+      });
+
+      it(@"call success with scalars", ^{
+
+      });
+
+      it(@"exception when block signature mismatch", ^{
+
+      });
    });
 
    describe(@"result when", ^{

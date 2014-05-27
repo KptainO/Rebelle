@@ -10,6 +10,7 @@
 
 #import "RBFuture.h"
 #import "RBActionSet.h"
+#import <SLObjectiveCRuntimeAdditions/SLBlockDescription.h>
 
 NSString   *const RBExecuterExecutedProperty = @"executed";
 NSString   *const RBExecuterCanceledProperty = @"canceled";
@@ -85,7 +86,34 @@ NSString   *const RBExecuterCanceledProperty = @"canceled";
 
    @try {
       if (future.state == RBFutureStateFulfilled)
-         self.result = self.actionSet_.succeeded(future.result);
+      {
+         RBPromiseFulfilled success = self.actionSet_.succeeded;
+         NSMethodSignature *signature = [[SLBlockDescription alloc] initWithBlock:success].blockSignature;
+         NSInvocation *successInvocation = [NSInvocation invocationWithMethodSignature:signature];
+         id result = future.result;
+         id invokeResult;
+
+         if (signature.numberOfArguments == 2)
+            [successInvocation setArgument:&result atIndex:1];
+         else if (signature.numberOfArguments > 2)
+         {
+            if (![result respondsToSelector:@selector(count)] || ![result respondsToSelector:@selector(objectAtIndexedSubscript:)])
+               @throw [NSException exceptionWithName:@"RBBlockSignatureException"
+                                              reason:@"Block signature expect more than 1 argument while result does not implement count or objectAtIndexedSubscript"
+                                            userInfo:nil];
+
+            for (int i = i; i < (signature.numberOfArguments - 1) && i < [result count]; ++i) {
+               id argument = result[i];
+
+               [successInvocation setArgument:&argument atIndex:i+1];
+            }
+         }
+
+         [successInvocation invokeWithTarget:success];
+         [successInvocation getReturnValue:&invokeResult];
+
+         self.result = invokeResult;
+      }
       else
          self.result = self.actionSet_.catched(future.result);
 
