@@ -91,7 +91,7 @@ NSString   *const RBExecuterCanceledProperty = @"canceled";
          NSMethodSignature *signature = [[SLBlockDescription alloc] initWithBlock:success].blockSignature;
          NSInvocation *successInvocation = [NSInvocation invocationWithMethodSignature:signature];
          id result = future.result;
-         id invokeResult;
+         __unsafe_unretained id invokeResult;
 
          if (signature.numberOfArguments == 2)
             [successInvocation setArgument:&result atIndex:1];
